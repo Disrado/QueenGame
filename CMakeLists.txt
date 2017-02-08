@@ -10,7 +10,7 @@ set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/sources/)
 file( GLOB SOURCES "${SOURCE_DIR}/*.cpp"
 		   "${SOURCE_DIR}/*.hpp")
 
-set( CMAKE_CXX_FLAGS "-std=c++0x" )
+set( CMAKE_CXX_FLAGS "-std=c++17" )
 
 add_executable( run ${SOURCES} )
 
