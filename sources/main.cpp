@@ -12,8 +12,8 @@ int main()
 	sf::Texture back_picture;
 	back_picture.loadFromFile("../media/pictures/forest-background.png");
 
-	sf::Sprite background(back_picture);
-	
+	sf::Sprite background( back_picture );
+
 	ChessBoard chessBoard(8);
 	chessBoard.createBoard(app_window.getSize());
 	

@@ -3,56 +3,60 @@
 
 ChessBoard::ChessBoard()
 {
-	board_width = 8;
+	numCellsPerLine = 8;
 	
-	board = vector<vector<shared_ptr<sf::RectangleShape>>>(board_width);
+	board = vector<vector<shared_ptr<Cell>>>(numCellsPerLine);
 
 	for(auto &line : board)
-		for(size_t i = 0; i < board_width; ++i)
-			line.push_back(make_shared<sf::RectangleShape>(sf::Vector2f()));
+		for(size_t i = 0; i < numCellsPerLine; ++i)
+			line.push_back(make_shared<Cell>());
 }
 
-ChessBoard::ChessBoard(const int _board_width)
+ChessBoard::ChessBoard(const int _numCellsPerLine)
 {
-	board_width = _board_width;
+	numCellsPerLine = _numCellsPerLine;
 
-	board = vector<vector<shared_ptr<sf::RectangleShape>>>(board_width);
+	board = vector<vector<shared_ptr<Cell>>>(numCellsPerLine);
 	
 	for(auto &line : board)
-		for(size_t i = 0; i < board_width; ++i)
-			line.push_back(make_shared<sf::RectangleShape>(sf::Vector2f()));
+		for(int i = 0; i < numCellsPerLine; ++i)
+			line.push_back(make_shared<Cell>());
 }
 
 void ChessBoard::createBoard(const sf::Vector2u& window_size)
 {   		
 	sf::Vector2u center(window_size.x / 2, window_size.y / 2);
 
-	int cell_edge = window_size.y * 8/9 / board_width;
-	int board_edge = cell_edge * board_width;
+	int board_edge = window_size.y * 8/9;
+	int cell_edge = board_edge / numCellsPerLine;
 
 	sf::Vector2f first_cell_pos(center.x - (board_edge / 2),
 				    center.y - (board_edge / 2));
-		       			
-	int i = 0, j = 0;
+
+	srand(time(NULL));
+			
+	int row_pos = 0,  column_pos = 0;
 	for(auto &line : board) {
 		for(auto &cell : line) {
 			cell->setSize(sf::Vector2f(cell_edge, cell_edge));
 
-			if((i + j) % 2 == 0)
-				cell->setFillColor(sf::Color::White);
+			if((row_pos + column_pos) % 2 == 0)
+				cell->setColor(sf::Color::White);
 			else
-				cell->setFillColor(sf::Color::Black);
+				cell->setColor(sf::Color::Black);
 			
-			cell->setPosition(first_cell_pos.x + (cell_edge * i++),
-					  first_cell_pos.y + (cell_edge * j));
+			cell->setPosition(first_cell_pos.x + (cell_edge * row_pos++),
+					  first_cell_pos.y + (cell_edge * column_pos));
+
+			cell->setWeight(rand() % 100);	
 		}
-		i = 0; j++;
+		row_pos = 0; column_pos++;
 	}	
 }
 
-void ChessBoard::draw(sf::RenderWindow* window)
+void ChessBoard::draw(sf::RenderWindow* const window)
 {
 	for(auto line : board)
 		for(auto cell : line)
-			window->draw(*cell);
+			cell->draw(window);
 }
