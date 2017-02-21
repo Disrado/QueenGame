@@ -9,8 +9,8 @@
 
 using namespace std;
 
-const string FONT_PATH = "../media/font/RobotoMono-BoldItalic.ttf";
-const sf::Color TEXT_COLOR = sf::Color::Green;
+const string FONT_PATH = "../media/font/DroidSans.ttf";
+const sf::Color TEXT_COLOR = sf::Color(145, 30, 76, 255);
 
 class Cell
 {
@@ -28,9 +28,9 @@ public:
 	void setColor(const sf::Color&);
 	void setSize(const sf::Vector2f&);
 	void setWeight(const int);
-	void setPosition(const sf::Vector2f&);
 	void setPosition(const float, const float);
 	sf::Color getColor();
+	void resetWeight();
 	void draw(sf::RenderWindow* const);
 	bool checkBelongs(const sf::Vector2f&);
 };

@@ -44,11 +44,11 @@ void ChessBoard::createBoard(const sf::Vector2u& window_size)
 				cell->setColor(sf::Color::White);
 			else
 				cell->setColor(sf::Color::Black);
-			
-			cell->setPosition(first_cell_pos.x + (cell_edge * row_pos++),
-					  first_cell_pos.y + (cell_edge * column_pos));
 
 			cell->setWeight(rand() % 100);	
+
+			cell->setPosition(first_cell_pos.x + (cell_edge * row_pos++),
+					  first_cell_pos.y + (cell_edge * column_pos));
 		}
 		row_pos = 0; column_pos++;
 	}	
