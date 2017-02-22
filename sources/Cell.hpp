@@ -20,7 +20,6 @@ private:
 	shared_ptr<sf::Font> weightLabelFont;
 	int weight;
 	sf::Vector2f size;
-	sf::Vector2f center;
 	sf::Vector2f position;
 		
 public:
@@ -31,6 +30,7 @@ public:
 	void setPosition(const float, const float);
 	sf::Color getColor();
 	void resetWeight();
+	sf::Vector2f getCenterCoord();
 	void draw(sf::RenderWindow* const);
 	bool checkBelongs(const sf::Vector2f&);
 };

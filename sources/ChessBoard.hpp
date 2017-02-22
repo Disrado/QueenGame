@@ -5,14 +5,19 @@
 #include <memory>
 #include <vector>
 #include "Cell.hpp"
+#include "Queen.hpp"
 
 using namespace std;
+
+const std::string TEXTURE_PATH = "../media/pictures/7.png";
 
 class ChessBoard
 {
 private:
 	vector<vector<shared_ptr<Cell>>> board;
+	std::shared_ptr<Queen> queen;
 	int numCellsPerLine;
+	
 	
 public:
 	ChessBoard();

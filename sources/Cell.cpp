@@ -15,7 +15,6 @@ Cell::Cell()
 	weight = 0;
 	size = sf::Vector2f();
 	position = sf::Vector2f();
-	center = sf::Vector2f();
 }
 
 void Cell::setSize(const sf::Vector2f& _size)
@@ -28,12 +27,6 @@ void Cell::setColor(const sf::Color& color)
 {
 	layer->setFillColor(color);
 	weightLabel->setColor(TEXT_COLOR);
-}
-
-void Cell::setWeight(const int _weight)
-{
-	weight = _weight;
-	weightLabel->setString(std::to_string(_weight));
 } 
 
 void Cell::setPosition(const float x, const float y)
@@ -43,27 +36,25 @@ void Cell::setPosition(const float x, const float y)
 
 	auto textRect = weightLabel->getLocalBounds();
 
-	auto cell_center = sf::Vector2f(x + size.x / 2, y + size.x / 2);
+	auto cell_center = sf::Vector2f(x + size.x / 2, y + size.y / 2);
 	auto text_center = sf::Vector2f(textRect.width / 2, textRect.height / 2);
 	
-	weightLabel->setOrigin(text_center);
-
-	weightLabel->setCharacterSize(26);
+	weightLabel->setOrigin(text_center.x, text_center.y);
 	weightLabel->setScale(1.2, 1.2);
 	
 	weightLabel->setPosition(cell_center.x, cell_center.y);
-//	weightLabel->setPosition(x, y);
 }
 
-sf::Color Cell::getColor()
+sf::Vector2f Cell::getCenterCoord()
 {
-	return layer->getFillColor();
+	return sf::Vector2f(position.x + size.x / 2,
+			    position.y + size.y / 2);
 }
-	
-void Cell::draw(sf::RenderWindow* const window)
+
+void Cell::setWeight(const int _weight)
 {
-	window->draw(*layer);	
-	window->draw(*weightLabel);
+	weight = _weight;
+	weightLabel->setString(std::to_string(_weight));
 }
 
 void Cell::resetWeight()
@@ -75,4 +66,10 @@ void Cell::resetWeight()
 bool Cell::checkBelongs(const sf::Vector2f&)
 {
 	//
+}
+
+void Cell::draw(sf::RenderWindow* const window)
+{
+	window->draw(*layer);	
+	window->draw(*weightLabel);
 }
