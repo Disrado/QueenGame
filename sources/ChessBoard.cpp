@@ -1,17 +1,6 @@
 #include "ChessBoard.hpp"
 #include <iostream>
 
-ChessBoard::ChessBoard()
-{
-	numCellsPerLine = 8;
-	
-	board = vector<vector<shared_ptr<Cell>>>(numCellsPerLine);
-
-	for(auto &line : board)
-		for(size_t i = 0; i < numCellsPerLine; ++i)
-			line.push_back(make_shared<Cell>());
-}
-
 ChessBoard::ChessBoard(const int _numCellsPerLine)
 {
 	numCellsPerLine = _numCellsPerLine;
@@ -21,8 +10,6 @@ ChessBoard::ChessBoard(const int _numCellsPerLine)
 	for(auto &line : board)
 		for(int i = 0; i < numCellsPerLine; ++i)
 			line.push_back(make_shared<Cell>());
-
-	queen = std::make_shared<Queen>(sf::Vector2f(0, 0), TEXTURE_PATH);		
 }
 
 void ChessBoard::createBoard(const sf::Vector2u& window_size)
@@ -54,8 +41,11 @@ void ChessBoard::createBoard(const sf::Vector2u& window_size)
 		}
 		row_pos = 0; column_pos++;
 	}	
+}
 
-	queen->setSpawnPoint(board[7][0]->getCenterCoord());
+vector<vector<shared_ptr<Cell>>> ChessBoard::getBoard()
+{
+	return board;
 }
 
 void ChessBoard::draw(sf::RenderWindow* const window)
@@ -63,6 +53,4 @@ void ChessBoard::draw(sf::RenderWindow* const window)
 	for(auto line : board)
 		for(auto cell : line)
 			cell->draw(window);
-
-	queen->draw(window);
 }

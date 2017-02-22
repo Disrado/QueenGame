@@ -9,20 +9,17 @@
 
 using namespace std;
 
-const std::string TEXTURE_PATH = "../media/pictures/7.png";
-
 class ChessBoard
 {
 private:
 	vector<vector<shared_ptr<Cell>>> board;
-	std::shared_ptr<Queen> queen;
+
 	int numCellsPerLine;
-	
-	
+		
 public:
-	ChessBoard();
 	ChessBoard(const int);
 	void createBoard(const sf::Vector2u&);
+	vector<vector<shared_ptr<Cell>>> getBoard();
 	void draw(sf::RenderWindow* const);
 };
 

@@ -4,9 +4,10 @@ Queen::Queen(sf::Vector2f _position, std::string picturePath)
 {
 	spawnPoint = _position;
 
-	queenTexture.loadFromFile(picturePath);
+	queenTexture = std::make_shared<sf::Texture>();
+	queenTexture->loadFromFile(picturePath);
 
-	queenPicture = std::make_shared<sf::Sprite>(queenTexture);
+	queenPicture = std::make_shared<sf::Sprite>(*queenTexture);
 	queenPicture->setScale(1.3, 1.3);
 }
 

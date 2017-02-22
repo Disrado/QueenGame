@@ -9,7 +9,7 @@ class Queen
 {
 private:
 	std::shared_ptr<sf::Sprite> queenPicture;
-	sf::Texture queenTexture; 
+	std::shared_ptr<sf::Texture> queenTexture; 
 	sf::Vector2f spawnPoint;	
 	
 public:
