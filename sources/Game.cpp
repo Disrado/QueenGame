@@ -2,24 +2,33 @@
 
 Game::Game()
 {
-	app_window = make_shared<sf::RenderWindow>(sf::VideoMode(1920, 1080),
+	app_window = new sf::RenderWindow(sf::VideoMode(1920, 1080),
 						   "QueenGame",
 						   sf::Style::Fullscreen);
 
-	chessBoard = make_shared<ChessBoard>(8);
+	chessBoard = new ChessBoard(8);
 	chessBoard->createBoard(app_window->getSize());
 
-	queen = std::make_shared<Queen>(sf::Vector2f(0, 0), TEXTURE_PATH);		
-	queen->setSpawnPoint(chessBoard->getBoard()[7][0]->getCenterCoord());
+	queen = new Queen(TEXTURE_PATH);		
+	queen->setSpawnPoint(chessBoard->getCells()[7][0]->getCenterCoord());
+
+	moveHandler = new MoveHandler(chessBoard, queen);
 }
 
+Game::~Game()
+{
+	delete app_window;
+	delete chessBoard;
+	delete queen;
+	delete moveHandler;
+}
 
 void Game::startLoop()
 {
 	sf::Texture back_picture;
 	back_picture.loadFromFile("../media/pictures/forest-background.png");
 	sf::Sprite background( back_picture );
-		
+
 	while (app_window->isOpen()) {
 		
 		sf::Event event;
@@ -28,10 +37,12 @@ void Game::startLoop()
 				app_window->close();
 			
 		app_window->clear();
+
+		moveHandler->HandleMouseActions();
 		
 		app_window->draw(background);
-		chessBoard->draw(app_window.get());
-		queen->draw(app_window.get());
+		chessBoard->draw(app_window);
+		queen->draw(app_window);
 			
 		app_window->display();
 	}

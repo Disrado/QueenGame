@@ -15,15 +15,17 @@ const sf::Color TEXT_COLOR = sf::Color(145, 30, 76, 255);
 class Cell
 {
 private:
-	shared_ptr<sf::RectangleShape> layer;
-	shared_ptr<sf::Text> weightLabel;
-	shared_ptr<sf::Font> weightLabelFont;
+	sf::RectangleShape* layer;
+	sf::Text* weightLabel;
+	sf::Font* weightLabelFont;
 	int weight;
 	sf::Vector2f size;
 	sf::Vector2f position;
-		
+	int ID;
+			
 public:
 	Cell();
+	~Cell();
 	void setColor(const sf::Color&);
 	void setSize(const sf::Vector2f&);
 	void setWeight(const int);
@@ -32,7 +34,8 @@ public:
 	void resetWeight();
 	sf::Vector2f getCenterCoord();
 	void draw(sf::RenderWindow* const);
-	bool checkBelongs(const sf::Vector2f&);
+	bool checkBelongs(const sf::Vector2i& _point);
+	int getID();
 };
 
 #endif //CELL_HPP

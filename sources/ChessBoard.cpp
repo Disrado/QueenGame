@@ -5,11 +5,19 @@ ChessBoard::ChessBoard(const int _numCellsPerLine)
 {
 	numCellsPerLine = _numCellsPerLine;
 
-	board = vector<vector<shared_ptr<Cell>>>(numCellsPerLine);
-	
+	board = vector<vector<Cell*>>(numCellsPerLine,
+				      vector<Cell*>(numCellsPerLine));
+
 	for(auto &line : board)
-		for(int i = 0; i < numCellsPerLine; ++i)
-			line.push_back(make_shared<Cell>());
+		for(auto &cell : line)
+ 			cell = new Cell();
+}
+
+ChessBoard::~ChessBoard()
+{
+	for(auto &line : board)
+		for(auto &cell : line)
+			delete cell;
 }
 
 void ChessBoard::createBoard(const sf::Vector2u& window_size)
@@ -43,7 +51,15 @@ void ChessBoard::createBoard(const sf::Vector2u& window_size)
 	}	
 }
 
-vector<vector<shared_ptr<Cell>>> ChessBoard::getBoard()
+Cell* ChessBoard::getCellByID(int _ID)
+{
+	for(auto line : board)
+		for(auto cell : line)
+			if(cell->getID() == _ID)
+				return cell;
+}
+ 
+vector<vector<Cell*>> ChessBoard::getCells()
 {
 	return board;
 }

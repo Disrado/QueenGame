@@ -8,16 +8,16 @@
 class Queen
 {
 private:
-	std::shared_ptr<sf::Sprite> queenPicture;
-	std::shared_ptr<sf::Texture> queenTexture; 
+	sf::Sprite *queenPicture;
+	sf::Texture *queenTexture; 
 	sf::Vector2f spawnPoint;	
 	
 public:
-	Queen(sf::Vector2f _position, std::string);
+	Queen(std::string texturePath);
+	~Queen();
 	void setSpawnPoint(sf::Vector2f);
+	void Move(sf::Vector2f& position);
 	void draw(sf::RenderWindow* const window);
 };
-
-
 
 #endif //QUEEN_HPP

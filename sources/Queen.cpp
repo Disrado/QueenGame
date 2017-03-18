@@ -1,14 +1,25 @@
 #include "Queen.hpp"
 
-Queen::Queen(sf::Vector2f _position, std::string picturePath)
+Queen::Queen(std::string picturePath)
 {
-	spawnPoint = _position;
+	spawnPoint = sf::Vector2f(0, 0);
 
-	queenTexture = std::make_shared<sf::Texture>();
+	queenTexture = new sf::Texture();
 	queenTexture->loadFromFile(picturePath);
 
-	queenPicture = std::make_shared<sf::Sprite>(*queenTexture);
+	queenPicture = new sf::Sprite(*queenTexture);
 	queenPicture->setScale(1.3, 1.3);
+}
+
+Queen::~Queen()
+{
+	delete queenTexture;
+	delete queenPicture;
+}
+
+void Queen::Move(sf::Vector2f &_position)
+{
+	queenPicture->setPosition(_position);
 }
 
 void Queen::setSpawnPoint(sf::Vector2f _position)

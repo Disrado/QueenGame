@@ -3,9 +3,9 @@
 
 Cell::Cell()
 {
-	layer = make_shared<sf::RectangleShape>(sf::Vector2f());
-	weightLabel = make_shared<sf::Text>("", sf::Font());
-	weightLabelFont = make_shared<sf::Font>();
+	layer = new sf::RectangleShape(sf::Vector2f());
+	weightLabel = new sf::Text("", sf::Font());
+	weightLabelFont = new sf::Font();
 	
 	if(weightLabelFont->loadFromFile(FONT_PATH))
 		weightLabel->setFont(*weightLabelFont);
@@ -15,6 +15,14 @@ Cell::Cell()
 	weight = 0;
 	size = sf::Vector2f();
 	position = sf::Vector2f();
+	ID = rand() % 100;
+}
+
+Cell::~Cell()
+{
+	delete layer;
+	delete weightLabel;
+	delete weightLabelFont;
 }
 
 void Cell::setSize(const sf::Vector2f& _size)
@@ -47,8 +55,9 @@ void Cell::setPosition(const float x, const float y)
 
 sf::Vector2f Cell::getCenterCoord()
 {
-	return sf::Vector2f(position.x + size.x / 2,
-			    position.y + size.y / 2);
+	auto center =  sf::Vector2f(position.x + size.x / 2,
+				    position.y + size.y / 2);
+	return center;
 }
 
 void Cell::setWeight(const int _weight)
@@ -63,13 +72,18 @@ void Cell::resetWeight()
 	weightLabel->setString("");
 }
 
-bool Cell::checkBelongs(const sf::Vector2f&)
+bool Cell::checkBelongs(const sf::Vector2i& _point)
 {
-	//
+	return layer->getGlobalBounds().contains(_point.x, _point.y);	
 }
 
 void Cell::draw(sf::RenderWindow* const window)
 {
 	window->draw(*layer);	
 	window->draw(*weightLabel);
+}
+
+int Cell::getID()
+{
+	return ID;
 }

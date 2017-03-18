@@ -12,14 +12,15 @@ using namespace std;
 class ChessBoard
 {
 private:
-	vector<vector<shared_ptr<Cell>>> board;
-
+	vector<vector<Cell*>> board;
 	int numCellsPerLine;
 		
 public:
 	ChessBoard(const int);
+	~ChessBoard();
 	void createBoard(const sf::Vector2u&);
-	vector<vector<shared_ptr<Cell>>> getBoard();
+	vector<vector<Cell*>> getCells();
+	Cell* getCellByID(int _ID);
 	void draw(sf::RenderWindow* const);
 };
 
