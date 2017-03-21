@@ -3,7 +3,7 @@
 
 #include <memory>
 #include "ChessBoard.hpp"
-#include "MoveHandler.hpp"
+#include "EventHandler.hpp"
 
 using namespace std;
 
@@ -15,7 +15,7 @@ private:
 	sf::RenderWindow *app_window;
 	ChessBoard *chessBoard;
 	Queen *queen;
-	MoveHandler *moveHandler;
+	EventHandler *eventHandler;
 	
 public:
 	Game();

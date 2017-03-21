@@ -10,9 +10,9 @@ Game::Game()
 	chessBoard->createBoard(app_window->getSize());
 
 	queen = new Queen(TEXTURE_PATH);		
-	queen->setSpawnPoint(chessBoard->getCells()[7][0]->getCenterCoord());
+	queen->setSpawnPoint(chessBoard->getCells()[7][0]);
 
-	moveHandler = new MoveHandler(chessBoard, queen);
+	eventHandler = new EventHandler(chessBoard, queen);
 }
 
 Game::~Game()
@@ -20,7 +20,7 @@ Game::~Game()
 	delete app_window;
 	delete chessBoard;
 	delete queen;
-	delete moveHandler;
+	delete eventHandler;
 }
 
 void Game::startLoop()
@@ -38,7 +38,7 @@ void Game::startLoop()
 			
 		app_window->clear();
 
-		moveHandler->HandleMouseActions();
+		eventHandler->HandleMouseActions();
 		
 		app_window->draw(background);
 		chessBoard->draw(app_window);

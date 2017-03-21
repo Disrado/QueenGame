@@ -9,6 +9,12 @@ Queen::Queen(std::string picturePath)
 
 	queenPicture = new sf::Sprite(*queenTexture);
 	queenPicture->setScale(1.3, 1.3);
+
+	auto queenTextureRect = queenPicture->getLocalBounds();
+	auto queenTextureCenter = sf::Vector2f(queenTextureRect.width,
+					       queenTextureRect.height);
+	queenPicture->setOrigin(sf::Vector2f(queenTextureCenter.x / 2,
+					     queenTextureCenter.y / 2));
 }
 
 Queen::~Queen()
@@ -17,21 +23,34 @@ Queen::~Queen()
 	delete queenPicture;
 }
 
-void Queen::Move(sf::Vector2f &_position)
+bool Queen::CanMove(Cell* _targetCell)
 {
+	auto newPosition = _targetCell->getCenterCoord();
+	
+	if((newPosition.x == position.x || newPosition.y == position.y ||
+	   abs(newPosition.x - position.x) == abs(newPosition.y - position.y)) &&
+	   _targetCell->getWeight() != 0)
+		return true;
+	else
+		return false;
+}
+
+void Queen::Move(const sf::Vector2f _position)
+{
+	position = _position;
 	queenPicture->setPosition(_position);
 }
 
-void Queen::setSpawnPoint(sf::Vector2f _position)
+sf::Vector2f Queen::getPosition()
 {
-	auto queenTextureRect = queenPicture->getLocalBounds();
+	return queenPicture->getPosition();
+}
 
-	auto queenTextureCenter = sf::Vector2f(queenTextureRect.width,
-					       queenTextureRect.height);
-	queenPicture->setOrigin(sf::Vector2f(queenTextureCenter.x / 2,
-					     queenTextureCenter.y / 2));
-        	
-	queenPicture->setPosition(_position);
+void Queen::setSpawnPoint(Cell* spawnCell)
+{
+	position = spawnCell->getCenterCoord();
+	queenPicture->setPosition(position);
+	spawnCell->resetWeight();
 }
 
 void Queen::draw(sf::RenderWindow* const window)

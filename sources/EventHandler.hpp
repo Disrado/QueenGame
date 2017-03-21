@@ -6,14 +6,18 @@
 #include "ChessBoard.hpp"
 #include "Queen.hpp"
 
-class MoveHandler
+class EventHandler
 {
 private:
 	ChessBoard* board;
 	Queen* queen;
+
+private:
+	void HightlightPossibleMove(sf::Vector2i _mousePosition);
+	void MoveQueen(sf::Vector2i _mousePosition);
 		
 public:
-	MoveHandler(ChessBoard* _board, Queen* _queen);
+	EventHandler(ChessBoard* _board, Queen* _queen);
 	void HandleMouseActions();
 };
 

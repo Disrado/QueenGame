@@ -4,6 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <string>
+#include <math.h>
+#include "Cell.hpp"
 
 class Queen
 {
@@ -11,12 +13,15 @@ private:
 	sf::Sprite *queenPicture;
 	sf::Texture *queenTexture; 
 	sf::Vector2f spawnPoint;	
+	sf::Vector2f position;
 	
 public:
 	Queen(std::string texturePath);
 	~Queen();
-	void setSpawnPoint(sf::Vector2f);
-	void Move(sf::Vector2f& position);
+	sf::Vector2f getPosition();
+	void setSpawnPoint(Cell* spawnCell);
+	bool CanMove(Cell* targetCell);
+	void Move(sf::Vector2f position);
 	void draw(sf::RenderWindow* const window);
 };
 

@@ -30,7 +30,9 @@ public:
 	void setSize(const sf::Vector2f&);
 	void setWeight(const int);
 	void setPosition(const float, const float);
+	void setTexture(sf::Texture* _newTexture);
 	sf::Color getColor();
+	const int getWeight();
 	void resetWeight();
 	sf::Vector2f getCenterCoord();
 	void draw(sf::RenderWindow* const);

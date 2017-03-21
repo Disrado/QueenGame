@@ -53,11 +53,20 @@ void Cell::setPosition(const float x, const float y)
 	weightLabel->setPosition(cell_center.x, cell_center.y);
 }
 
+const int Cell::getWeight()
+{
+	return weight;
+}	
+
 sf::Vector2f Cell::getCenterCoord()
 {
-	auto center =  sf::Vector2f(position.x + size.x / 2,
-				    position.y + size.y / 2);
-	return center;
+	return sf::Vector2f(position.x + size.x / 2,
+			    position.y + size.y / 2);
+}
+
+void Cell::setTexture(sf::Texture* newTexture)
+{
+	layer->setTexture(newTexture, false);
 }
 
 void Cell::setWeight(const int _weight)
