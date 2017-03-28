@@ -2,19 +2,17 @@
 #define GAME_HPP
 
 #include <memory>
-#include "ChessBoard.hpp"
+#include "Board.hpp"
 #include "EventHandler.hpp"
+#include "PlayScene.hpp"
 
 using namespace std;
-
-const std::string TEXTURE_PATH = "../media/pictures/Queen.png";
 
 class Game
 {
 private:
 	sf::RenderWindow *app_window;
-	ChessBoard *chessBoard;
-	Queen *queen;
+	PlayScene *playScene;
 	EventHandler *eventHandler;
 	
 public:

@@ -33,7 +33,20 @@ void Cell::setSize(const sf::Vector2f& _size)
 
 void Cell::setColor(const sf::Color& color)
 {
-	layer->setFillColor(color);
+        static auto white = new sf::Texture();
+        white->loadFromFile(("../media/pictures/White.png"));
+
+	static auto black = new sf::Texture();
+        black->loadFromFile(("../media/pictures/Black.png"));
+	
+	if(color == sf::Color::Black)
+		layer->setTexture(black);
+	else
+		layer->setTexture(white);
+		
+//	layer->setFillColor(color);
+
+	
 	weightLabel->setColor(TEXT_COLOR);
 } 
 
@@ -56,6 +69,16 @@ void Cell::setPosition(const float x, const float y)
 const int Cell::getWeight()
 {
 	return weight;
+}
+
+void Cell::setType(CellType _type)
+{
+	this->cellType = _type;
+}
+
+CellType Cell::getType()
+{
+	return cellType;
 }	
 
 sf::Vector2f Cell::getCenterCoord()

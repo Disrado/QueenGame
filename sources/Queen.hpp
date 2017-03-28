@@ -2,10 +2,11 @@
 #define QUEEN_HPP
 
 #include <SFML/Graphics.hpp>
-#include <memory>
 #include <string>
 #include <math.h>
 #include "Cell.hpp"
+#include <SFML/Audio.hpp>
+#include <thread>
 
 class Queen
 {

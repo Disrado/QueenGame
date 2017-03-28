@@ -12,6 +12,8 @@ using namespace std;
 const string FONT_PATH = "../media/font/DroidSans.ttf";
 const sf::Color TEXT_COLOR = sf::Color(145, 30, 76, 255);
 
+enum CellType {Black, White};
+
 class Cell
 {
 private:
@@ -21,6 +23,7 @@ private:
 	int weight;
 	sf::Vector2f size;
 	sf::Vector2f position;
+	CellType cellType;
 	int ID;
 			
 public:
@@ -31,7 +34,8 @@ public:
 	void setWeight(const int);
 	void setPosition(const float, const float);
 	void setTexture(sf::Texture* _newTexture);
-	sf::Color getColor();
+	void setType(CellType _type);
+	CellType getType();
 	const int getWeight();
 	void resetWeight();
 	sf::Vector2f getCenterCoord();

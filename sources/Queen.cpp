@@ -1,4 +1,5 @@
 #include "Queen.hpp"
+#include <chrono>
 
 Queen::Queen(std::string picturePath)
 {
