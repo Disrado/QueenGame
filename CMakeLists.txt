@@ -1,3 +1,4 @@
+
 cmake_minimum_required(VERSION 2.8)
 
 project( QueenGame )
@@ -7,10 +8,16 @@ find_package(SFML REQUIRED)
 set(SFML_LIBRARIES_DIR ${CMAKE_SOURCE_DIR}/lib/SFML)
 set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/sources/)
 
-file( GLOB SOURCES "${SOURCE_DIR}/*.cpp"
-		   "${SOURCE_DIR}/*.hpp")
+file( GLOB SOURCES "${SOURCE_DIR}/Logic/*.cpp"
+		   "${SOURCE_DIR}/Logic/*.hpp"
+		   "${SOURCE_DIR}/Graphics/*.cpp"
+		   "${SOURCE_DIR}/Graphics/*.hpp"
+		   "${SOURCE_DIR}/ResourceManagment/*.cpp"
+		   "${SOURCE_DIR}/ResourceManagment/*.hpp"
+		   "${SOURCE_DIR}/*.hpp"
+		   "${SOURCE_DIR}/*.cpp")
 
-set( CMAKE_CXX_FLAGS "-std=c++17" )
+set( CMAKE_CXX_FLAGS "-std=c++17 -lboost_system" )
 
 add_executable( run ${SOURCES} )
 

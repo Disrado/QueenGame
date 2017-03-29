@@ -1,9 +1,9 @@
 #ifndef MOVEHANDLER_HPP
 #define MOVEHANDLER_HPP
 
-#include <SFML/Graphics.hpp>
-#include "Board.hpp"
-#include "Queen.hpp"
+//#include <SFML/Graphics.hpp>
+#include "../Graphics/Board.hpp"
+#include "../Graphics/Queen.hpp"
 
 class EventHandler
 {

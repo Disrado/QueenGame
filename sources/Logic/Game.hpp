@@ -1,10 +1,8 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include <memory>
-#include "Board.hpp"
 #include "EventHandler.hpp"
-#include "PlayScene.hpp"
+#include "../Graphics/PlayScene.hpp"
 
 using namespace std;
 
