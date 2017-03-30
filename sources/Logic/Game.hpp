@@ -3,7 +3,6 @@
 
 #include "EventHandler.hpp"
 #include "../Graphics/PlayScene.hpp"
-#include "../ResourceManagment/TextureManager.hpp"
 
 using namespace std;
 

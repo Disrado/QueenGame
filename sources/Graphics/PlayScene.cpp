@@ -1,6 +1,6 @@
 #include "PlayScene.hpp"
 
-PlayScene::PlayScene(sf::RenderWindow *_app_window)
+PlayScene::PlayScene(sf::RenderWindow* _app_window)
 {
 	board = new Board(8);
 	board->createBoard(_app_window->getSize());
@@ -8,8 +8,7 @@ PlayScene::PlayScene(sf::RenderWindow *_app_window)
 	queen = new Queen(QUEEN_TEXTURE_PATH);
 	queen->setSpawnPoint(board->getCells()[7][0]);
 
-	TManager = TextureManager::getInstance();
-	TManager.loadAllFilesFromDirectory("../../media/pictures/");
+	TextureLoader::Instance().loadAllItemsFromDirectory("/home/nik/Sources/QueenGame/media/pictures/");
 }
 
 PlayScene::~PlayScene()
@@ -25,12 +24,11 @@ PlayScene::~PlayScene()
 
 void PlayScene::createBackGround()
 {
-	background_picture = new sf::Texture();
-	background_picture->loadFromFile("../media/pictures/forest-background.png");
+	background_picture = new sf::Texture(*(TextureLoader::Instance().getItemByName("forest_background")));
 	background = new sf::Sprite(*background_picture);
 }
 
-void PlayScene::draw(sf::RenderWindow *_app_window)
+void PlayScene::draw(sf::RenderWindow* _app_window)
 {
 	_app_window->draw(*background);
 	board->draw(_app_window);

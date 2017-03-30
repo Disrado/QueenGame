@@ -34,10 +34,10 @@ void Cell::setSize(const sf::Vector2f& _size)
 void Cell::setColor(const sf::Color& color)
 {
         static auto white = new sf::Texture();
-        white->loadFromFile(("../media/pictures/White.png"));
+//        white->loadFromFile(("../media/pictures/White.png"));
 
 	static auto black = new sf::Texture();
-        black->loadFromFile(("../media/pictures/Black.png"));
+//        black->loadFromFile(("../media/pictures/Black.png"));
 	
 	if(color == sf::Color::Black)
 		layer->setTexture(black);

@@ -6,7 +6,7 @@ Queen::Queen(std::string picturePath)
 	spawnPoint = sf::Vector2f(0, 0);
 
 	queenTexture = new sf::Texture();
-	queenTexture->loadFromFile(picturePath);
+//	queenTexture->loadFromFile(picturePath);
 
 	queenPicture = new sf::Sprite(*queenTexture);
 	queenPicture->setScale(1.3, 1.3);
