@@ -1,4 +1,3 @@
-
 cmake_minimum_required(VERSION 2.8)
 
 project( QueenGame )
@@ -17,7 +16,7 @@ file( GLOB SOURCES "${SOURCE_DIR}/Logic/*.cpp"
 		   "${SOURCE_DIR}/*.hpp"
 		   "${SOURCE_DIR}/*.cpp")
 
-set( CMAKE_CXX_FLAGS "-std=c++17 -lboost_system" )
+set( CMAKE_CXX_FLAGS "-std=c++17 -lstdc++fs -Wall" )
 
 add_executable( run ${SOURCES} )
 

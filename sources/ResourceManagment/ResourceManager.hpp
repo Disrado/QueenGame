@@ -10,20 +10,24 @@ protected:
 	class ResourceHolder
 	{
 	private:
-		std::string name;
-		std::unique_ptr<T> item;
+		T* item;
 		
 	public:
-		ResourceHolder(std::string _name, std::unique_ptr<T> _item) :
-			name(_name), item(_item)
-			{}
+		ResourceHolder(T* _item)
+			{
+				item = _item;
+			}
+		~ResourceHolder()
+			{
+				delete item;
+			}
 	};
 	
 protected:
 	std::map<std::string, ResourceHolder> items;
 	
-public:
-	virtual ~ResourceManager();
+protected:
+	virtual ~ResourceManager() {}
 	
 	virtual void loadAllItemsFromDirectory() = 0;
 	virtual void loadItemByName() = 0;

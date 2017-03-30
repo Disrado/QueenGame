@@ -58,6 +58,8 @@ Cell* Board::getCellByID(int _ID)
 		for(auto cell : line)
 			if(cell->getID() == _ID)
 				return cell;
+
+	return nullptr;
 }
  
 vector<vector<Cell*>> Board::getCells()
