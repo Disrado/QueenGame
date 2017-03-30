@@ -7,6 +7,9 @@ PlayScene::PlayScene(sf::RenderWindow *_app_window)
 
 	queen = new Queen(QUEEN_TEXTURE_PATH);
 	queen->setSpawnPoint(board->getCells()[7][0]);
+
+	TManager = TextureManager::getInstance();
+	TManager.loadAllFilesFromDirectory("../../media/pictures/");
 }
 
 PlayScene::~PlayScene()

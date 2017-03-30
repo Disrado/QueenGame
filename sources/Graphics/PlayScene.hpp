@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Queen.hpp"
 #include "Board.hpp"
+#include "../ResourceManagment/TextureManager.hpp"
 
 const std::string QUEEN_TEXTURE_PATH = "../media/pictures/Queen.png";
 
@@ -14,6 +15,7 @@ private:
 	Board *board;
 	sf::Texture *background_picture;
 	sf::Sprite *background;
+	TextureManager TManager;
 
 public:
 	PlayScene(sf::RenderWindow *_app_window);

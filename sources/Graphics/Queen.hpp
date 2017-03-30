@@ -2,7 +2,6 @@
 #define QUEEN_HPP
 
 #include <SFML/Graphics.hpp>
-#include <string>
 #include <math.h>
 #include "Cell.hpp"
 #include <SFML/Audio.hpp>

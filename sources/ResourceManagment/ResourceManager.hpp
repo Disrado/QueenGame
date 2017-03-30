@@ -29,9 +29,9 @@ protected:
 protected:
 	virtual ~ResourceManager() {}
 	
-	virtual void loadAllItemsFromDirectory() = 0;
-	virtual void loadItemByName() = 0;
-	virtual ResourceHolder getItem(std::string) = 0;
+	virtual void loadAllItemsFromDirectory(std::string) = 0;
+//	virtual void loadItemFromDirectory() = 0;
+//	virtual ResourceHolder getItemByName(std::string) = 0;
 };
 
 #endif //RESOURCE_MANAGER_HPP

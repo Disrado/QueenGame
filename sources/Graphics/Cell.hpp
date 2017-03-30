@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include <ctime>
 #include <cstdlib>
-#include <string>
 #include <memory>
 
 using namespace std;

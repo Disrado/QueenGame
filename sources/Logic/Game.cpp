@@ -19,7 +19,7 @@ Game::~Game()
 
 void Game::startLoop()
 {
-	playScene->createBackGround();
+       	playScene->createBackGround();
 	
 	while (app_window->isOpen()) {
 		

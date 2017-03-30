@@ -1,23 +1,29 @@
 #include "TextureManager.hpp"
 
-TextureManager::TextureManager(std::string _pathToFiles)
+TextureManager::TextureManager() {}
+
+static TextureManager const& TextureManager::getInstance()
 {
-	defaultPathToFiles = _pathToFiles;
+	static TextureManager TManager;
+	return TManager;
 }
 
-void TextureManager::loadAllItemsFromDirectory()
+void TextureManager::loadAllItemsFromDirectory(std::string _pathToFiles)
 {
-	path base_dir(defaultPathToFiles);
-	std::string extension(".png");
+	using namespace boost::filesystem;
+	using namespace std;
+	
+	std::string valid_extension(".png");
+	path pathToFiles(_pathToFiles);
+	
+	for(directory_iterator it (pathToFiles); it != directory_iterator(); ++it) {
+		if(is_regular_file(it->status()) && (it->path().extension() == valid_extension)) {
 
-	for(auto it : directory_iterator(base_dir)) {
-		if(is_regular_file(it.status())) {
 			auto _texture = new sf::Texture();
-			_texture->loadFromFile(it.path());
-			items.insert(std::pair<std::string, ResourceHolder>(it.path().filename(),
-									    ResourceHolder(_texture)));
+			_texture->loadFromFile(_pathToFiles + it->path().string());
+
+			pair<string, ResourceHolder> item(it->path().filename().string(), _texture);
+			items.insert(item);
 		}
-		
 	}
 }
-
