@@ -6,25 +6,24 @@
 #include "Board.hpp"
 #include "../ResourceManagment/TextureLoader.hpp"
 
-const std::string QUEEN_TEXTURE_PATH = "../media/pictures/Queen.png";
+const string PATH_TO_PICTURES = "/home/nik/Sources/QueenGame/media/pictures/";
 
 class PlayScene
 {
 private:
-	Queen *queen;
-	Board *board;
-	sf::Texture *background_picture;
-	sf::Sprite *background;
-
+    Queen *queen;
+    Board *board;
+    sf::Sprite *background;
+    
 public:
-	PlayScene(sf::RenderWindow *_app_window);
-	~PlayScene();
-	void createBackGround();
-	void createQueen();
-	void createBoard();
-	void draw(sf::RenderWindow *_app_window);
-	Queen* getQueen();
-	Board* getBoard();
+    PlayScene(sf::RenderWindow *_app_window);
+    ~PlayScene();
+    void createBackGround();
+    void createQueen();
+    void createBoard();
+    void draw(sf::RenderWindow *_app_window);
+    Queen* getQueen();
+    Board* getBoard();
 };
 
 #endif //PLAY_SCENE_HPP

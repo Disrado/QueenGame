@@ -9,16 +9,14 @@ using namespace std;
 class Game
 {
 private:
-	sf::RenderWindow *app_window;
-	PlayScene *playScene;
-	EventHandler *eventHandler;
+    sf::RenderWindow *app_window;
+    PlayScene *playScene;
+    EventHandler *eventHandler;
 	
 public:
-	Game();
-	~Game();
-	void startLoop();
+    Game();
+    ~Game();
+    void startLoop();
 };
-
-
 
 #endif //GAME_HPP
