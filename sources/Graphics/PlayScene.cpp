@@ -2,7 +2,7 @@
 
 PlayScene::PlayScene(sf::RenderWindow* _app_window)
 {        
-    TextureLoader::Instance().loadAllItemsFromDirectory("/home/nik/Sources/QueenGame/media/pictures/");
+    TextureLoader::Instance().loadAllItemsFromDirectory(PATH_TO_PICTURES);
 
     board = new Board(8);
     board->createBoard(_app_window->getSize());

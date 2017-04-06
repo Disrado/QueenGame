@@ -34,23 +34,12 @@ void EventHandler::MoveQueen(sf::Vector2i _mousePosition)
 
 void EventHandler::HightlightPossibleMoves(sf::Vector2i _mousePosition)
 {
-    /*     auto cellsArray = board->getCells();
+    auto cellsArray = board->getCells();
     
-    static auto white_with_frame = new sf::Texture();
-    white_with_frame->loadFromFile(("../media/pictures/White_with_frame.png"));
-    
-    static auto black_with_frame = new sf::Texture();
-    black_with_frame->loadFromFile(("../media/pictures/Black_with_frame.png"));
-    
-    for(auto &line : cellsArray) {
-        for(auto &cell : line) {
-            if(queen->CanMove(cell)) {
-                if(cell->getType() == CellType::Black)
-                    cell->setTexture(black_with_frame);
-                else
-                    cell->setTexture(white_with_frame);
-            }
-        }
-        }*/
+    for(auto &line : cellsArray)
+        for(auto &cell : line)
+            if(queen->CanMove(cell))
+                cell->showFrame();
+            else
+                cell->disableFrame();
 }
-

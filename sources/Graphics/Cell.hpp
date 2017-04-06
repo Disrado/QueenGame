@@ -22,6 +22,9 @@ private:
     CellType cellType;
     int weight;
     int ID;
+
+private:
+    void setTexture(sf::Texture* _newTexture);
     
 public:
     Cell();
@@ -29,8 +32,9 @@ public:
     void setSize(const sf::Vector2f&);
     void setWeight(const int);
     void setPosition(const float, const float);
-    void setTexture(sf::Texture* _newTexture);
     void setType(CellType _type);
+    void showFrame();
+    void disableFrame();
     CellType getType();
     const int getWeight();
     void resetWeight();

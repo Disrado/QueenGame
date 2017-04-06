@@ -3,6 +3,7 @@
 
 #include "../Graphics/Board.hpp"
 #include "../Graphics/Queen.hpp"
+#include "../ResourceManagment/TextureLoader.hpp"
 
 class EventHandler
 {

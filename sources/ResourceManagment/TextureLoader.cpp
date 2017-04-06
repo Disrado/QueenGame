@@ -1,5 +1,4 @@
 #include "TextureLoader.hpp"
-#include "iostream"
 
 TextureLoader::TextureLoader() {}
 

@@ -55,6 +55,22 @@ void Cell::setPosition(const float x, const float y)
     
     weightLabel->setPosition(cell_center.x, cell_center.y);
 }
+                
+void Cell::showFrame()
+{
+    if(this->cellType == CellType::Black)
+        this->setTexture(TextureLoader::Instance().getItemByName("black_with_frame"));
+    else
+        this->setTexture(TextureLoader::Instance().getItemByName("white_with_frame"));
+}
+
+void Cell::disableFrame()
+{
+    if(this->cellType == CellType::Black)
+        this->setTexture(TextureLoader::Instance().getItemByName("black"));
+    else
+        this->setTexture(TextureLoader::Instance().getItemByName("white"));    
+}
 
 const int Cell::getWeight()
 {
