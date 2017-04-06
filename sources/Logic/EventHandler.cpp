@@ -21,15 +21,11 @@ void EventHandler::MoveQueen(sf::Vector2i _mousePosition)
 {
     auto cellsArray = board->getCells();
     
-    for(auto &line : cellsArray) {
-        for(auto &cell : line) {
-            if(cell->checkBelongs(_mousePosition) &&
-               queen->CanMove(cell)) {
-                queen->Move(cell->getCenterCoord());
-				cell->resetWeight();
-            }
-        }
-    }
+    for(auto &line : cellsArray)
+        for(auto &cell : line)
+            if(cell->checkBelongs(_mousePosition))
+                if(queen->CanMove(cell))
+                    queen->Move(cell);
 }
 
 void EventHandler::HightlightPossibleMoves(sf::Vector2i _mousePosition)

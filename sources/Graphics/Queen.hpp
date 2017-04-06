@@ -18,7 +18,7 @@ public:
     sf::Vector2f getPosition();
     void setSpawnPoint(Cell* spawnCell);
     bool CanMove(Cell* targetCell);
-    void Move(sf::Vector2f position);
+    void Move(Cell* targetCell);
     void draw(sf::RenderWindow* const window);
 };
 

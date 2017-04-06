@@ -20,10 +20,10 @@ Game::~Game()
 void Game::startLoop()
 {
     playScene->createBackGround();
-    
+
+    sf::Event event;
     while (app_window->isOpen()) {
         
-        sf::Event event;
         while (app_window->pollEvent(event))
             if (event.type == sf::Event::Closed)
                 app_window->close();

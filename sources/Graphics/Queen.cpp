@@ -32,15 +32,16 @@ bool Queen::CanMove(Cell* _targetCell)
         return false;
 }
 
-void Queen::Move(const sf::Vector2f _position)
+void Queen::Move(Cell* _targetCell)
 {
-    position = _position;
-    queenPicture->setPosition(_position);
+    position = _targetCell->getCenterCoord();
+    queenPicture->setPosition(position);
+    _targetCell->resetWeight();
 }
 
 sf::Vector2f Queen::getPosition()
 {
-    return queenPicture->getPosition();
+    return position;
 }
 
 void Queen::setSpawnPoint(Cell* spawnCell)
