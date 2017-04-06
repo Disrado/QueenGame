@@ -1,6 +1,4 @@
-#include <math.h>
 #include "EventHandler.hpp"
-#include <iostream>
 
 
 EventHandler::EventHandler(Board* _board, Queen* _queen) :

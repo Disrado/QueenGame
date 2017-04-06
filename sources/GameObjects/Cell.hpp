@@ -9,19 +9,18 @@ using namespace std;
 const string FONT_PATH = "../media/font/DroidSans.ttf";
 const sf::Color TEXT_COLOR = sf::Color(145, 30, 76, 255);
 
-enum CellType {Black, White};
+enum CellType { Black, White };
 
 class Cell
 {
 private:
     sf::RectangleShape* layer;
-    sf::Text* weightLabel;
     sf::Font* weightLabelFont;
+    sf::Text* weightLabel;
     sf::Vector2f position;
     sf::Vector2f size;
     CellType cellType;
     int weight;
-    int ID;
 
 private:
     void setTexture(sf::Texture* _newTexture);
@@ -29,19 +28,21 @@ private:
 public:
     Cell();
     ~Cell();
-    void setSize(const sf::Vector2f&);
+
     void setWeight(const int);
-    void setPosition(const float, const float);
     void setType(CellType _type);
+    void setSize(const sf::Vector2f&);
+    void setPosition(const float, const float);
+
+    CellType getType() const;
+    const int getWeight() const;
+    sf::Vector2f getCenterCoord() const;
+    
     void showFrame();
-    void disableFrame();
-    CellType getType();
-    const int getWeight();
     void resetWeight();
-    sf::Vector2f getCenterCoord();
+    void disableFrame();
     void draw(sf::RenderWindow* const);
     bool checkBelongs(const sf::Vector2i& _point);
-    int getID();
 };
 
 #endif //CELL_HPP

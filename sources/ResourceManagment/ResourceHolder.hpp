@@ -8,9 +8,7 @@ private:
     std::shared_ptr<T> item;
     
 public:
-    ResourceHolder(std::shared_ptr<T> _item) {
-        item = _item;
-    }
+    ResourceHolder(std::shared_ptr<T> _item) : item(_item) {};
     
     T* getValue() {
         return item.get();

@@ -2,8 +2,8 @@
 #define PLAY_SCENE_HPP
 
 #include <SFML/Graphics.hpp>
-#include "Queen.hpp"
-#include "Board.hpp"
+#include "../GameObjects/Queen.hpp"
+#include "../GameObjects/Board.hpp"
 #include "../ResourceManagment/TextureLoader.hpp"
 
 const string PATH_TO_PICTURES = "/home/nik/Sources/QueenGame/media/pictures/";
@@ -18,9 +18,6 @@ private:
 public:
     PlayScene(sf::RenderWindow *_app_window);
     ~PlayScene();
-    void createBackGround();
-    void createQueen();
-    void createBoard();
     void draw(sf::RenderWindow *_app_window);
     Queen* getQueen();
     Board* getBoard();

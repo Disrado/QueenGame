@@ -1,8 +1,8 @@
 #ifndef MOVEHANDLER_HPP
 #define MOVEHANDLER_HPP
 
-#include "../Graphics/Board.hpp"
-#include "../Graphics/Queen.hpp"
+#include "../GameObjects/Board.hpp"
+#include "../GameObjects/Queen.hpp"
 #include "../ResourceManagment/TextureLoader.hpp"
 
 class EventHandler

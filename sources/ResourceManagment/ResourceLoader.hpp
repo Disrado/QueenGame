@@ -14,7 +14,6 @@ protected:
     virtual ~ResourceLoader() {}
     
     virtual void loadAllItemsFromDirectory(const std::string&) = 0;
-    virtual void loadItemFromDirectory(const std::string&) = 0;
     virtual T* getItemByName(const std::string&) = 0;
 };
 

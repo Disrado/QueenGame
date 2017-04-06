@@ -19,8 +19,6 @@ Game::~Game()
 
 void Game::startLoop()
 {
-    playScene->createBackGround();
-
     sf::Event event;
     while (app_window->isOpen()) {
         

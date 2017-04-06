@@ -22,7 +22,6 @@ public:
     TextureLoader& operator=(const TextureLoader&) = delete;
     
     void loadAllItemsFromDirectory(const std::string& pathToFiles) override;		
-    void loadItemFromDirectory(const std::string& pathToFile) override;
     sf::Texture* getItemByName(const std::string& filename) override;
 };
 

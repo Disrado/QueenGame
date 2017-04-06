@@ -12,7 +12,6 @@ Cell::Cell()
     weight = 0;
     size = sf::Vector2f();
     position = sf::Vector2f();
-    ID = rand() % 100;
 }
 
 Cell::~Cell()
@@ -30,7 +29,7 @@ void Cell::setSize(const sf::Vector2f& _size)
 
 void Cell::setType(CellType _type)
 {
-    this->cellType = _type;
+    cellType = _type;
      
     if(_type == CellType::Black)
         layer->setTexture(TextureLoader::Instance().getItemByName("black"));
@@ -72,17 +71,17 @@ void Cell::disableFrame()
         this->setTexture(TextureLoader::Instance().getItemByName("white"));    
 }
 
-const int Cell::getWeight()
+const int Cell::getWeight() const
 {
     return weight;
 }
 
-CellType Cell::getType()
+CellType Cell::getType() const
 {
     return cellType;
 }	
 
-sf::Vector2f Cell::getCenterCoord()
+sf::Vector2f Cell::getCenterCoord() const
 {
     return sf::Vector2f(position.x + size.x / 2,
                         position.y + size.y / 2);
@@ -114,9 +113,4 @@ void Cell::draw(sf::RenderWindow* const window)
 {
     window->draw(*layer);	
     window->draw(*weightLabel);
-}
-
-int Cell::getID()
-{
-    return ID;
 }

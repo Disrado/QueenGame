@@ -49,16 +49,6 @@ void Board::createBoard(const sf::Vector2u& window_size)
     }	
 }
 
-Cell* Board::getCellByID(int _ID)
-{
-    for(auto line : board)
-        for(auto cell : line)
-            if(cell->getID() == _ID)
-                return cell;
-    
-    return nullptr;
-}
-
 vector<vector<Cell*>> Board::getCells()
 {
     return board;

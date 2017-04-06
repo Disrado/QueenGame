@@ -2,9 +2,7 @@
 #define GAME_HPP
 
 #include "EventHandler.hpp"
-#include "../Graphics/PlayScene.hpp"
-
-using namespace std;
+#include "../Scenes/PlayScene.hpp"
 
 class Game
 {

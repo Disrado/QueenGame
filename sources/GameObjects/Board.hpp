@@ -19,7 +19,6 @@ public:
     ~Board();
     void createBoard(const sf::Vector2u&);
     vector<vector<Cell*>> getCells();
-    Cell* getCellByID(int _ID);
     void draw(sf::RenderWindow* const);
 };
 

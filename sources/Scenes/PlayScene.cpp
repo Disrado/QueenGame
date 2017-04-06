@@ -9,6 +9,8 @@ PlayScene::PlayScene(sf::RenderWindow* _app_window)
     
     queen = new Queen(TextureLoader::Instance().getItemByName("queen"));
     queen->setSpawnPoint(board->getCells()[7][0]);
+
+    background = new sf::Sprite(*(TextureLoader::Instance().getItemByName("forest_background")));
 }
 
 PlayScene::~PlayScene()
@@ -18,11 +20,6 @@ PlayScene::~PlayScene()
 	
     if(background)
         delete background;
-}
-
-void PlayScene::createBackGround()
-{
-    background = new sf::Sprite(*(TextureLoader::Instance().getItemByName("forest_background")));
 }
 
 void PlayScene::draw(sf::RenderWindow* _app_window)
