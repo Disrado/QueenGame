@@ -17,7 +17,7 @@ private:
 public:
     Board(const int);
     ~Board();
-    void createBoard(const sf::Vector2u&);
+    void createBoard(const sf::Vector2u& _window_size);
     vector<vector<Cell*>> getCells();
     void draw(sf::RenderWindow* const);
 };

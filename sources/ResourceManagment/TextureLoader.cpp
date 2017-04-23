@@ -27,7 +27,7 @@ void TextureLoader::loadAllItemsFromDirectory(const std::string& _pathToFiles)
     }
 }
 
-sf::Texture* TextureLoader::getItemByName(const std::string& filename)
+sf::Texture* TextureLoader::getItem(const std::string& filename)
 {
     auto found = items.find(filename);
     

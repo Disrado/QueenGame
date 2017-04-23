@@ -22,7 +22,7 @@ public:
     TextureLoader& operator=(const TextureLoader&) = delete;
     
     void loadAllItemsFromDirectory(const std::string& pathToFiles) override;		
-    sf::Texture* getItemByName(const std::string& filename) override;
+    sf::Texture* getItem(const std::string& filename) override;
 };
 
 #endif //TEXTURE_MANGER_HPP

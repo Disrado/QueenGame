@@ -1,23 +1,16 @@
-#ifndef MOVEHANDLER_HPP
-#define MOVEHANDLER_HPP
+#ifndef EVENTHANDLER_HPP
+#define EVENTHANDLER_HPP
 
-#include "../GameObjects/Board.hpp"
-#include "../GameObjects/Queen.hpp"
-#include "../ResourceManagment/TextureLoader.hpp"
+#include "SceneManager.hpp"
 
 class EventHandler
 {
 private:
-    Board* board;
-    Queen* queen;
-    
-private:
-    void HightlightPossibleMoves(sf::Vector2i _mousePosition);
-    void MoveQueen(sf::Vector2i _mousePosition);
+    SceneManager* smgr;
     
 public:
-    EventHandler(Board* _board, Queen* _queen);
+    EventHandler(SceneManager* _smgr);
     void HandleMouseActions();
 };
 
-#endif //MOVEHANDLER_HPP
+#endif //EVENTHANDLER_HPP

@@ -1,16 +1,16 @@
 #include "PlayScene.hpp"
 
-PlayScene::PlayScene(sf::RenderWindow* _app_window)
+PlayScene::PlayScene(sf::Vector2u& _windowSize)
 {        
     TextureLoader::Instance().loadAllItemsFromDirectory(PATH_TO_PICTURES);
 
     board = new Board(8);
-    board->createBoard(_app_window->getSize());
+    board->createBoard(_windowSize);
     
-    queen = new Queen(TextureLoader::Instance().getItemByName("queen"));
+    queen = new Queen(TextureLoader::Instance().getItem("queen"));
     queen->setSpawnPoint(board->getCells()[7][0]);
 
-    background = new sf::Sprite(*(TextureLoader::Instance().getItemByName("forest_background")));
+    background = new sf::Sprite(*(TextureLoader::Instance().getItem("forest_background")));
 }
 
 PlayScene::~PlayScene()
@@ -22,11 +22,11 @@ PlayScene::~PlayScene()
         delete background;
 }
 
-void PlayScene::draw(sf::RenderWindow* _app_window)
+void PlayScene::draw(sf::RenderWindow* _renderWindow)
 {
-    _app_window->draw(*background);
-    board->draw(_app_window);
-    queen->draw(_app_window);
+    _renderWindow->draw(*background);
+    board->draw(_renderWindow);
+    queen->draw(_renderWindow);
 }
 
 Queen* PlayScene::getQueen()
@@ -37,4 +37,9 @@ Queen* PlayScene::getQueen()
 Board* PlayScene::getBoard()
 {
     return board;
+}
+
+vector<vector<Cell*>> PlayScene::getCells()
+{
+    return board->getCells();
 }

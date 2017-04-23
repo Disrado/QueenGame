@@ -4,8 +4,7 @@ Board::Board(const int _numCellsPerLine)
 {
     numCellsPerLine = _numCellsPerLine;
     
-    board = vector<vector<Cell*>>(numCellsPerLine,
-                                  vector<Cell*>(numCellsPerLine));	
+    board = vector<vector<Cell*>>(numCellsPerLine, vector<Cell*>(numCellsPerLine));	
     for(auto &line : board)
         for(auto &cell : line)
             cell = new Cell();
@@ -45,7 +44,8 @@ void Board::createBoard(const sf::Vector2u& window_size)
             cell->setPosition(first_cell_pos.x + (cell_edge * row_pos++),
                               first_cell_pos.y + (cell_edge * column_pos));
         }
-        row_pos = 0; column_pos++;
+        row_pos = 0;
+        column_pos++;
     }	
 }
 

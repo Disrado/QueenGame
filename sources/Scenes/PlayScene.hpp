@@ -16,11 +16,12 @@ private:
     sf::Sprite *background;
     
 public:
-    PlayScene(sf::RenderWindow *_app_window);
+    PlayScene(sf::Vector2u& _windowSize);
     ~PlayScene();
-    void draw(sf::RenderWindow *_app_window);
     Queen* getQueen();
     Board* getBoard();
+    vector<vector<Cell*>> getCells();
+    void draw(sf::RenderWindow* _rednerWindow);
 };
 
 #endif //PLAY_SCENE_HPP

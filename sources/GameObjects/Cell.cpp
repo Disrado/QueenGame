@@ -32,9 +32,9 @@ void Cell::setType(CellType _type)
     cellType = _type;
      
     if(_type == CellType::Black)
-        layer->setTexture(TextureLoader::Instance().getItemByName("black"));
+        layer->setTexture(TextureLoader::Instance().getItem("black"));
     else
-        layer->setTexture(TextureLoader::Instance().getItemByName("white"));
+        layer->setTexture(TextureLoader::Instance().getItem("white"));
     
     weightLabel->setColor(TEXT_COLOR);
 } 
@@ -58,17 +58,17 @@ void Cell::setPosition(const float x, const float y)
 void Cell::showFrame()
 {
     if(this->cellType == CellType::Black)
-        this->setTexture(TextureLoader::Instance().getItemByName("black_with_frame"));
+        this->setTexture(TextureLoader::Instance().getItem("black_with_frame"));
     else
-        this->setTexture(TextureLoader::Instance().getItemByName("white_with_frame"));
+        this->setTexture(TextureLoader::Instance().getItem("white_with_frame"));
 }
 
 void Cell::disableFrame()
 {
     if(this->cellType == CellType::Black)
-        this->setTexture(TextureLoader::Instance().getItemByName("black"));
+        this->setTexture(TextureLoader::Instance().getItem("black"));
     else
-        this->setTexture(TextureLoader::Instance().getItemByName("white"));    
+        this->setTexture(TextureLoader::Instance().getItem("white"));    
 }
 
 const int Cell::getWeight() const

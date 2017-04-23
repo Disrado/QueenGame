@@ -17,8 +17,8 @@ public:
     ~Queen();
     sf::Vector2f getPosition();
     void setSpawnPoint(Cell* spawnCell);
-    bool CanMove(Cell* targetCell);
-    void Move(Cell* targetCell);
+    bool canMove(Cell* targetCell);
+    void move(Cell* targetCell);
     void draw(sf::RenderWindow* const window);
 };
 

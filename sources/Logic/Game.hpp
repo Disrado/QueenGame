@@ -2,13 +2,13 @@
 #define GAME_HPP
 
 #include "EventHandler.hpp"
-#include "../Scenes/PlayScene.hpp"
+#include "SceneManager.hpp"
 
 class Game
 {
 private:
-    sf::RenderWindow *app_window;
-    PlayScene *playScene;
+    sf::RenderWindow *appWindow;
+    SceneManager *smgr;
     EventHandler *eventHandler;
 	
 public:

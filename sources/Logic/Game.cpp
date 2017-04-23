@@ -2,33 +2,33 @@
 
 Game::Game()
 {
-    app_window = new sf::RenderWindow(sf::VideoMode(1920, 1080),
+    appWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080),
                                       "QueenGame",
                                       sf::Style::Fullscreen);		
     
-    playScene = new PlayScene(app_window);
-    eventHandler = new EventHandler(playScene->getBoard(), playScene->getQueen());
+    smgr = new SceneManager(appWindow);
+    eventHandler = new EventHandler(smgr);
 }
 
 Game::~Game()
 {
-    delete app_window;
+    delete appWindow;
     delete eventHandler;
-    delete playScene;
+    delete smgr;
 }
 
 void Game::startLoop()
 {
     sf::Event event;
-    while (app_window->isOpen()) {
+    while (appWindow->isOpen()) {
         
-        while (app_window->pollEvent(event))
+        while (appWindow->pollEvent(event))
             if (event.type == sf::Event::Closed)
-                app_window->close();
+                appWindow->close();
 	
-        app_window->clear();
+        appWindow->clear();
         eventHandler->HandleMouseActions();
-        playScene->draw(app_window);
-        app_window->display();
+        smgr->drawScene();
+        appWindow->display();
     }    
 }

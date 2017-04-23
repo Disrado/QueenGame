@@ -14,7 +14,7 @@ protected:
     virtual ~ResourceLoader() {}
     
     virtual void loadAllItemsFromDirectory(const std::string&) = 0;
-    virtual T* getItemByName(const std::string&) = 0;
+    virtual T* getItem(const std::string&) = 0;
 };
 
 #endif //RESOURCE_MANAGER_HPP

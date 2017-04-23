@@ -1,5 +1,4 @@
 #include "Queen.hpp"
-#include <chrono>
 
 Queen::Queen(sf::Texture* _newTexture)
 {
@@ -20,19 +19,19 @@ Queen::~Queen()
     delete queenPicture;
 }
 
-bool Queen::CanMove(Cell* _targetCell)
+bool Queen::canMove(Cell* _targetCell)
 {
     auto newPosition = _targetCell->getCenterCoord();
     
     if((newPosition.x == position.x || newPosition.y == position.y ||
         abs(newPosition.x - position.x) == abs(newPosition.y - position.y)) &&
        _targetCell->getWeight() != 0)
-        return true;
+       return  true;
     else
         return false;
 }
 
-void Queen::Move(Cell* _targetCell)
+void Queen::move(Cell* _targetCell)
 {
     position = _targetCell->getCenterCoord();
     queenPicture->setPosition(position);
