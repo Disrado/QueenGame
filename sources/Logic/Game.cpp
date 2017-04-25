@@ -5,6 +5,8 @@ Game::Game()
     appWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080),
                                       "QueenGame",
                                       sf::Style::Fullscreen);		
+
+    TextureLoader::Instance().loadAllItemsFromDirectory(PATH_TO_PICTURES);
     
     smgr = new SceneManager(appWindow);
     eventHandler = new EventHandler(smgr);

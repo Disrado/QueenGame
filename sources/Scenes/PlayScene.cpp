@@ -2,8 +2,6 @@
 
 PlayScene::PlayScene(sf::Vector2u& _windowSize)
 {        
-    TextureLoader::Instance().loadAllItemsFromDirectory(PATH_TO_PICTURES);
-
     board = new Board(8);
     board->createBoard(_windowSize);
     

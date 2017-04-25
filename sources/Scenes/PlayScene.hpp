@@ -4,9 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include "../GameObjects/Queen.hpp"
 #include "../GameObjects/Board.hpp"
-#include "../ResourceManagment/TextureLoader.hpp"
-
-const string PATH_TO_PICTURES = "/home/nik/Sources/QueenGame/media/pictures/";
 
 class PlayScene
 {
