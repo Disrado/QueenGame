@@ -1,4 +1,4 @@
-#include "./Logic/Game.hpp"
+#include "Game.hpp"
 
 int main()
 {

@@ -9,16 +9,16 @@ set(BOOST_LIBRARIES_DIR ${CMAKE_SOURCE_DIR}/lib/Boost)
 set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/sources/)
 
 
-file( GLOB SOURCES "${SOURCE_DIR}/Logic/*.cpp"
-		   "${SOURCE_DIR}/Logic/*.hpp"
-		   "${SOURCE_DIR}/GameObjects/*.cpp"
-		   "${SOURCE_DIR}/GameObjects/*.hpp"
+file( GLOB SOURCES "${SOURCE_DIR}/ResourceManagment/*.hpp"
 		   "${SOURCE_DIR}/ResourceManagment/*.cpp"
-		   "${SOURCE_DIR}/ResourceManagment/*.hpp"
-		   "${SOURCE_DIR}/Scenes/*.hpp"
+                   "${SOURCE_DIR}/SceneManagment/*.hpp"
+                   "${SOURCE_DIR}/SceneManagment/*.cpp"
+		   "${SOURCE_DIR}/GameObjects/*.hpp"
+		   "${SOURCE_DIR}/GameObjects/*.cpp"
+                   "${SOURCE_DIR}/Scenes/*.hpp"    
 		   "${SOURCE_DIR}/Scenes/*.cpp"
-                   "${SOURCE_DIR}/*.hpp"
-		   "${SOURCE_DIR}/*.cpp")
+                   "${SOURCE_DIR}/Logic/*.hpp"
+		   "${SOURCE_DIR}/Logic/*.cpp")                  
 
 set( CMAKE_CXX_FLAGS "-std=c++17 -Wall" )
 

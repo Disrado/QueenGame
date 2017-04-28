@@ -2,7 +2,7 @@
 #define GAME_HPP
 
 #include "EventHandler.hpp"
-#include "SceneManager.hpp"
+#include "../SceneManagment/SceneManager.hpp"
 #include "../ResourceManagment/TextureLoader.hpp"
 
 const string PATH_TO_PICTURES = "/home/nik/Sources/QueenGame/media/pictures/";

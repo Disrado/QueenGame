@@ -1,7 +1,7 @@
 #ifndef PLAYSCENEMANAGER_HPP
 #define PLAYSCENEMANAGER_HPP
 
-#include "PlayScene.hpp"
+#include "../Scenes/PlayScene.hpp"
 
 class PlaySceneManager
 {
