@@ -1,6 +1,8 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
+#include "SFML/Graphics.hpp"
+#include "TGUI/TGUI.hpp"
 #include "EventHandler.hpp"
 #include "../SceneManagment/SceneManager.hpp"
 #include "../ResourceManagment/TextureLoader.hpp"
@@ -11,6 +13,7 @@ class Game
 {
 private:
     sf::RenderWindow *appWindow;
+    tgui::Gui *gui;
     SceneManager *smgr;
     EventHandler *eventHandler;
 	

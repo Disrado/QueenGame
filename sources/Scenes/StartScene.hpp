@@ -2,16 +2,25 @@
 #define STARTSCENE_HPP
 
 #include <SFML/Graphics.hpp>
+#include <TGUI/TGUI.hpp>
+#include <memory>
+#include "Scene.hpp"
+#include "../SceneManagment/SceneManager.hpp"
 #include "../ResourceManagment/TextureLoader.hpp"
 
-class StartScene
+class SceneManager;
+
+class StartScene : public Scene
 {
 private:
-    sf::Sprite* background;
+    std::shared_ptr<tgui::Button> playBtn;
+    std::shared_ptr<tgui::Button> settingsBtn;
+    std::shared_ptr<tgui::Button> exitBtn;
     
 public:
-    StartScene();
-    void draw(sf::RenderWindow* _renderWindow);
+    StartScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneManager* smgr);
+    tgui::Button* getPlayButton();
+    void draw(sf::RenderWindow* _renderWindow) override;
     
 };
 

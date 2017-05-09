@@ -2,19 +2,16 @@
 #define EVENTHANDLER_HPP
 
 #include "../SceneManagment/SceneManager.hpp"
+#include "../Scenes/PlayScene.hpp"
 
 class EventHandler
 {
 private:
     SceneManager* smgr;
-
-private:
-    void handleRightMouseClick(sf::Vector2i& _mousePosition);
-    void handleLeftMouseClick(sf::Vector2i& _mousePosition);
     
 public:
     EventHandler(SceneManager* _smgr);
-    void HandleMouseActions();
+    void HandleUserActions();
 };
 
 #endif //EVENTHANDLER_HPP

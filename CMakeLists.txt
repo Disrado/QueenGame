@@ -5,6 +5,7 @@ project( QueenGame )
 find_package(SFML REQUIRED)
 
 set(SFML_LIBRARIES_DIR ${CMAKE_SOURCE_DIR}/lib/SFML)
+set(TGUI_LIBRARIES_DIR ${CMAKE_SOURCE_DIR}/lib/TGUI)
 set(BOOST_LIBRARIES_DIR ${CMAKE_SOURCE_DIR}/lib/Boost)
 set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/sources/)
 
@@ -29,6 +30,7 @@ TARGET_LINK_LIBRARIES(run ${SFML_LIBRARIES_DIR}/libsfml-audio.so.2.4.1
 			  ${SFML_LIBRARIES_DIR}/libsfml-system.so.2.4.1
 			  ${SFML_LIBRARIES_DIR}/libsfml-window.so.2.4.1
 			  ${SFML_LIBRARIES_DIR}/libsfml-network.so.2.4.1
+                          ${TGUI_LIBRARIES_DIR}/libtgui.so.0.7.4
 			  ${BOOST_LIBRARIES_DIR}/libboost_system.so.1.63.0
 			  ${BOOST_LIBRARIES_DIR}/libboost_filesystem.so.1.63.0)
 			  

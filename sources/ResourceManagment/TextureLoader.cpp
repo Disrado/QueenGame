@@ -21,10 +21,16 @@ void TextureLoader::loadAllItemsFromDirectory(const std::string& _pathToFiles)
             auto texture = std::make_shared<sf::Texture>();
             texture->loadFromFile(it->path().string());
             
-            std::string filename = this->cropExtension(it->path().filename().string());
+            std::string filename = cropExtension(it->path().filename().string());
             items.insert(std::make_pair(filename, texture));
         }
     }
+}
+
+std::string TextureLoader::cropExtension(const std::string& _fileName) const
+{
+    std::size_t pointPos = _fileName.find_last_of(".");
+    return _fileName.substr(0, pointPos);
 }
 
 sf::Texture* TextureLoader::getItem(const std::string& filename)
@@ -35,10 +41,4 @@ sf::Texture* TextureLoader::getItem(const std::string& filename)
         return found->second.getValue();
     else
         return nullptr;
-}
-
-std::string TextureLoader::cropExtension(const std::string& _fileName) const
-{
-    std::size_t pointPos = _fileName.find_last_of(".");
-    return _fileName.substr(0, pointPos);
 }

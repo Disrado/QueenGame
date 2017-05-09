@@ -1,17 +1,20 @@
 #include "SceneManager.hpp"
 
-SceneManager::SceneManager(sf::RenderWindow *_renderWindow)
+SceneManager::SceneManager(sf::RenderWindow *_renderWindow, tgui::Gui *_gui)
 {
-    playSmgr = new PlaySceneManager(_renderWindow);
-    startSmgr = new StartSceneManager(_renderWindow);
-    currentScene = Scenes::start;
     renderWindow = _renderWindow;
+    gui = _gui;
+    
+    playScene = new PlayScene(_renderWindow->getSize(), _gui);
+    startScene = new StartScene(_renderWindow->getSize(), _gui, this);
+    
+    currentScene = Scenes::start;
 }
 
 SceneManager::~SceneManager()
 {
-    delete playSmgr;
-    delete startSmgr;
+    delete playScene;
+    delete startScene;
 }
 
 void SceneManager::setCurrentScene(Scenes _newScene)
@@ -22,16 +25,11 @@ void SceneManager::setCurrentScene(Scenes _newScene)
 Scenes SceneManager::getCurrentScene()
 {
     return currentScene;
-}    
-
-StartSceneManager* SceneManager::getStartSceneManager()
-{
-    return startSmgr;
 }
 
-PlaySceneManager* SceneManager::getPlaySceneManager()
+PlayScene* SceneManager::getPlayScene()
 {
-    return playSmgr;
+    return playScene;
 }
 
 void SceneManager::drawScene()
@@ -39,11 +37,11 @@ void SceneManager::drawScene()
     switch (currentScene) {
         
     case Scenes::play:
-        playSmgr->drawScene();
+        playScene->draw(renderWindow);
         break;
 
     case Scenes::start:
-        startSmgr->drawScene();
+        startScene->draw(renderWindow);
         break;
     }
 }

@@ -3,42 +3,15 @@
 EventHandler::EventHandler(SceneManager* _smgr) : smgr(_smgr)
 {}
 
-void EventHandler::HandleMouseActions()
+void EventHandler::HandleUserActions()
 {
     auto mousePosition = sf::Mouse::getPosition();
     
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
-        handleRightMouseClick(mousePosition);
-    
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
-        handleLeftMouseClick(mousePosition);
-}
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
 
-void EventHandler::handleRightMouseClick(sf::Vector2i& _mousePosition)
-{
-    auto playSmgr = smgr->getPlaySceneManager();
+        auto playScene = smgr->getPlayScene();
         
-    if(playSmgr->moveQueen(_mousePosition))
-        playSmgr->hightlightPossibleMoves();
-}
-
-void EventHandler::handleLeftMouseClick(sf::Vector2i& _mousePosition)
-{
-    switch (smgr->getCurrentScene()) {
-
-    case Scenes::play: {
-        auto playSmgr = smgr->getPlaySceneManager();
-        break;
+        if(playScene->moveQueen(mousePosition))
+            playScene->hightlightPossibleMoves();
     }
-        
-    case Scenes::start: {
-        auto startSmgr = smgr->getStartSceneManager();
-        smgr->setCurrentScene(Scenes::play);
-        break;
-    }
-
-    case Scenes::settings: {
-        break;
-    }
-    }    
 }

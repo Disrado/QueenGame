@@ -1,6 +1,6 @@
 #include "PlayScene.hpp"
 
-PlayScene::PlayScene(sf::Vector2u& _windowSize)
+PlayScene::PlayScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui)
 {        
     board = new Board(8);
     board->createBoard(_windowSize);
@@ -9,6 +9,8 @@ PlayScene::PlayScene(sf::Vector2u& _windowSize)
     queen->setSpawnPoint(board->getCells()[7][0]);
 
     background = new sf::Sprite(*(TextureLoader::Instance().getItem("forest_background")));
+
+    hightlightPossibleMoves();
 }
 
 PlayScene::~PlayScene()
@@ -27,17 +29,29 @@ void PlayScene::draw(sf::RenderWindow* _renderWindow)
     queen->draw(_renderWindow);
 }
 
-Queen* PlayScene::getQueen()
+bool PlayScene::moveQueen(sf::Vector2i _newPosition)
 {
-    return queen;
+    auto cellArray = board->getCells();
+    
+    for(auto &line : cellArray)
+        for(auto &cell : line)
+            if(cell->checkBelongs(_newPosition))
+                if(queen->canMove(cell)) {
+                    queen->move(cell);
+                    return true;
+                }
+    
+    return false;
 }
 
-Board* PlayScene::getBoard()
+void PlayScene::hightlightPossibleMoves()
 {
-    return board;
-}
-
-vector<vector<Cell*>> PlayScene::getCells()
-{
-    return board->getCells();
+    auto cellArray = board->getCells();
+    
+    for(auto &line : cellArray)
+        for(auto &cell : line)
+            if(queen->canMove(cell))
+                cell->showFrame();
+            else
+                cell->disableFrame();
 }

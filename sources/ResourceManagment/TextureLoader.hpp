@@ -9,9 +9,6 @@
 class TextureLoader : public ResourceLoader<sf::Texture>
 {
 private:
-    std::string defaultPathToFiles; 
-    
-private:
     TextureLoader();	    
     std::string cropExtension(const std::string& _fileName) const;
     

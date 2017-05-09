@@ -2,19 +2,22 @@
 
 Game::Game()
 {
-    appWindow = new sf::RenderWindow(sf::VideoMode(1920, 1080),
-                                      "QueenGame",
-                                      sf::Style::Fullscreen);		
+    appWindow = new sf::RenderWindow({1920, 1080},
+                                     "QueenGame",
+                                     sf::Style::Fullscreen);		
 
+    gui = new tgui::Gui(*appWindow);
+    
     TextureLoader::Instance().loadAllItemsFromDirectory(PATH_TO_PICTURES);
     
-    smgr = new SceneManager(appWindow);
+    smgr = new SceneManager(appWindow, gui);
     eventHandler = new EventHandler(smgr);
 }
 
 Game::~Game()
 {
     delete appWindow;
+    delete gui;
     delete eventHandler;
     delete smgr;
 }
@@ -24,13 +27,17 @@ void Game::startLoop()
     sf::Event event;
     while (appWindow->isOpen()) {
         
-        while (appWindow->pollEvent(event))
+        while (appWindow->pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 appWindow->close();
+
+            gui->handleEvent(event);
+        }
 	
         appWindow->clear();
-        eventHandler->HandleMouseActions();
+        eventHandler->HandleUserActions();
         smgr->drawScene();
+        gui->draw();
         appWindow->display();
     }    
 }
