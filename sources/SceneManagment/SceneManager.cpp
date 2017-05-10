@@ -5,26 +5,35 @@ SceneManager::SceneManager(sf::RenderWindow *_renderWindow, tgui::Gui *_gui)
     renderWindow = _renderWindow;
     gui = _gui;
     
-    playScene = new PlayScene(_renderWindow->getSize(), _gui);
-    startScene = new StartScene(_renderWindow->getSize(), _gui, this);
-    
-    currentScene = Scenes::start;
+    currentScene = this->createScene(Scenes::start);
 }
 
 SceneManager::~SceneManager()
 {
-    delete playScene;
-    delete startScene;
+    delete currentScene;
 }
 
-void SceneManager::setCurrentScene(Scenes _newScene)
+Scene* SceneManager::createScene(Scenes _sceneType)
 {
-    currentScene = _newScene;
+    switch (_sceneType) {
+    case Scenes::start:
+        return (Scene*)new StartScene(renderWindow->getSize(), gui, this);
+        break;
+
+    case Scenes::play:
+        playScene = new PlayScene(renderWindow->getSize(), gui, this);
+        return (Scene*)playScene;
+        break;
+
+    default:
+        return nullptr;
+    }
 }
 
-Scenes SceneManager::getCurrentScene()
+void SceneManager::replaceCurrentScene(Scenes _newScene)
 {
-    return currentScene;
+    delete currentScene;
+    currentScene = this->createScene(_newScene);
 }
 
 PlayScene* SceneManager::getPlayScene()
@@ -34,14 +43,5 @@ PlayScene* SceneManager::getPlayScene()
 
 void SceneManager::drawScene()
 {
-    switch (currentScene) {
-        
-    case Scenes::play:
-        playScene->draw(renderWindow);
-        break;
-
-    case Scenes::start:
-        startScene->draw(renderWindow);
-        break;
-    }
+    currentScene->draw(renderWindow);
 }

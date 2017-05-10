@@ -1,6 +1,6 @@
 #include "PlayScene.hpp"
 
-PlayScene::PlayScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui)
+PlayScene::PlayScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneManager* _smgr)
 {        
     board = new Board(8);
     board->createBoard(_windowSize);

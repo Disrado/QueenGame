@@ -14,19 +14,20 @@ class SceneManager
 private:
     sf::RenderWindow* renderWindow;
     tgui::Gui* gui;
-    StartScene* startScene;
     PlayScene* playScene;
-    Scenes currentScene;
-        
+    Scene* currentScene;
+
+private:
+    Scene* createScene(Scenes _sceneType);
+    
 public:
     SceneManager(sf::RenderWindow *_renderWindow, tgui::Gui *_gui);
     ~SceneManager();
     
-    void setCurrentScene(Scenes _newScene);
-
     PlayScene* getPlayScene();
-    Scenes getCurrentScene();
-
+    
+    void replaceCurrentScene(Scenes _newScene);
+        
     void drawScene();
 };
 

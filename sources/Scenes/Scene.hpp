@@ -10,7 +10,6 @@ protected:
 
 public:
     virtual ~Scene() {}
-    static Scene* create();
     virtual void draw(sf::RenderWindow* _window) = 0;
 };
 

@@ -8,10 +8,8 @@ void EventHandler::HandleUserActions()
     auto mousePosition = sf::Mouse::getPosition();
     
     if(sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
-
-        auto playScene = smgr->getPlayScene();
-        
-        if(playScene->moveQueen(mousePosition))
-            playScene->hightlightPossibleMoves();
+        if(auto playScene = smgr->getPlayScene())
+            if(playScene->moveQueen(mousePosition))
+                playScene->hightlightPossibleMoves();
     }
 }
