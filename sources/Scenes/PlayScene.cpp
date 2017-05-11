@@ -2,11 +2,11 @@
 
 PlayScene::PlayScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneManager* _smgr)
 {        
-    board = new Board(8);
+    board = new Board(Settings::getInstance().getBoardSize());
     board->createBoard(_windowSize);
     
     queen = new Queen(TextureLoader::Instance().getItem("queen"));
-    queen->setSpawnPoint(board->getCells()[7][0]);
+    queen->setSpawnPoint(board->getQueenSpawnCell());
 
     background = new sf::Sprite(*(TextureLoader::Instance().getItem("forest_background")));
 
@@ -20,13 +20,6 @@ PlayScene::~PlayScene()
 	
     if(background)
         delete background;
-}
-
-void PlayScene::draw(sf::RenderWindow* _renderWindow)
-{
-    _renderWindow->draw(*background);
-    board->draw(_renderWindow);
-    queen->draw(_renderWindow);
 }
 
 bool PlayScene::moveQueen(sf::Vector2i _newPosition)
@@ -54,4 +47,11 @@ void PlayScene::hightlightPossibleMoves()
                 cell->showFrame();
             else
                 cell->disableFrame();
+}
+
+void PlayScene::draw(sf::RenderWindow* _renderWindow)
+{
+    _renderWindow->draw(*background);
+    board->draw(_renderWindow);
+    queen->draw(_renderWindow);
 }

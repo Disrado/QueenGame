@@ -19,6 +19,7 @@ public:
     ~Board();
     void createBoard(const sf::Vector2u& _window_size);
     vector<vector<Cell*>> getCells();
+    Cell* getQueenSpawnCell();
     void draw(sf::RenderWindow* const);
 };
 

@@ -10,7 +10,7 @@ protected:
 
 public:
     virtual ~Scene() {}
-    virtual void draw(sf::RenderWindow* _window) = 0;
+    virtual void draw(sf::RenderWindow* _renderWindow) = 0;
 };
 
 #endif //SCENE_HPP

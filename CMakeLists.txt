@@ -19,7 +19,9 @@ file( GLOB SOURCES "${SOURCE_DIR}/ResourceManagment/*.hpp"
                    "${SOURCE_DIR}/Scenes/*.hpp"    
 		   "${SOURCE_DIR}/Scenes/*.cpp"
                    "${SOURCE_DIR}/Logic/*.hpp"
-		   "${SOURCE_DIR}/Logic/*.cpp")                  
+		   "${SOURCE_DIR}/Logic/*.cpp"
+                   "${SOURCE_DIR}/*.hpp"
+                   "${SOURCE_DIR}/*.cpp")                  
 
 set( CMAKE_CXX_FLAGS "-std=c++17 -Wall" )
 

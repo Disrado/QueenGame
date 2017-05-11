@@ -1,9 +1,9 @@
 #ifndef PLAY_SCENE_HPP
 #define PLAY_SCENE_HPP
 
-#include <SFML/Graphics.hpp>
 #include <TGUI/TGUI.hpp>
 #include "Scene.hpp"
+#include "../Settings.hpp"
 #include "../GameObjects/Queen.hpp"
 #include "../GameObjects/Board.hpp"
 #include "../SceneManagment/SceneManager.hpp"

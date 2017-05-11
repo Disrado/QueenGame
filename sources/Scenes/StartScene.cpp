@@ -19,6 +19,7 @@ StartScene::StartScene(const sf::Vector2u& _windowSize,
     settingsBtn->setPosition((_windowSize.x / 2) - (playBtn->getSize().x / 2),
                              (_windowSize.y / 2) - ( playBtn->getSize().y / 2));
     settingsBtn->setText("Settings");
+    settingsBtn->connect("pressed", [_smgr](){ _smgr->replaceCurrentScene(Scenes::settings) ;});
     gui->add(settingsBtn);
 
     exitBtn = tgui::Button::create();
@@ -32,11 +33,6 @@ StartScene::StartScene(const sf::Vector2u& _windowSize,
 StartScene::~StartScene()
 {
     gui->removeAllWidgets();
-}
-
-tgui::Button* StartScene::getPlayButton()
-{
-    return playBtn.get();
 }
 
 void StartScene::draw(sf::RenderWindow* _renderWindow)

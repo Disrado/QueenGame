@@ -21,8 +21,13 @@ Scene* SceneManager::createScene(Scenes _sceneType)
         break;
 
     case Scenes::play:
+        //PlayScene need for EventHandler
         playScene = new PlayScene(renderWindow->getSize(), gui, this);
         return (Scene*)playScene;
+        break;
+
+    case Scenes::settings:
+        return (Scene*)new SettingsScene(renderWindow->getSize(), gui, this);
         break;
 
     default:
@@ -33,6 +38,10 @@ Scene* SceneManager::createScene(Scenes _sceneType)
 void SceneManager::replaceCurrentScene(Scenes _newScene)
 {
     delete currentScene;
+
+    if(playScene)
+        delete playScene;
+    
     currentScene = this->createScene(_newScene);
 }
 

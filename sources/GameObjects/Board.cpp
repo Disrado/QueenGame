@@ -54,6 +54,11 @@ vector<vector<Cell*>> Board::getCells()
     return board;
 }
 
+Cell* Board::getQueenSpawnCell()
+{
+    return board.back()[0];
+}
+
 void Board::draw(sf::RenderWindow* const window)
 {
     for(auto line : board)

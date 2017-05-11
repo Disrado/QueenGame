@@ -1,7 +1,5 @@
 #include "TextureLoader.hpp"
 
-TextureLoader::TextureLoader() {}
-
 TextureLoader& TextureLoader::Instance()
 {
     static TextureLoader instance;

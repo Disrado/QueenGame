@@ -9,7 +9,7 @@
 class TextureLoader : public ResourceLoader<sf::Texture>
 {
 private:
-    TextureLoader();	    
+    TextureLoader() {}	    
     std::string cropExtension(const std::string& _fileName) const;
     
 public:
