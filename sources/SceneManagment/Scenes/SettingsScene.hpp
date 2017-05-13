@@ -3,8 +3,8 @@
 
 #include <TGUI/TGUI.hpp>
 #include <memory>
-#include "../SceneManagment/SceneManager.hpp"
-#include "../Settings.hpp"
+#include "../../GameSystem/Settings.hpp"
+#include "../SceneManager.hpp"
 
 class SceneManager; 
 
@@ -18,7 +18,6 @@ private:
 public:
     SettingsScene(const sf::Vector2u& _windowSize, tgui::Gui* _gui, SceneManager* _smgr);
     ~SettingsScene();
-
     void draw(sf::RenderWindow* _renderWindow) override;
 };
 

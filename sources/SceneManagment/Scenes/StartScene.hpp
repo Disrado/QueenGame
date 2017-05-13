@@ -3,23 +3,25 @@
 
 #include <TGUI/TGUI.hpp>
 #include <memory>
+#include "../../ResourceManagment/ResourceManager.hpp"
+#include "../SceneManager.hpp"
 #include "Scene.hpp"
-#include "../SceneManagment/SceneManager.hpp"
-#include "../ResourceManagment/TextureLoader.hpp"
 
 class SceneManager;
 
 class StartScene : public Scene
 {
 private:
-    shared_ptr<tgui::Button> playBtn;
-    shared_ptr<tgui::Button> settingsBtn;
-    shared_ptr<tgui::Button> exitBtn;
+    std::shared_ptr<tgui::Button> playBtn;
+    std::shared_ptr<tgui::Button> settingsBtn;
+    std::shared_ptr<tgui::Button> exitBtn;
     tgui::Gui* gui;
     
 public:
     StartScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneManager* smgr);
     ~StartScene();
+    void hide() override;
+    void show() override;
     void draw(sf::RenderWindow* _renderWindow) override;
     
 };

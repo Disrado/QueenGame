@@ -1,15 +1,18 @@
 #include "EventHandler.hpp"
 
-EventHandler::EventHandler(SceneManager* _smgr) : smgr(_smgr)
+EventHandler::EventHandler(SceneManager* _smgr, PlayArbiter* _arbiter) : smgr(_smgr), arbiter(_arbiter)
 {}
 
-void EventHandler::HandleUserActions()
+void EventHandler::HandleUserActions(sf::Event& event)
 {
-    auto mousePosition = sf::Mouse::getPosition();
-    
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
-        if(auto playScene = smgr->getPlayScene())
-            if(playScene->moveQueen(mousePosition))
-                playScene->hightlightPossibleMoves();
+    if(event.type == sf::Event::MouseButtonPressed) {
+        if(smgr->getPlayScene()) {
+                arbiter->turn(sf::Mouse::getPosition());
+        }
+    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+        //        if(smgr->getPlayScene()) {
+            smgr->replaceCurrentScene(Scenes::Pause);
+            //}
     }
 }
+

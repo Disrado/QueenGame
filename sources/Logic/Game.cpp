@@ -6,12 +6,14 @@ Game::Game()
                                      "QueenGame",
                                      sf::Style::Fullscreen);		
 
-    gui = new tgui::Gui(*appWindow);
+    gui = new tgui::Gui(*appWindow);  
+
+    ResourceManager::getInstance().loadTexturesFromDirectory(PATH_TO_PICTURES);
+    ResourceManager::getInstance().loadFontsFromDirectory(PATH_TO_FONTS);
     
-    TextureLoader::Instance().loadAllItemsFromDirectory(PATH_TO_PICTURES);
-    
-    smgr = new SceneManager(appWindow, gui);
-    eventHandler = new EventHandler(smgr);
+     smgr = new SceneManager(appWindow, gui);
+     arbiter = new PlayArbiter(smgr);
+     eventHandler = new EventHandler(smgr, arbiter);
 }
 
 Game::~Game()
@@ -20,6 +22,7 @@ Game::~Game()
     delete gui;
     delete eventHandler;
     delete smgr;
+    delete arbiter;
 }
 
 void Game::startLoop()
@@ -32,12 +35,11 @@ void Game::startLoop()
                 appWindow->close();
 
             gui->handleEvent(event);
+            eventHandler->HandleUserActions(event);
         }
 	
         appWindow->clear();
-        eventHandler->HandleUserActions();
         smgr->drawScene();
-        gui->draw();
         appWindow->display();
     }    
 }

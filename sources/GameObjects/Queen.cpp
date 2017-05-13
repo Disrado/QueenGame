@@ -12,6 +12,8 @@ Queen::Queen(sf::Texture* _newTexture)
                                            queenTextureRect.height);
     queenPicture->setOrigin(sf::Vector2f(queenTextureCenter.x / 2,
                                          queenTextureCenter.y / 2));
+
+    conqueredPoints = 0;
 }
 
 Queen::~Queen()
@@ -35,12 +37,20 @@ void Queen::move(Cell* _targetCell)
 {
     position = _targetCell->getCenterCoord();
     queenPicture->setPosition(position);
+    conqueredPoints = _targetCell->getWeight();
     _targetCell->resetWeight();
 }
 
 sf::Vector2f Queen::getPosition()
 {
     return position;
+}
+
+int Queen::getConqueredPoints()
+{
+    int points = conqueredPoints;
+    conqueredPoints = 0;
+    return points;
 }
 
 void Queen::setSpawnPoint(Cell* spawnCell)

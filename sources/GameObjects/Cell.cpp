@@ -3,11 +3,8 @@
 Cell::Cell()
 {
     layer = new sf::RectangleShape(sf::Vector2f());
-    weightLabel = new sf::Text("", sf::Font());
+    weightLabel = new sf::Text("", *(ResourceManager::getInstance().getFont("DroidSans")));
     weightLabelFont = new sf::Font();
-    
-    if(weightLabelFont->loadFromFile(FONT_PATH))
-        weightLabel->setFont(*weightLabelFont);
     
     weight = 0;
     size = sf::Vector2f();
@@ -32,9 +29,9 @@ void Cell::setType(CellType _type)
     cellType = _type;
      
     if(_type == CellType::Black)
-        layer->setTexture(TextureLoader::Instance().getItem("black"));
+        layer->setTexture(ResourceManager::getInstance().getTexture("black"));
     else
-        layer->setTexture(TextureLoader::Instance().getItem("white"));
+        layer->setTexture(ResourceManager::getInstance().getTexture("white"));
     
     weightLabel->setColor(TEXT_COLOR);
 } 
@@ -58,17 +55,17 @@ void Cell::setPosition(const float x, const float y)
 void Cell::showFrame()
 {
     if(this->cellType == CellType::Black)
-        this->setTexture(TextureLoader::Instance().getItem("black_with_frame"));
+        this->setTexture(ResourceManager::getInstance().getTexture("black_with_frame"));
     else
-        this->setTexture(TextureLoader::Instance().getItem("white_with_frame"));
+        this->setTexture(ResourceManager::getInstance().getTexture("white_with_frame"));
 }
 
 void Cell::disableFrame()
 {
     if(this->cellType == CellType::Black)
-        this->setTexture(TextureLoader::Instance().getItem("black"));
+        this->setTexture(ResourceManager::getInstance().getTexture("black"));
     else
-        this->setTexture(TextureLoader::Instance().getItem("white"));    
+        this->setTexture(ResourceManager::getInstance().getTexture("white"));    
 }
 
 const int Cell::getWeight() const

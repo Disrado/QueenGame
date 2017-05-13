@@ -2,11 +2,10 @@
 #define CELL_HPP
 
 #include <SFML/Graphics.hpp>
-#include "../ResourceManagment/TextureLoader.hpp"
+#include "../ResourceManagment/ResourceManager.hpp"
 
 using namespace std;
 
-const string FONT_PATH = "../media/font/DroidSans.ttf";
 const sf::Color TEXT_COLOR = sf::Color(145, 30, 76, 255);
 
 enum CellType { Black, White };
