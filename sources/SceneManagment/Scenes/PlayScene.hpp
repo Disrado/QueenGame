@@ -28,8 +28,6 @@ public:
     void setSecondPlayerScore(int _score);
     int moveQueen(sf::Vector2i _newPosition);
     void hightlightPossibleMoves();
-    void hide() override;
-    void show() override;
     void draw(sf::RenderWindow* _renderWindow) override;
 };
 

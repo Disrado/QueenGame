@@ -1,6 +1,7 @@
 #ifndef SCENEMANAGER_HPP
 #define SCENEMANAGER_HPP
 
+#include <memory>
 #include "Scenes/PlayScene.hpp"
 #include "Scenes/StartScene.hpp"
 #include "Scenes/PauseScene.hpp"
@@ -20,7 +21,6 @@ private:
     tgui::Gui* gui;
     PlayScene* playScene;
     Scene* currentScene;
-    Scene* previousScene;
     Scenes currentSceneType;
 
 private:
@@ -28,11 +28,9 @@ private:
     
 public:
     SceneManager(sf::RenderWindow *_renderWindow, tgui::Gui *_gui);
-    ~SceneManager();
     
     PlayScene* getPlayScene();
     void replaceCurrentScene(Scenes _newScene);
-    void backToPreviousScene();
     void drawScene();
 };
 

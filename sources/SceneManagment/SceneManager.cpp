@@ -5,15 +5,9 @@ SceneManager::SceneManager(sf::RenderWindow *_renderWindow, tgui::Gui *_gui)
     renderWindow = _renderWindow;
     gui = _gui;
     playScene = nullptr;
-    previousScene = nullptr;
     
     currentScene = this->createScene(Scenes::Start);
     currentSceneType = Scenes::Start;
-}
-
-SceneManager::~SceneManager()
-{
-    delete currentScene;
 }
 
 Scene* SceneManager::createScene(Scenes _sceneType)
@@ -45,22 +39,39 @@ void SceneManager::replaceCurrentScene(Scenes _newScene)
 {
     switch(_newScene) {
     case::Scenes::Start:
+        if(currentSceneType == Scenes::Play) {
+            delete playScene;
+        } else {
+            delete currentScene;
+            currentScene = this->createScene(Scenes::Start);
+        }
         break;
         
     case::Scenes::Play:
+        if(currentSceneType == Scenes::Pause) {
+            delete currentScene;
+            currentScene = playScene;           
+        } else {
+            delete currentScene;
+            currentScene = this->createScene(Scenes::Play);
+        }
         break;
         
     case::Scenes::Settings:
+        delete currentScene;
+        currentScene = this->createScene(Scenes::Settings);
         break;
         
     case::Scenes::Pause:
+        if(currentSceneType == Scenes::Pause)
+            break;
+        else {
+            currentScene = this->createScene(Scenes::Pause);
+        }
         break;
     }
-}
 
-void SceneManager::backToPreviousScene()
-{
-    
+    currentSceneType = _newScene;
 }
 
 PlayScene* SceneManager::getPlayScene()

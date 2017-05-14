@@ -32,20 +32,6 @@ StartScene::~StartScene()
     gui->removeAllWidgets();
 }
 
-void StartScene::hide()
-{
-    playBtn->hide();
-    settingsBtn->hide();
-    exitBtn->hide();
-}
-
-void StartScene::show()
-{
-    playBtn->show();
-    settingsBtn->show();
-    exitBtn->show();
-}
-
 void StartScene::draw(sf::RenderWindow* _renderWindow)
 {
     _renderWindow->draw(*background);

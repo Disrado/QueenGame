@@ -9,9 +9,7 @@ protected:
 
 public:
     Scene() {}
-    virtual ~Scene() { delete background; delete gui; }
-    virtual void show() {}
-    virtual void hide() {}
+    virtual ~Scene() { delete background; }
     virtual void draw(sf::RenderWindow* _renderWindow) = 0;
 };
 

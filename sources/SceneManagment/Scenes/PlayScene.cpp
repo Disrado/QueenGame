@@ -85,16 +85,6 @@ void PlayScene::hightlightPossibleMoves()
                 cell->disableFrame();
 }
 
-void PlayScene::hide()
-{
-    
-}
-
-void PlayScene::show()
-{
-    
-}
-
 void PlayScene::draw(sf::RenderWindow* _renderWindow)
 {
     _renderWindow->draw(*background);

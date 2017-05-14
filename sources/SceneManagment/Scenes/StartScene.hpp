@@ -20,8 +20,6 @@ private:
 public:
     StartScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneManager* smgr);
     ~StartScene();
-    void hide() override;
-    void show() override;
     void draw(sf::RenderWindow* _renderWindow) override;
     
 };
