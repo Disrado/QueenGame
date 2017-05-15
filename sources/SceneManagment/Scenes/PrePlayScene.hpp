@@ -12,7 +12,8 @@ class PrePlayScene : public Scene
 {
 private:
     std::shared_ptr<tgui::Tab> boardSizeTab;
-    std::shared_ptr<tgui::Tab> opponentTab;
+    std::shared_ptr<tgui::Tab> opponentTypeTab;
+    std::shared_ptr<tgui::Tab> botLvlTab;
     std::shared_ptr<tgui::Button> startBtn;
     std::shared_ptr<tgui::Button> backBtn;
     

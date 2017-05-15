@@ -1,23 +1,25 @@
 #ifndef PLAYARBITER_HPP
 #define PLAYARBITER_HPP
 
+#include "../SceneManagment/Scenes/PlayScene.hpp"
 #include "../GameSystem/Settings.hpp"
 #include "Player.hpp"
 #include "Bot.hpp"
+
+class PlayScene;
 
 enum CurrentTurn { FirstPlayer, SecondPlayer };
 
 class PlayArbiter
 {
 private:
+    PlayScene* playScene;
     Player* firstPlayer;
     Player* secondPlayer;
-    Bot* bot;
-    SceneManager* smgr;
     CurrentTurn currentTurn;
     
 public:
-    PlayArbiter(SceneManager* _smgr);
+    PlayArbiter(PlayScene* _playScene);
     ~PlayArbiter();
     int getFirstPlayerScore();
     int getSecondPlayerScore();

@@ -1,0 +1,6 @@
+Button {
+    NormalImage : "BabyBlue.png" Part(269, 40, 90, 60) Middle(30, 0, 30, 60);
+    HoverImage : "BabyBlue.png" Part(361, 40, 90, 60) Middle(30, 0, 30, 60);
+    DownImage : "BabyBlue.png" Part(177, 40, 90, 60) Middle(30, 0, 30, 60);
+    TextColor : (100, 100, 100);
+}

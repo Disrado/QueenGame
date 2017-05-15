@@ -1,18 +1,18 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include "../SceneManagment/SceneManager.hpp"
+#include "../GameObjects/Board.hpp"
 
 class Player
 {
-private:
+protected:
     int score;
-    SceneManager* smgr;
 
 public:
-    Player(SceneManager* _smgr);
+    Player();
+    virtual ~Player() {}
     int getScore();    
-    void turn(const sf::Vector2i& _newPosition);
+    virtual void turn(const sf::Vector2i& _newPosition, Board* _board);
 };
 
 #endif //PLAYER_HPP

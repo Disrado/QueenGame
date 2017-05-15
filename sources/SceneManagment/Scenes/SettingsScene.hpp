@@ -3,6 +3,7 @@
 
 #include <TGUI/TGUI.hpp>
 #include <memory>
+#include "../../GameSystem/Settings.hpp"
 #include "../SceneManager.hpp"
 #include "Scene.hpp"
 
@@ -12,6 +13,7 @@ class SettingsScene : public Scene
 {
 private:
     std::shared_ptr<tgui::Button> backBtn;
+    std::shared_ptr<tgui::Tab> helpSwitchTab;
     
 public:
     SettingsScene(const sf::Vector2u& _windowSize, tgui::Gui* _gui, SceneManager* _smgr);

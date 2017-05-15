@@ -1,13 +1,36 @@
 #include "Board.hpp"
 
-Board::Board(const int _numCellsPerLine)
+Board::Board(const sf::Vector2u& _windowSize, const int _numCellsPerLine)
 {
-    numCellsPerLine = _numCellsPerLine;
-    
-    board = vector<vector<Cell*>>(numCellsPerLine, vector<Cell*>(numCellsPerLine));	
+    board = vector<vector<Cell*>>(_numCellsPerLine, vector<Cell*>(_numCellsPerLine));	
     for(auto &line : board)
         for(auto &cell : line)
             cell = new Cell();
+
+    int boardEdge = _windowSize.y * 8/9;
+    int cellEdge = boardEdge / _numCellsPerLine;
+    
+    sf::Vector2f firstCellPos(_windowSize.x / 2 - (boardEdge / 2),
+                                _windowSize.y / 2 - (boardEdge / 2));
+    
+    srand(time(NULL));
+    
+    int rowIdx = 0,  columnIdx = 0;
+    for(auto &line : board) {
+        for(auto &cell : line) {
+            cell->setSize(sf::Vector2f(cellEdge, cellEdge));
+            
+            cell->setType(((rowIdx + columnIdx) % 2 == 0) ? CellType::White : CellType::Black);
+            
+            cell->setWeight(rand() % 99 + 1);	            
+            cell->setPosition(firstCellPos.x + (cellEdge * rowIdx++),
+                              firstCellPos.y + (cellEdge * columnIdx));
+        }
+        rowIdx = 0;
+        columnIdx++;
+    }
+
+    queen = new Queen(sf::Vector2f(cellEdge, cellEdge), board.back()[0]);
 }
 
 Board::~Board()
@@ -17,51 +40,35 @@ Board::~Board()
             delete cell;
 }
 
-void Board::createBoard(const sf::Vector2u& window_size)
-{   		
-    sf::Vector2u center(window_size.x / 2, window_size.y / 2);
+int Board::moveQueen(sf::Vector2i _newPosition)
+{  
+    for(auto &line : board)
+        for(auto &cell : line)
+            if(cell->checkBelongs(_newPosition))
+                if(queen->canMove(cell))
+                    queen->move(cell);
 
-    int board_edge = window_size.y * 8/9;
-    int cell_edge = board_edge / numCellsPerLine;
-    
-    sf::Vector2f first_cell_pos(center.x - (board_edge / 2),
-                                center.y - (board_edge / 2));
-    
-    srand(time(NULL));
-    
-    int row_pos = 0,  column_pos = 0;
-    for(auto &line : board) {
-        for(auto &cell : line) {
-            cell->setSize(sf::Vector2f(cell_edge, cell_edge));
-            
-            if((row_pos + column_pos) % 2 == 0)
-                cell->setType(CellType::White);
+    return queen->getConqueredPoints();
+}
+
+void Board::hightlightPossibleMoves()
+{
+    for(auto &line : board)
+        for(auto &cell : line)
+            if(queen->canMove(cell))
+                cell->showFrame();
             else
-                cell->setType(CellType::Black);
-            
-            cell->setWeight(rand() % 99 + 1);	
-            
-            cell->setPosition(first_cell_pos.x + (cell_edge * row_pos++),
-                              first_cell_pos.y + (cell_edge * column_pos));
-        }
-        row_pos = 0;
-        column_pos++;
-    }	
+                cell->disableFrame();
 }
 
-vector<vector<Cell*>> Board::getCells()
+void Board::draw(sf::RenderWindow* const _renderWindow)
 {
-    return board;
-}
-
-Cell* Board::getQueenSpawnCell()
-{
-    return board.back()[0];
-}
-
-void Board::draw(sf::RenderWindow* const window)
-{
+    if(Settings::getInstance().helpIsEnabled())
+        this->hightlightPossibleMoves();
+        
     for(auto line : board)
         for(auto cell : line)
-            cell->draw(window);
+            cell->draw(_renderWindow);
+
+    queen->draw(_renderWindow);
 }

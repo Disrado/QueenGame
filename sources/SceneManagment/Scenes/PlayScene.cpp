@@ -4,12 +4,10 @@ PlayScene::PlayScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneMana
 {
     gui = _gui;
     background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("ChessBattle")));
+    playArbiter = new PlayArbiter(this);
     
-    board = new Board(Settings::getInstance().getBoardSize());
-    board->createBoard(_windowSize);
+    board = new Board(_windowSize, Settings::getInstance().getBoardSize());
     
-    queen = new Queen(board->getQueenSpawnCell()->getSize(), board->getQueenSpawnCell());
-
     firstPlayerName = new sf::Text("Player 1", *(ResourceManager::getInstance().getFont("RobotoMonoBoldItalic")));
     firstPlayerName->setPosition(_windowSize.x - (_windowSize.x - 40), 150);
     secondPlayerName = new sf::Text((Settings::getInstance().getOpponentType() == OpponentType::bot) ? "Bot" : "Player 2",
@@ -26,8 +24,6 @@ PlayScene::PlayScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneMana
                                    secondPlayerName->getLocalBounds().width / 2 -
                                    secondPlayerScore->getLocalBounds().width / 2,
                                    secondPlayerName->getPosition().y + secondPlayerScore->getLocalBounds().height * 2);
-    
-    hightlightPossibleMoves();
 }
 
 PlayScene::~PlayScene()
@@ -36,8 +32,8 @@ PlayScene::~PlayScene()
     delete secondPlayerName;
     delete firstPlayerScore;
     delete secondPlayerScore;
+    delete playArbiter;
     delete board;
-    delete queen;
 }
 
 void PlayScene::setFirstPlayerScore(int _score)
@@ -58,30 +54,14 @@ void PlayScene::setSecondPlayerScore(int _score)
     secondPlayerScore->setString(score);
 }
 
-int PlayScene::moveQueen(sf::Vector2i _newPosition)
+Board* PlayScene::getBoard()
 {
-    auto cellArray = board->getCells();
-    
-    for(auto &line : cellArray)
-        for(auto &cell : line)
-            if(cell->checkBelongs(_newPosition))
-                if(queen->canMove(cell))
-                    queen->move(cell);
-
-    this->hightlightPossibleMoves();
-    return queen->getConqueredPoints();
+    return board;
 }
 
-void PlayScene::hightlightPossibleMoves()
+PlayArbiter* PlayScene::getPlayArbiter()
 {
-    auto cellArray = board->getCells();
-    
-    for(auto &line : cellArray)
-        for(auto &cell : line)
-            if(queen->canMove(cell))
-                cell->showFrame();
-            else
-                cell->disableFrame();
+    return playArbiter;
 }
 
 void PlayScene::draw(sf::RenderWindow* _renderWindow)
@@ -92,6 +72,5 @@ void PlayScene::draw(sf::RenderWindow* _renderWindow)
     _renderWindow->draw(*secondPlayerName);
     _renderWindow->draw(*secondPlayerScore);
     board->draw(_renderWindow);
-    queen->draw(_renderWindow);
     gui->draw();
 }

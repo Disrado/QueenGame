@@ -12,8 +12,7 @@ Game::Game()
     ResourceManager::getInstance().loadFontsFromDirectory(PATH_TO_FONTS);
     
      smgr = new SceneManager(appWindow, gui);
-     arbiter = new PlayArbiter(smgr);
-     eventHandler = new EventHandler(smgr, arbiter);
+     eventHandler = new EventHandler(smgr);
 }
 
 Game::~Game()
@@ -22,7 +21,6 @@ Game::~Game()
     delete gui;
     delete eventHandler;
     delete smgr;
-    delete arbiter;
 }
 
 void Game::startLoop()

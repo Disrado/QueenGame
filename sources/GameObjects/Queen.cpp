@@ -36,10 +36,12 @@ bool Queen::canMove(Cell* _targetCell)
 
 void Queen::move(Cell* _targetCell)
 {
-    position = _targetCell->getCenterCoord();
-    queenPicture->setPosition(position);
-    conqueredPoints = _targetCell->getWeight();
-    _targetCell->resetWeight();
+    if(this->canMove(_targetCell)) {
+        position = _targetCell->getCenterCoord();
+        queenPicture->setPosition(position);
+        conqueredPoints = _targetCell->getWeight();
+        _targetCell->resetWeight();
+    }
 }
 
 sf::Vector2f Queen::getPosition()

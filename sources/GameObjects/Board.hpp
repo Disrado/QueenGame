@@ -2,6 +2,7 @@
 #define BOARD_HPP
 
 #include <SFML/Graphics.hpp>
+#include "../GameSystem/Settings.hpp"
 #include <vector>
 #include "Cell.hpp"
 #include "Queen.hpp"
@@ -12,15 +13,16 @@ class Board
 {
 private:
     vector<vector<Cell*>> board;
-    int numCellsPerLine;
+    Queen* queen;
+
+private:
+    void hightlightPossibleMoves();
     
 public:
-    Board(const int);
+    Board(const sf::Vector2u& _windowSize, const int _numCellsPerLine);
     ~Board();
-    void createBoard(const sf::Vector2u& _window_size);
-    vector<vector<Cell*>> getCells();
-    Cell* getQueenSpawnCell();
-    void draw(sf::RenderWindow* const);
+    int moveQueen(sf::Vector2i _newPosition);
+    void draw(sf::RenderWindow* _renderWindow);
 };
 
 #endif //BOARD_HPP

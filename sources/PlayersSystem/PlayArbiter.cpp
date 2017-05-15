@@ -1,16 +1,15 @@
 #include "PlayArbiter.hpp"
 
-PlayArbiter::PlayArbiter(SceneManager* _smgr)
+PlayArbiter::PlayArbiter(PlayScene* _playScene)
 {
-    smgr = _smgr;
+    playScene = _playScene;
     
-    if(Settings::getInstance().getOpponentType() == OpponentType::bot) {
-        firstPlayer = new Player(_smgr);
-        bot = new Bot(_smgr);
-    } else {
-        firstPlayer = new Player(_smgr);
-        secondPlayer = new Player(_smgr);
-    }
+    firstPlayer = new Player();
+    
+    if(Settings::getInstance().getOpponentType() == OpponentType::player)
+        secondPlayer = new Player();
+    else
+        secondPlayer = new Bot();
 
     currentTurn = CurrentTurn::FirstPlayer;
 }
@@ -18,12 +17,7 @@ PlayArbiter::PlayArbiter(SceneManager* _smgr)
 PlayArbiter::~PlayArbiter()
 {
     delete firstPlayer;
-
-    if(secondPlayer)
-        delete secondPlayer;
-
-    if(bot)
-        delete bot;
+    delete secondPlayer;
 }
 
 int PlayArbiter::getFirstPlayerScore()
@@ -33,26 +27,19 @@ int PlayArbiter::getFirstPlayerScore()
 
 int PlayArbiter::getSecondPlayerScore()
 {
-    if(Settings::getInstance().getOpponentType() == OpponentType::bot)
-        return bot->getScore();
-    else
-        return secondPlayer->getScore();
+    return secondPlayer->getScore();
 }
 
 void PlayArbiter::turn(const sf::Vector2i& _mousePosition)
 {
     if(currentTurn == CurrentTurn::FirstPlayer) {
-        firstPlayer->turn(_mousePosition);
+        firstPlayer->turn(_mousePosition, playScene->getBoard());
         currentTurn = CurrentTurn::SecondPlayer;
     } else {
-        if(Settings::getInstance().getOpponentType() == OpponentType::bot)
-            bot->turn(_mousePosition);
-        else
-            secondPlayer->turn(_mousePosition);
-
+        secondPlayer->turn(_mousePosition, playScene->getBoard());
         currentTurn = CurrentTurn::FirstPlayer;
-    }
+    } 
 
-    smgr->getPlayScene()->setFirstPlayerScore(firstPlayer->getScore());
-    smgr->getPlayScene()->setSecondPlayerScore(secondPlayer->getScore());
+    playScene->setFirstPlayerScore(firstPlayer->getScore());
+    playScene->setSecondPlayerScore(secondPlayer->getScore());
 }

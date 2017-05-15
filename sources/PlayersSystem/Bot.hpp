@@ -1,20 +1,17 @@
 #ifndef BOT_HPP
 #define BOT_HPP
 
-#include "../SceneManagment/SceneManager.hpp"
 #include "../GameSystem/Settings.hpp"
+#include "Player.hpp"
 
-class Bot
+class Bot : public Player
 {
 private:
-    DifficultyLevel level;
-    int score;
-    SceneManager* smgr;
+    DifficultyLevel hardLevel;
     
 public:
-    Bot(SceneManager* _smgr);    
-    int getScore();
-    void turn(const sf::Vector2i& _newPosition);
+    Bot();
+    void turn(const sf::Vector2i& _newPosition,  Board* _board) override;
 };
 
 #endif //BOT_HPP

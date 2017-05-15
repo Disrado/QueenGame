@@ -5,6 +5,9 @@ StartScene::StartScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneMa
     gui = _gui;
     background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("chess_background")));
 
+    //tgui::Theme::Ptr theme = tgui::Theme::create("/home/nik/TMP/TGUI/widgets/Black.txt");
+    
+    
     playBtn = tgui::Button::create();
     playBtn->setPosition((_windowSize.x / 2) - (playBtn->getSize().x / 2),
                          (_windowSize.y / 2) - 80);

@@ -1,18 +1,11 @@
 #include "Bot.hpp"
 
-Bot::Bot(SceneManager* _smgr)
+Bot::Bot() : Player()
 {
-    smgr = _smgr;
-    score = 0;
-    level = Settings::getInstance().getDifficultyLevel();
+    hardLevel = Settings::getInstance().getDifficultyLevel();
 }
 
-int Bot::getScore()
+void Bot::turn(const sf::Vector2i& _newPosition,  Board* _board)
 {
-    return score;
-}
 
-void Bot::turn(const sf::Vector2i& _newPosition)
-{
-    score += smgr->getPlayScene()->moveQueen(_newPosition);
 }

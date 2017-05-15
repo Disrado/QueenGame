@@ -3,19 +3,20 @@
 
 #include <TGUI/TGUI.hpp>
 #include <string>
+#include "../../PlayersSystem/PlayArbiter.hpp"
 #include "../../GameSystem/Settings.hpp"
-#include "../../GameObjects/Queen.hpp"
 #include "../../GameObjects/Board.hpp"
 #include "../SceneManager.hpp"
 #include "Scene.hpp"
 
 class SceneManager;
+class PlayArbiter;
 
 class PlayScene : public Scene
 {
 private:
-    Queen *queen;
-    Board *board;
+    Board* board;
+    PlayArbiter* playArbiter;
     sf::Text* firstPlayerScore;
     sf::Text* secondPlayerScore;
     sf::Text* firstPlayerName;
@@ -26,8 +27,8 @@ public:
     ~PlayScene();
     void setFirstPlayerScore(int _score);
     void setSecondPlayerScore(int _score);
-    int moveQueen(sf::Vector2i _newPosition);
-    void hightlightPossibleMoves();
+    Board* getBoard();
+    PlayArbiter* getPlayArbiter();
     void draw(sf::RenderWindow* _renderWindow) override;
 };
 

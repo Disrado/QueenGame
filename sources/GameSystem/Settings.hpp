@@ -1,15 +1,21 @@
 #ifndef SETTINGS_HPP
 #define SETTINGS_HPP
 
+#include <string>
+
 enum DifficultyLevel { Easy, Medium, Hard };
 enum OpponentType { player, bot };
+enum Switch { On, Off };
 
 class Settings
 {
 private:
     int boardSize;
+    Switch turnHelpSwitch; 
     OpponentType opponentType;
     DifficultyLevel level;
+    std::string firstPlayerName;
+    std::string secondPlayerName;
 
 private:
     Settings();
@@ -20,6 +26,10 @@ public:
 
     Settings(Settings const&) = delete;
     Settings& operator= (Settings const&) = delete;
+
+    void enableTurnHelp();
+    void disableTurnHelp();
+    bool helpIsEnabled();
     
     void setBoardSize(int _boardSize);
     void setOpponentType(OpponentType _type);

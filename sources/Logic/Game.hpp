@@ -15,7 +15,6 @@ private:
     sf::RenderWindow *appWindow;
     tgui::Gui *gui;
     SceneManager *smgr;
-    PlayArbiter* arbiter;
     EventHandler *eventHandler;
 	
 public:

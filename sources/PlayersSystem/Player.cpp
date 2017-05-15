@@ -1,8 +1,7 @@
 #include "Player.hpp"
 
-Player::Player(SceneManager* _smgr)
+Player::Player()
 {
-    smgr = _smgr;
     score = 0;
 }
 
@@ -11,7 +10,7 @@ int Player::getScore()
     return score;
 }
 
-void Player::turn(const sf::Vector2i& _newPosition)
+void Player::turn(const sf::Vector2i& _newPosition,  Board* _board)
 {
-    score += smgr->getPlayScene()->moveQueen(_newPosition);
+    score += _board->moveQueen(_newPosition);
 }
