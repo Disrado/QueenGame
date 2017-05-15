@@ -2,17 +2,21 @@
 #define SCENEMANAGER_HPP
 
 #include <memory>
-#include "Scenes/PlayScene.hpp"
-#include "Scenes/StartScene.hpp"
-#include "Scenes/PauseScene.hpp"
 #include "Scenes/SettingsScene.hpp"
+#include "Scenes/PrePlayScene.hpp"
+#include "Scenes/PauseScene.hpp"
+#include "Scenes/StartScene.hpp" 
+#include "Scenes/PlayScene.hpp"
+#include "Scenes/EndScene.hpp"
 
 class SettingsScene;
+class PrePlayScene;
 class StartScene;
 class PauseScene;
 class PlayScene;
+class EndScene;
 
-enum Scenes { Play, Start, Settings, Pause };
+enum Scenes { Play, Start, Settings, Pause, PrePlay, End };
 
 class SceneManager
 {

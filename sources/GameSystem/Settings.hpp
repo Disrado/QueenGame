@@ -22,7 +22,7 @@ public:
     Settings& operator= (Settings const&) = delete;
     
     void setBoardSize(int _boardSize);
-    void setOppenentType(OpponentType _type);
+    void setOpponentType(OpponentType _type);
     void setDifficultyLevel(DifficultyLevel _level);
     int getBoardSize();
     OpponentType getOpponentType();

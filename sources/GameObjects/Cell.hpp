@@ -35,6 +35,7 @@ public:
 
     CellType getType() const;
     const int getWeight() const;
+    const sf::Vector2f getSize() const;
     sf::Vector2f getCenterCoord() const;
     
     void showFrame();

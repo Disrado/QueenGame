@@ -3,16 +3,14 @@
 
 #include <TGUI/TGUI.hpp>
 #include <memory>
-#include "../../GameSystem/Settings.hpp"
 #include "../SceneManager.hpp"
+#include "Scene.hpp"
 
 class SceneManager; 
 
 class SettingsScene : public Scene
 {
 private:
-    tgui::Gui* gui;
-    std::shared_ptr<tgui::Tab> boardSizeTab;
     std::shared_ptr<tgui::Button> backBtn;
     
 public:

@@ -23,7 +23,7 @@ void Settings::setBoardSize(int _boardSize)
     boardSize = _boardSize;
 }
 
-void Settings::setOppenentType(OpponentType _type)
+void Settings::setOpponentType(OpponentType _type)
 {
     opponentType = _type;
 }

@@ -1,6 +1,8 @@
 #ifndef SCENE_HPP
 #define SCENE_HPP
 
+#include "../../ResourceManagment/ResourceManager.hpp"
+
 class Scene
 {
 protected:

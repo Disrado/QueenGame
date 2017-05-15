@@ -3,13 +3,12 @@
 PlayScene::PlayScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneManager* _smgr)
 {
     gui = _gui;
-    background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("forest_background")));
+    background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("ChessBattle")));
     
     board = new Board(Settings::getInstance().getBoardSize());
     board->createBoard(_windowSize);
     
-    queen = new Queen(ResourceManager::getInstance().getTexture("queen"));
-    queen->setSpawnPoint(board->getQueenSpawnCell());
+    queen = new Queen(board->getQueenSpawnCell()->getSize(), board->getQueenSpawnCell());
 
     firstPlayerName = new sf::Text("Player 1", *(ResourceManager::getInstance().getFont("RobotoMonoBoldItalic")));
     firstPlayerName->setPosition(_windowSize.x - (_windowSize.x - 40), 150);

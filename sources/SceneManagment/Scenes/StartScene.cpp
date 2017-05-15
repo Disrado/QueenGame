@@ -3,13 +3,13 @@
 StartScene::StartScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneManager* _smgr)
 {
     gui = _gui;
-    background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("blue_background")));
+    background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("chess_background")));
 
     playBtn = tgui::Button::create();
     playBtn->setPosition((_windowSize.x / 2) - (playBtn->getSize().x / 2),
                          (_windowSize.y / 2) - 80);
     playBtn->setText("Play");
-    playBtn->connect("mousereleased",[_smgr](){ _smgr->replaceCurrentScene(Scenes::Play); });
+    playBtn->connect("mousereleased",[_smgr](){ _smgr->replaceCurrentScene(Scenes::PrePlay); });
     gui->add(playBtn);
 
     settingsBtn = tgui::Button::create();

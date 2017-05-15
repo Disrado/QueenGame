@@ -2,8 +2,9 @@
 #define QUEEN_HPP
 
 #include <SFML/Graphics.hpp>
+#include <cmath>
+#include "../ResourceManagment/ResourceManager.hpp"
 #include "Cell.hpp"
-#include <math.h>
 
 class Queen
 {
@@ -14,11 +15,10 @@ private:
     int conqueredPoints;
     
 public:
-    Queen(sf::Texture* _queenTexture);
+    Queen(const sf::Vector2f& _cellSize, Cell* _spawnCell);
     ~Queen();
     sf::Vector2f getPosition();
     int getConqueredPoints();
-    void setSpawnPoint(Cell* spawnCell);
     bool canMove(Cell* targetCell);
     void move(Cell* targetCell);
     void draw(sf::RenderWindow* const window);

@@ -10,7 +10,6 @@ class SceneManager;
 class PauseScene : public Scene
 {
 private:
-    tgui::Gui* gui;
     std::shared_ptr<tgui::Button> resumeBtn;
     std::shared_ptr<tgui::Button> settingsBtn;
     std::shared_ptr<tgui::Button> exitBtn;

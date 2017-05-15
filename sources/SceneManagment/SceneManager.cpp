@@ -30,8 +30,13 @@ Scene* SceneManager::createScene(Scenes _sceneType)
         return (Scene*)new PauseScene(renderWindow->getSize(), gui, this);
         break;
 
-    default:
-        return nullptr;
+    case Scenes::PrePlay:
+        return (Scene*)new PrePlayScene(renderWindow->getSize(), gui, this);
+        break;
+        
+    case Scenes::End:
+        return (Scene*)new EndScene(renderWindow->getSize(), gui, this);
+        break;
     }
 }
 
@@ -45,6 +50,11 @@ void SceneManager::replaceCurrentScene(Scenes _newScene)
             delete currentScene;
             currentScene = this->createScene(Scenes::Start);
         }
+        break;
+
+    case::Scenes::PrePlay:
+        delete currentScene;
+        currentScene = this->createScene(Scenes::PrePlay);
         break;
         
     case::Scenes::Play:
@@ -63,11 +73,16 @@ void SceneManager::replaceCurrentScene(Scenes _newScene)
         break;
         
     case::Scenes::Pause:
-        if(currentSceneType == Scenes::Pause)
+        if(currentSceneType == Scenes::Pause || currentSceneType != Scenes::Play)
             break;
         else {
             currentScene = this->createScene(Scenes::Pause);
         }
+        break;
+
+    case::Scenes::End:
+        delete currentScene;
+        currentScene = this->createScene(Scenes::End);
         break;
     }
 

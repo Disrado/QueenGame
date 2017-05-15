@@ -73,6 +73,11 @@ const int Cell::getWeight() const
     return weight;
 }
 
+const sf::Vector2f Cell::getSize() const
+{
+    return size;
+}
+
 CellType Cell::getType() const
 {
     return cellType;

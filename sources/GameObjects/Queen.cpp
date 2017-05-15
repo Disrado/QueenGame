@@ -1,17 +1,18 @@
 #include "Queen.hpp"
 
-Queen::Queen(sf::Texture* _newTexture)
+Queen::Queen(const sf::Vector2f& _cellSize, Cell* _spawnCell)
 {
     spawnPoint = sf::Vector2f(0, 0);
     
-    queenPicture = new sf::Sprite(*_newTexture);
-    queenPicture->setScale(1.3, 1.3);
+    queenPicture = new sf::Sprite(*(ResourceManager::getInstance().getTexture("queen")));
     
-    auto queenTextureRect = queenPicture->getLocalBounds();
-    auto queenTextureCenter = sf::Vector2f(queenTextureRect.width,
-                                           queenTextureRect.height);
-    queenPicture->setOrigin(sf::Vector2f(queenTextureCenter.x / 2,
-                                         queenTextureCenter.y / 2));
+    queenPicture->setOrigin(sf::Vector2f(queenPicture->getLocalBounds().width / 2,
+                                         queenPicture->getLocalBounds().height / 2));
+
+    queenPicture->setScale(1.3, 1.3);
+    position = _spawnCell->getCenterCoord();
+    queenPicture->setPosition(position);
+    _spawnCell->resetWeight();
 
     conqueredPoints = 0;
 }
@@ -51,13 +52,6 @@ int Queen::getConqueredPoints()
     int points = conqueredPoints;
     conqueredPoints = 0;
     return points;
-}
-
-void Queen::setSpawnPoint(Cell* spawnCell)
-{
-    position = spawnCell->getCenterCoord();
-    queenPicture->setPosition(position);
-    spawnCell->resetWeight();
 }
 
 void Queen::draw(sf::RenderWindow* const window)
