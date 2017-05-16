@@ -3,9 +3,6 @@
 Board::Board(const sf::Vector2u& _windowSize, const int _numCellsPerLine)
 {
     board = vector<vector<Cell*>>(_numCellsPerLine, vector<Cell*>(_numCellsPerLine));	
-    for(auto &line : board)
-        for(auto &cell : line)
-            cell = new Cell();
 
     int boardEdge = _windowSize.y * 8/9;
     int cellEdge = boardEdge / _numCellsPerLine;
@@ -18,9 +15,12 @@ Board::Board(const sf::Vector2u& _windowSize, const int _numCellsPerLine)
     int rowIdx = 0,  columnIdx = 0;
     for(auto &line : board) {
         for(auto &cell : line) {
+            cell = new Cell();
+            
             cell->setSize(sf::Vector2f(cellEdge, cellEdge));
             
-            cell->setType(((rowIdx + columnIdx) % 2 == 0) ? CellType::White : CellType::Black);
+            cell->setType(((rowIdx + columnIdx) % 2 == 0) ?
+                          CellType::White : CellType::Black);
             
             cell->setWeight(rand() % 99 + 1);	            
             cell->setPosition(firstCellPos.x + (cellEdge * rowIdx++),

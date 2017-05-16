@@ -4,13 +4,16 @@ PlayScene::PlayScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneMana
 {
     gui = _gui;
     background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("ChessBattle")));
-    background->setColor(sf::Color(254, 254, 254, 120));
+    background->setScale(_windowSize.x / background->getLocalBounds().width,
+                         _windowSize.y / background->getLocalBounds().height);
+    background->setColor(sf::Color(254, 254, 254, 180));
+    
     playArbiter = new PlayArbiter(this);
     
     board = new Board(_windowSize, Settings::getInstance().getBoardSize());
     
     firstPlayerName = new sf::Text("Player 1", *(ResourceManager::getInstance().getFont("KarnacOne")));
-    firstPlayerName->setCharacterSize(100);
+    firstPlayerName->setCharacterSize(_windowSize.y / 10);
     firstPlayerName->setPosition(_windowSize.x - (_windowSize.x - 40), _windowSize.y * 2/3);
     firstPlayerName->setOutlineThickness(3.0);
     firstPlayerName->setFillColor(sf::Color::Black);
@@ -18,14 +21,14 @@ PlayScene::PlayScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneMana
     
     secondPlayerName = new sf::Text((Settings::getInstance().getOpponentType() == OpponentType::bot) ? "Bot" : "Player 2",
                                     *(ResourceManager::getInstance().getFont("KarnacOne")));
-    secondPlayerName->setCharacterSize(100);
+    secondPlayerName->setCharacterSize(_windowSize.y / 10);
     secondPlayerName->setOutlineThickness(3.0);
     secondPlayerName->setFillColor(sf::Color::Black);
     secondPlayerName->setOutlineColor(sf::Color::Red);
     secondPlayerName->setPosition(_windowSize.x - 40 - secondPlayerName->getLocalBounds().width, _windowSize.y * 2/3);
     
     firstPlayerScore = new sf::Text("0000", *(ResourceManager::getInstance().getFont("KarnacOne")));
-    firstPlayerScore->setCharacterSize(100);
+    firstPlayerScore->setCharacterSize(_windowSize.y / 10);
     firstPlayerScore->setOutlineThickness(3.0);
     firstPlayerScore->setFillColor(sf::Color::Black);
     firstPlayerScore->setOutlineColor(sf::Color::Red);
@@ -35,7 +38,7 @@ PlayScene::PlayScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneMana
                                   firstPlayerName->getPosition().y + firstPlayerScore->getLocalBounds().height * 2);
     
     secondPlayerScore = new sf::Text("0000", *(ResourceManager::getInstance().getFont("KarnacOne")));
-    secondPlayerScore->setCharacterSize(100);
+    secondPlayerScore->setCharacterSize(_windowSize.y / 10);
     secondPlayerScore->setOutlineThickness(3.0);
     secondPlayerScore->setFillColor(sf::Color::Black);
     secondPlayerScore->setOutlineColor(sf::Color::Red);

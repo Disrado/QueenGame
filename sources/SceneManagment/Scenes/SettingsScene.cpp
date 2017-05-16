@@ -4,6 +4,8 @@ SettingsScene::SettingsScene(const sf::Vector2u& _windowSize, tgui::Gui* _gui, S
 {
     gui = _gui;
     background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("chess_background")));
+    background->setScale(_windowSize.x / background->getLocalBounds().width,
+                         _windowSize.y / background->getLocalBounds().height);
 
     tgui::Theme::Ptr theme = tgui::Theme::create("../GUITheme/Black.txt");
     //--------------------HelpSwitchTab--------------------

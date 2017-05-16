@@ -1,10 +1,11 @@
 #include "Cell.hpp"
+#include <iostream>
 
 Cell::Cell()
 {
     layer = new sf::RectangleShape(sf::Vector2f());
     weightLabel = new sf::Text("", *(ResourceManager::getInstance().getFont("Kurale")));
-    weightLabel->setCharacterSize(60);
+    //    weightLabel->setCharacterSize(60);
     weightLabel->setOutlineThickness(1.0);
     weightLabel->setFillColor(sf::Color(50, 120, 100, 255));
     weightLabel->setOutlineColor(sf::Color(50, 100, 100, 255));
@@ -23,6 +24,7 @@ Cell::~Cell()
 void Cell::setSize(const sf::Vector2f& _size)
 {
     size = _size;
+    weightLabel->setCharacterSize(_size.x * 0.6);
     layer->setSize(_size);
 }
 

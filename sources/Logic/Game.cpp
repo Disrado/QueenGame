@@ -3,8 +3,7 @@
 Game::Game()
 {
     appWindow = new sf::RenderWindow({1920, 1080},
-                                     "QueenGame",
-                                     sf::Style::Fullscreen);		
+                                     "QueenGame");		
 
     gui = new tgui::Gui(*appWindow);  
 

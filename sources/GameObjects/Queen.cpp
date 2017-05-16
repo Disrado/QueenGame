@@ -9,7 +9,7 @@ Queen::Queen(const sf::Vector2f& _cellSize, Cell* _spawnCell)
     queenPicture->setOrigin(sf::Vector2f(queenPicture->getLocalBounds().width / 2,
                                          queenPicture->getLocalBounds().height / 2));
 
-    queenPicture->setScale(1.3, 1.3);
+    queenPicture->setScale(_spawnCell->getSize().x / 65, _spawnCell->getSize().y / 65);
     position = _spawnCell->getCenterCoord();
     queenPicture->setPosition(position);
     _spawnCell->resetWeight();
