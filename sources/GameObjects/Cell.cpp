@@ -3,8 +3,11 @@
 Cell::Cell()
 {
     layer = new sf::RectangleShape(sf::Vector2f());
-    weightLabel = new sf::Text("", *(ResourceManager::getInstance().getFont("DroidSans")));
-    weightLabelFont = new sf::Font();
+    weightLabel = new sf::Text("", *(ResourceManager::getInstance().getFont("Kurale")));
+    weightLabel->setCharacterSize(60);
+    weightLabel->setOutlineThickness(1.0);
+    weightLabel->setFillColor(sf::Color(50, 120, 100, 255));
+    weightLabel->setOutlineColor(sf::Color(50, 100, 100, 255));
     
     weight = 0;
     size = sf::Vector2f();
@@ -15,7 +18,6 @@ Cell::~Cell()
 {
     delete layer;
     delete weightLabel;
-    delete weightLabelFont;
 }
 
 void Cell::setSize(const sf::Vector2f& _size)
@@ -32,8 +34,6 @@ void Cell::setType(CellType _type)
         layer->setTexture(ResourceManager::getInstance().getTexture("black"));
     else
         layer->setTexture(ResourceManager::getInstance().getTexture("white"));
-    
-    weightLabel->setColor(TEXT_COLOR);
 } 
 
 void Cell::setPosition(const float x, const float y)
@@ -47,9 +47,9 @@ void Cell::setPosition(const float x, const float y)
     auto text_center = sf::Vector2f(textRect.width / 2, textRect.height / 2);
     
     weightLabel->setOrigin(text_center.x, text_center.y);
-    weightLabel->setScale(1.2, 1.2);
+    //    weightLabel->setScale(1.2, 1.2);
     
-    weightLabel->setPosition(cell_center.x, cell_center.y);
+    weightLabel->setPosition(cell_center.x, cell_center.y - 15);
 }
                 
 void Cell::showFrame()

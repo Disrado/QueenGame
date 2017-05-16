@@ -15,7 +15,7 @@ private:
     std::shared_ptr<tgui::Button> exitBtn;
 
 public:
-    PauseScene(const sf::Vector2u& _windowSize, tgui::Gui* _gui, SceneManager* _smgr);
+    PauseScene(sf::RenderWindow* _windowSize, tgui::Gui* _gui, SceneManager* _smgr);
     ~PauseScene();
     void draw(sf::RenderWindow* _renderWindow) override;
 };

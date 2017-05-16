@@ -32,7 +32,7 @@ private:
     
 public:
     SceneManager(sf::RenderWindow *_renderWindow, tgui::Gui *_gui);
-    
+    Scenes getCurrentSceneType();
     PlayScene* getPlayScene();
     void replaceCurrentScene(Scenes _newScene);
     void drawScene();

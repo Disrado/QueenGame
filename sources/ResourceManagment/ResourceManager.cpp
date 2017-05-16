@@ -51,9 +51,15 @@ std::string ResourceManager::cropExtension(const std::string& _fileName) const
     return _fileName.substr(0, pointPos);
 }
 
-sf::Texture* ResourceManager::getTexture(const std::string& name)
+std::shared_ptr<sf::Texture> ResourceManager::createVoidTexture(const std::string& _textureName)
 {
-    auto found = textures.find(name);
+    textures.insert(std::make_pair(_textureName, std::make_shared<sf::Texture>()));
+    return textures[_textureName];
+}
+
+sf::Texture* ResourceManager::getTexture(const std::string& _textureName)
+{
+    auto found = textures.find(_textureName);
     
     if(found != textures.end())
         return found->second.get();
@@ -61,9 +67,14 @@ sf::Texture* ResourceManager::getTexture(const std::string& name)
         return nullptr;
 }
 
-sf::Font* ResourceManager::getFont(const std::string& name)
+void ResourceManager::removeTexture(const std::string& _textureName)
 {
-    auto found = fonts.find(name);
+    textures.erase(textures.find(_textureName));
+}
+
+sf::Font* ResourceManager::getFont(const std::string& _fontName)
+{
+    auto found = fonts.find(_fontName);
     
     if(found != fonts.end())
         return found->second.get();

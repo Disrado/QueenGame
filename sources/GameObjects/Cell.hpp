@@ -6,7 +6,7 @@
 
 using namespace std;
 
-const sf::Color TEXT_COLOR = sf::Color(145, 30, 76, 255);
+const sf::Color TEXT_COLOR = sf::Color(145, 80, 76, 255);
 
 enum CellType { Black, White };
 
@@ -14,7 +14,6 @@ class Cell
 {
 private:
     sf::RectangleShape* layer;
-    sf::Font* weightLabelFont;
     sf::Text* weightLabel;
     sf::Vector2f position;
     sf::Vector2f size;

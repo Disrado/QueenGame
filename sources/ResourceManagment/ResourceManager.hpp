@@ -18,14 +18,16 @@ private:
     
 public:
     static ResourceManager& getInstance();
-
+    
     ResourceManager(const ResourceManager&) = delete;
     ResourceManager& operator=(const ResourceManager&) = delete;
     
     void loadTexturesFromDirectory(const std::string& pathToFiles);
-    void loadFontsFromDirectory(const std::string& pathToFiles);	
-    sf::Texture* getTexture(const std::string& name);
-    sf::Font* getFont(const std::string& name);
+    void loadFontsFromDirectory(const std::string& pathToFiles);
+    std::shared_ptr<sf::Texture> createVoidTexture(const std::string& _textureName);
+    sf::Texture* getTexture(const std::string& _textureName);
+    void removeTexture(const std::string& _textureName);
+    sf::Font* getFont(const std::string& _fontName);
 };
 
 #endif //RESOURCE_MANGER_HPP

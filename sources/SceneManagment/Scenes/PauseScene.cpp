@@ -1,20 +1,28 @@
 #include "PauseScene.hpp"
 
-PauseScene::PauseScene(const sf::Vector2u& _windowSize, tgui::Gui* _gui, SceneManager* _smgr)
+PauseScene::PauseScene(sf::RenderWindow* _renderWindow, tgui::Gui* _gui, SceneManager* _smgr)
 {
     gui = _gui;
-    background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("chess_background_art")));
 
-    resumeBtn = tgui::Button::create();
-    resumeBtn->setPosition((_windowSize.x / 2) - (resumeBtn->getSize().x / 2),
-                         (_windowSize.y / 2) - 40);
+    auto texture = ResourceManager::getInstance().createVoidTexture("PauseSceneBackground");
+    texture->loadFromImage(_renderWindow->capture());
+    background = new sf::Sprite(*(texture.get()));
+    background->setColor(sf::Color(254, 254, 254, 50));
+    
+    tgui::Theme::Ptr theme = tgui::Theme::create("../GUITheme/Black.txt");
+    
+    resumeBtn = theme->load("Button");
+    resumeBtn->setSize(150, 50);
+    resumeBtn->setPosition((_renderWindow->getSize().x / 2) - (resumeBtn->getSize().x / 2),
+                           (_renderWindow->getSize().y / 2) - 40);
     resumeBtn->setText("Resume");
     resumeBtn->connect("mousereleased",[_smgr](){ _smgr->replaceCurrentScene(Scenes::Play); });
     gui->add(resumeBtn);
 
-    exitBtn = tgui::Button::create();
-    exitBtn->setPosition((_windowSize.x / 2) - (exitBtn->getSize().x / 2),
-                         (_windowSize.y / 2));
+    exitBtn = theme->load("Button");
+    exitBtn->setSize(150, 50);
+    exitBtn->setPosition((_renderWindow->getSize().x / 2) - (exitBtn->getSize().x / 2),
+                         (_renderWindow->getSize().y / 2) + 40);
     exitBtn->setText("Exit");
     exitBtn->connect("mousereleased", [=](){ _smgr->replaceCurrentScene(Scenes::Start); });
     gui->add(exitBtn);
@@ -22,6 +30,7 @@ PauseScene::PauseScene(const sf::Vector2u& _windowSize, tgui::Gui* _gui, SceneMa
 
 PauseScene::~PauseScene()
 {
+    ResourceManager::getInstance().removeTexture("PauseSceneBackground");
     gui->removeAllWidgets();
 }
 

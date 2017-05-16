@@ -5,24 +5,26 @@ StartScene::StartScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneMa
     gui = _gui;
     background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("chess_background")));
 
-    //tgui::Theme::Ptr theme = tgui::Theme::create("/home/nik/TMP/TGUI/widgets/Black.txt");
-    
-    
-    playBtn = tgui::Button::create();
+    tgui::Theme::Ptr theme = tgui::Theme::create("../GUITheme/Black.txt");
+        
+    playBtn = theme->load("Button");
+    playBtn->setSize(150, 50);
     playBtn->setPosition((_windowSize.x / 2) - (playBtn->getSize().x / 2),
                          (_windowSize.y / 2) - 80);
     playBtn->setText("Play");
     playBtn->connect("mousereleased",[_smgr](){ _smgr->replaceCurrentScene(Scenes::PrePlay); });
     gui->add(playBtn);
 
-    settingsBtn = tgui::Button::create();
+    settingsBtn = theme->load("Button");
+    settingsBtn->setSize(150, 50);
     settingsBtn->setPosition((_windowSize.x / 2) - (playBtn->getSize().x / 2),
                              (_windowSize.y / 2));
     settingsBtn->setText("Settings");
     settingsBtn->connect("mousereleased", [_smgr](){ _smgr->replaceCurrentScene(Scenes::Settings) ;});
     gui->add(settingsBtn);
 
-    exitBtn = tgui::Button::create();
+    exitBtn = theme->load("Button");
+    exitBtn->setSize(150, 50);
     exitBtn->setPosition((_windowSize.x / 2) - (playBtn->getSize().x / 2),
                          (_windowSize.y / 2) + 80);
     exitBtn->setText("Exit");

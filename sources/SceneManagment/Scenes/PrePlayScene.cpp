@@ -5,30 +5,41 @@ PrePlayScene::PrePlayScene(const sf::Vector2u& _windowSize, tgui::Gui* _gui, Sce
     gui = _gui;
     background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("chess_background")));
 
+
+    tgui::Theme::Ptr theme = tgui::Theme::create("../GUITheme/Black.txt");
     //--------------------StartButton--------------------
-    startBtn = tgui::Button::create();
-    startBtn->setPosition((_windowSize.x / 2), (_windowSize.y / 2) - 80);
+    startBtn = theme->load("Button");
+    startBtn->setSize(150, 50);
+    startBtn->setPosition((_windowSize.x / 2) - startBtn->getSize().x / 2,
+                          (_windowSize.y / 2) - 120);
     startBtn->setText("Start");
     startBtn->connect("mousereleased",[_smgr](){ _smgr->replaceCurrentScene(Scenes::Play); });
     
     //--------------------BackButton--------------------
-    backBtn = tgui::Button::create();
+    backBtn = theme->load("Button");
+    backBtn->setSize(150, 50);
     backBtn->setText("Back");
-    backBtn->setPosition((_windowSize.x / 2), (_windowSize.y / 2) - 40);
+    backBtn->setPosition((_windowSize.x / 2) - backBtn->getSize().x / 2,
+                         (_windowSize.y / 2) - 40);
     backBtn->connect("mousereleased", [_smgr](){ _smgr->replaceCurrentScene(Scenes::Start); });
 
     //--------------------BoardSizeTab--------------------
-    boardSizeTab = tgui::Tab::create();
+    boardSizeTab = theme->load("Tab");
     boardSizeTab->insert(6, " 6 ", false);
     boardSizeTab->insert(8, " 8 ", false);
     boardSizeTab->insert(10, " 10 ", false);
-    boardSizeTab->select(Settings::getInstance().getBoardSize());
+    if(Settings::getInstance().getBoardSize() == 6)
+        boardSizeTab->select(6);
+    else if(Settings::getInstance().getBoardSize() == 8)
+        boardSizeTab->select((unsigned int)8);
+    else
+        boardSizeTab->select(10);
     boardSizeTab->setPosition((_windowSize.x / 2), (_windowSize.y / 2) + 40);  
     boardSizeTab->connect("tabselected", [tab = boardSizeTab] {
             Settings::getInstance().setBoardSize(std::stoi(tab->getSelected().toAnsiString())); });
     
     //--------------------OpponentTypeTab--------------------
-    opponentTypeTab = tgui::Tab::create();
+    opponentTypeTab = theme->load("Tab");
     opponentTypeTab->insert(0, "Player", false);
     opponentTypeTab->insert(1, "  Bot ", false);
     
@@ -43,7 +54,7 @@ PrePlayScene::PrePlayScene(const sf::Vector2u& _windowSize, tgui::Gui* _gui, Sce
                                                     OpponentType::player : OpponentType::bot); });
 
     //--------------------BotLevelTab--------------------
-    botLvlTab = tgui::Tab::create();
+    botLvlTab = theme->load("Tab");
     botLvlTab->insert(0, "  Easy  ", false);
     botLvlTab->insert(1, " Medium ", false);
     botLvlTab->insert(2, "  Hard  ", false);
