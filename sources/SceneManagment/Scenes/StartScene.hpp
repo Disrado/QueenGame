@@ -14,6 +14,10 @@ private:
     std::shared_ptr<tgui::Button> playBtn;
     std::shared_ptr<tgui::Button> settingsBtn;
     std::shared_ptr<tgui::Button> exitBtn;
+
+    void createSettingsButtons(const sf::Vector2u& _windowSize);
+    void createPlayButton(const sf::Vector2u& _windowSize);
+    void createExitButton(const sf::Vector2u& _windowSize);
     
 public:
     StartScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneManager* smgr);

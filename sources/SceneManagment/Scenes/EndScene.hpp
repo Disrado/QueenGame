@@ -12,6 +12,9 @@ class EndScene : public Scene
 private:
     std::shared_ptr<tgui::Button> playAgainBtn;
     std::shared_ptr<tgui::Button> exitBtn;
+
+    void createPlayAgainBtn(const sf::Vector2u& _windowSize);
+    void createExitBtn(const sf::Vector2u& _windowSize);
     
 public:
     EndScene(const sf::Vector2u& _windowSize, tgui::Gui* _gui, SceneManager* _smgr);

@@ -29,7 +29,7 @@ void Settings::disableTurnHelp()
     turnHelpSwitch = Switch::Off;
 }
 
-bool Settings::helpIsEnabled()
+bool Settings::isHelpEnabled()
 {
     if(turnHelpSwitch == Switch::On)
         return true;

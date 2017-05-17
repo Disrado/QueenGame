@@ -55,7 +55,8 @@ void SceneManager::replaceCurrentScene(Scenes _newScene)
     case::Scenes::Play:
         if(currentSceneType == Scenes::Pause) {
             delete currentScene;
-            currentScene = playScene;           
+            currentScene = playScene;
+            playScene->unhideGui();
         } else {
             delete currentScene;
             currentScene = this->createScene(Scenes::Play);
@@ -71,6 +72,7 @@ void SceneManager::replaceCurrentScene(Scenes _newScene)
         if(currentSceneType == Scenes::Pause || currentSceneType != Scenes::Play)
             break;
         else {
+            playScene->hideGui();
             currentScene = this->createScene(Scenes::Pause);
         }
         break;

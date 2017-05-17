@@ -6,13 +6,14 @@
 #include "../PlayersSystem/PlayArbiter.hpp"
 #include "EventHandler.hpp"
 
+const string PATH_TO_GUI_THEME = "../GUITheme/Black.txt";
 const string PATH_TO_PICTURES = "../media/pictures/";
 const string PATH_TO_FONTS = "../media/fonts/";
 
 class Game
 {
 private:
-    sf::RenderWindow *appWindow;
+    sf::RenderWindow *renderWindow;
     tgui::Gui *gui;
     SceneManager *smgr;
     EventHandler *eventHandler;

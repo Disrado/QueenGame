@@ -63,7 +63,7 @@ void Board::hightlightPossibleMoves()
 
 void Board::draw(sf::RenderWindow* const _renderWindow)
 {
-    if(Settings::getInstance().helpIsEnabled())
+    if(Settings::getInstance().isHelpEnabled())
         this->hightlightPossibleMoves();
         
     for(auto line : board)

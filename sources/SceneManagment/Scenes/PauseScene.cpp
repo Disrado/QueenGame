@@ -1,37 +1,43 @@
 #include "PauseScene.hpp"
 
-PauseScene::PauseScene(sf::RenderWindow* _renderWindow, tgui::Gui* _gui, SceneManager* _smgr)
+PauseScene::PauseScene(const sf::RenderWindow* _renderWindow, tgui::Gui* _gui, SceneManager* _smgr) : Scene(_smgr, _gui)
 {
-    gui = _gui;
-
-    auto texture = ResourceManager::getInstance().createVoidTexture("PauseSceneBackground");
-    texture->loadFromImage(_renderWindow->capture());
-    background = new sf::Sprite(*(texture.get()));
+    auto windowCapture = ResourceManager::getInstance().createVoidTexture("PauseSceneBackground");
+    windowCapture->loadFromImage(_renderWindow->capture());
+    background = new sf::Sprite(*windowCapture);
     background->setColor(sf::Color(254, 254, 254, 50));
-    
-    tgui::Theme::Ptr theme = tgui::Theme::create("../GUITheme/Black.txt");
-    
-    resumeBtn = theme->load("Button");
-    resumeBtn->setSize(150, 50);
-    resumeBtn->setPosition((_renderWindow->getSize().x / 2) - (resumeBtn->getSize().x / 2),
-                           (_renderWindow->getSize().y / 2) - 40);
-    resumeBtn->setText("Resume");
-    resumeBtn->connect("mousereleased",[_smgr](){ _smgr->replaceCurrentScene(Scenes::Play); });
-    gui->add(resumeBtn);
 
-    exitBtn = theme->load("Button");
-    exitBtn->setSize(150, 50);
-    exitBtn->setPosition((_renderWindow->getSize().x / 2) - (exitBtn->getSize().x / 2),
-                         (_renderWindow->getSize().y / 2) + 40);
-    exitBtn->setText("Exit");
-    exitBtn->connect("mousereleased", [=](){ _smgr->replaceCurrentScene(Scenes::Start); });
-    gui->add(exitBtn);
+    createResumeBtn(_renderWindow->getSize());
+    createExitBtn(_renderWindow->getSize());
 }
 
 PauseScene::~PauseScene()
 {
     ResourceManager::getInstance().removeTexture("PauseSceneBackground");
-    gui->removeAllWidgets();
+    gui->remove(resumeBtn);
+    gui->remove(exitBtn);
+}
+
+void PauseScene::createResumeBtn(const sf::Vector2u& _windowSize)
+{
+    resumeBtn = ResourceManager::getInstance().getGuiTheme()->load("Button");
+    resumeBtn->setSize(_windowSize.x / 10, _windowSize.y / 13);
+    resumeBtn->setPosition((_windowSize.x / 2) - (resumeBtn->getSize().x / 2),
+                           (_windowSize.y / 2) - resumeBtn->getSize().y * 0.75);
+    resumeBtn->setText("Resume");
+    resumeBtn->connect("mousereleased",[_smgr = smgr](){ _smgr->replaceCurrentScene(Scenes::Play); });
+    gui->add(resumeBtn);
+}
+
+void PauseScene::createExitBtn(const sf::Vector2u& _windowSize)
+{
+    exitBtn = ResourceManager::getInstance().getGuiTheme()->load("Button");
+    exitBtn->setSize(_windowSize.x / 10, _windowSize.y / 13);
+    exitBtn->setPosition((_windowSize.x / 2) - (exitBtn->getSize().x / 2),
+                         (_windowSize.y / 2) + exitBtn->getSize().y * 0.75);
+    exitBtn->setText("Exit");
+    exitBtn->connect("mousereleased", [_smgr = smgr](){ _smgr->replaceCurrentScene(Scenes::Start); });
+    gui->add(exitBtn);
 }
 
 void PauseScene::draw(sf::RenderWindow* _renderWindow)

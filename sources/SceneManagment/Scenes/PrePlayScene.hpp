@@ -11,11 +11,17 @@ class SceneManager;
 class PrePlayScene : public Scene
 {
 private:
-    std::shared_ptr<tgui::Tab> boardSizeTab;
     std::shared_ptr<tgui::Tab> opponentTypeTab;
-    std::shared_ptr<tgui::Tab> botLvlTab;
+    std::shared_ptr<tgui::Tab> boardSizeTab;
     std::shared_ptr<tgui::Button> startBtn;
     std::shared_ptr<tgui::Button> backBtn;
+    std::shared_ptr<tgui::Tab> botLvlTab;
+
+    void createOpponentTypeTab(const sf::Vector2u& _windowSize);
+    void createBoardSizeTab(const sf::Vector2u& _windowSize);
+    void createBotLvlTab(const sf::Vector2u& _windowSize);
+    void createStartBtn(const sf::Vector2u& _windowSize);
+    void createBackBtn(const sf::Vector2u& _windowSize);
     
 public:
     PrePlayScene(const sf::Vector2u& _windowSize, tgui::Gui* _gui, SceneManager* _smgr);

@@ -3,6 +3,7 @@
 
 #include <TGUI/TGUI.hpp>
 #include <string>
+#include <memory>
 #include "../../PlayersSystem/PlayArbiter.hpp"
 #include "../../GameSystem/Settings.hpp"
 #include "../../GameObjects/Board.hpp"
@@ -15,16 +16,26 @@ class PlayArbiter;
 class PlayScene : public Scene
 {
 private:
-    Board* board;
-    PlayArbiter* playArbiter;
-    sf::Text* firstPlayerScore;
+    std::shared_ptr<tgui::Button> pauseBtn;
     sf::Text* secondPlayerScore;
-    sf::Text* firstPlayerName;
+    sf::Text* firstPlayerScore;
     sf::Text* secondPlayerName;
+    sf::Text* firstPlayerName;
+    PlayArbiter* playArbiter;
+    Board* board;
+
+    void createPauseBtn(const sf::Vector2u& _windowSize);
+    void createSecondPlayerScore(const sf::Vector2u& _windowSize);
+    void createFirstPlayerScore(const sf::Vector2u& _windowSize);
+    void createSecondPlayerName(const sf::Vector2u& _windowSize);
+    void createFirstPlayerName(const sf::Vector2u& _windowSize);
+
     
 public:
     PlayScene(const sf::Vector2u& _windowSize, tgui::Gui* _gui, SceneManager* _smgr);
     ~PlayScene();
+    void hideGui();
+    void unhideGui();
     void setFirstPlayerScore(int _score);
     void setSecondPlayerScore(int _score);
     Board* getBoard();

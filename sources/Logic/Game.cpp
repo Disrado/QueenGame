@@ -2,41 +2,44 @@
 
 Game::Game()
 {
-    appWindow = new sf::RenderWindow({1920, 1080},
-                                     "QueenGame");		
+    renderWindow = new sf::RenderWindow({0,0},
+                                     "QueenGame",
+                                     sf::Style::Fullscreen);
+    renderWindow->setSize(renderWindow->getSize());
 
-    gui = new tgui::Gui(*appWindow);  
+    gui = new tgui::Gui(*renderWindow);
 
     ResourceManager::getInstance().loadTexturesFromDirectory(PATH_TO_PICTURES);
     ResourceManager::getInstance().loadFontsFromDirectory(PATH_TO_FONTS);
-    
-     smgr = new SceneManager(appWindow, gui);
-     eventHandler = new EventHandler(smgr);
+    ResourceManager::getInstance().loadGuiTheme(PATH_TO_GUI_THEME);
+
+    smgr = new SceneManager(renderWindow, gui);
+    eventHandler = new EventHandler(smgr);
 }
 
 Game::~Game()
 {
-    delete appWindow;
+    delete renderWindow;
     delete gui;
-    delete eventHandler;
     delete smgr;
+    delete eventHandler;
 }
 
 void Game::startLoop()
 {
     sf::Event event;
-    while (appWindow->isOpen()) {
+    while (renderWindow->isOpen()) {
         
-        while (appWindow->pollEvent(event)) {
+        while (renderWindow->pollEvent(event)) {
             if (event.type == sf::Event::Closed)
-                appWindow->close();
+                renderWindow->close();
 
             gui->handleEvent(event);
             eventHandler->HandleUserActions(event);
         }
 	
-        appWindow->clear();
+        renderWindow->clear();
         smgr->drawScene();
-        appWindow->display();
+        renderWindow->display();
     }    
 }

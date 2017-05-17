@@ -11,11 +11,13 @@ class PauseScene : public Scene
 {
 private:
     std::shared_ptr<tgui::Button> resumeBtn;
-    std::shared_ptr<tgui::Button> settingsBtn;
     std::shared_ptr<tgui::Button> exitBtn;
 
+    void createResumeBtn(const sf::Vector2u& _windowSize);
+    void createExitBtn(const sf::Vector2u&  _windowSize);
+
 public:
-    PauseScene(sf::RenderWindow* _windowSize, tgui::Gui* _gui, SceneManager* _smgr);
+    PauseScene(const sf::RenderWindow* _renderWindow, tgui::Gui* _gui, SceneManager* _smgr);
     ~PauseScene();
     void draw(sf::RenderWindow* _renderWindow) override;
 };

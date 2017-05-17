@@ -14,6 +14,9 @@ class SettingsScene : public Scene
 private:
     std::shared_ptr<tgui::Button> backBtn;
     std::shared_ptr<tgui::Tab> helpSwitchTab;
+
+    void createBackButton(const sf::Vector2u& _windowSize);
+    void createHelpSwitchTab(const sf::Vector2u& _windowSize);
     
 public:
     SettingsScene(const sf::Vector2u& _windowSize, tgui::Gui* _gui, SceneManager* _smgr);

@@ -45,6 +45,11 @@ void ResourceManager::loadFontsFromDirectory(const std::string& _pathToFiles)
     }
 }
 
+void ResourceManager::loadGuiTheme(const std::string& _pathToTheme)
+{
+    guiTheme = tgui::Theme::create(_pathToTheme);
+}
+
 std::string ResourceManager::cropExtension(const std::string& _fileName) const
 {
     std::size_t pointPos = _fileName.find_last_of(".");
@@ -57,7 +62,12 @@ std::shared_ptr<sf::Texture> ResourceManager::createVoidTexture(const std::strin
     return textures[_textureName];
 }
 
-sf::Texture* ResourceManager::getTexture(const std::string& _textureName)
+void ResourceManager::removeTexture(const std::string& _textureName)
+{
+    textures.erase(textures.find(_textureName));
+}
+
+sf::Texture* ResourceManager::getTexture(const std::string& _textureName) const
 {
     auto found = textures.find(_textureName);
     
@@ -67,12 +77,7 @@ sf::Texture* ResourceManager::getTexture(const std::string& _textureName)
         return nullptr;
 }
 
-void ResourceManager::removeTexture(const std::string& _textureName)
-{
-    textures.erase(textures.find(_textureName));
-}
-
-sf::Font* ResourceManager::getFont(const std::string& _fontName)
+sf::Font* ResourceManager::getFont(const std::string& _fontName) const
 {
     auto found = fonts.find(_fontName);
     
@@ -80,4 +85,9 @@ sf::Font* ResourceManager::getFont(const std::string& _fontName)
         return found->second.get();
     else
         return nullptr;
+}
+
+std::shared_ptr<tgui::Theme> ResourceManager::getGuiTheme() const
+{
+    return guiTheme;
 }

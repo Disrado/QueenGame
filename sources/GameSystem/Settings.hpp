@@ -29,7 +29,7 @@ public:
 
     void enableTurnHelp();
     void disableTurnHelp();
-    bool helpIsEnabled();
+    bool isHelpEnabled();
     
     void setBoardSize(int _boardSize);
     void setOpponentType(OpponentType _type);

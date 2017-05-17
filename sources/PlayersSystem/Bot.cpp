@@ -7,5 +7,7 @@ Bot::Bot() : Player()
 
 void Bot::turn(const sf::Vector2i& _newPosition,  Board* _board)
 {
-
+    
+    
+    score += _board->moveQueen(_newPosition);
 }

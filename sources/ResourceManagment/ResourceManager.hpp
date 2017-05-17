@@ -1,13 +1,16 @@
 #ifndef RESOURCE_MANAGER_HPP
 #define RESOURCE_MANAGER_HPP
 
-#include <SFML/Graphics.hpp>
 #include <boost/filesystem.hpp>
+#include <SFML/Graphics.hpp>
+#include <TGUI/TGUI.hpp>
+#include <memory>
 #include <string>
 
 class ResourceManager
 {
 private:
+    std::shared_ptr<tgui::Theme> guiTheme;
     std::map<std::string, std::shared_ptr<sf::Texture>> textures;
     std::map<std::string, std::shared_ptr<sf::Font>> fonts;
     
@@ -24,10 +27,14 @@ public:
     
     void loadTexturesFromDirectory(const std::string& pathToFiles);
     void loadFontsFromDirectory(const std::string& pathToFiles);
+    void loadGuiTheme(const std::string& _pathToTheme);
+    
     std::shared_ptr<sf::Texture> createVoidTexture(const std::string& _textureName);
-    sf::Texture* getTexture(const std::string& _textureName);
     void removeTexture(const std::string& _textureName);
-    sf::Font* getFont(const std::string& _fontName);
+    
+    sf::Texture* getTexture(const std::string& _textureName) const;
+    sf::Font* getFont(const std::string& _fontName) const;
+    std::shared_ptr<tgui::Theme> getGuiTheme() const;
 };
 
 #endif //RESOURCE_MANGER_HPP
