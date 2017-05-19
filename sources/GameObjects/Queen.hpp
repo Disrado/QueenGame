@@ -17,9 +17,9 @@ private:
 public:
     Queen(const sf::Vector2f& _cellSize, Cell* _spawnCell);
     ~Queen();
-    sf::Vector2f getPosition();
+    const sf::Vector2f& getPosition();
     int getConqueredPoints();
-    bool canMove(Cell* targetCell);
+    bool canMove(const sf::Vector2f& _queenPosition, Cell* targetCell);
     void move(Cell* targetCell);
     void draw(sf::RenderWindow* const window);
 };

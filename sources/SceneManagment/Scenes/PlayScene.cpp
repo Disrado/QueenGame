@@ -7,8 +7,8 @@ PlayScene::PlayScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneMana
                          _windowSize.y / background->getLocalBounds().height);
     background->setColor(sf::Color(254, 254, 254, 180));
     
-    playArbiter = new PlayArbiter(this);    
-    board = new Board(_windowSize, Settings::getInstance().getBoardSize());
+    playArbiter = new PlayArbiter(_smgr);    
+    board = new Board(_windowSize, 4/*Settings::getInstance().getBoardSize()*/);
 
     createPauseBtn(_windowSize);
     createSecondPlayerName(_windowSize);
@@ -34,7 +34,7 @@ void PlayScene::createPauseBtn(const sf::Vector2u& _windowSize)
     pauseBtn = ResourceManager::getInstance().getGuiTheme()->load("Button");
     pauseBtn->setSize(_windowSize.x / 10, _windowSize.y / 13);
     pauseBtn->setPosition(_windowSize.x - pauseBtn->getSize().x * 1.5,
-                          _windowSize.y - pauseBtn->getSize().y * 2 );
+                          _windowSize.y - pauseBtn->getSize().y * 1.5);
     pauseBtn->setText("Pause");
     pauseBtn->connect("mousereleased",[_smgr = smgr](){ _smgr->replaceCurrentScene(Scenes::Pause); });
     gui->add(pauseBtn);

@@ -1,7 +1,7 @@
 #include "Board.hpp"
 
 Board::Board(const sf::Vector2u& _windowSize, const int _numCellsPerLine)
-{
+{ 
     board = vector<vector<Cell*>>(_numCellsPerLine, vector<Cell*>(_numCellsPerLine));	
 
     int boardEdge = _windowSize.y * 8/9;
@@ -31,6 +31,8 @@ Board::Board(const sf::Vector2u& _windowSize, const int _numCellsPerLine)
     }
 
     queen = new Queen(sf::Vector2f(cellEdge, cellEdge), board.back()[0]);
+
+    availableCellCount = 0;
 }
 
 Board::~Board()
@@ -40,25 +42,68 @@ Board::~Board()
             delete cell;
 }
 
-int Board::moveQueen(sf::Vector2i _newPosition)
-{  
+int Board::getQueenPoints() const
+{
+    return queen->getConqueredPoints();
+}
+
+bool Board::queenCanMove(const sf::Vector2f& _newPosition) const
+{
     for(auto &line : board)
         for(auto &cell : line)
             if(cell->checkBelongs(_newPosition))
-                if(queen->canMove(cell))
-                    queen->move(cell);
+                if(queen->canMove(queen->getPosition(), cell))
+                    return true;
+    return false;
+}
 
-    return queen->getConqueredPoints();
+void Board::moveQueen(const sf::Vector2f& _newPosition)
+{
+    for(auto &line : board)
+        for(auto &cell : line)
+            if(cell->checkBelongs(_newPosition))
+                if(queen->canMove(queen->getPosition(), cell))
+                    queen->move(cell);
 }
 
 void Board::hightlightPossibleMoves()
 {
     for(auto &line : board)
         for(auto &cell : line)
-            if(queen->canMove(cell))
+            if(queen->canMove(queen->getPosition(), cell))
                 cell->showFrame();
             else
                 cell->disableFrame();
+}
+
+int Board::getAvailableCellCount()
+{
+    availableCellCount = 0;
+    
+    for(auto line : board)
+        for(auto cell : line)
+            if(queen->canMove(queen->getPosition(), cell))
+                availableCellCount++;
+
+    return availableCellCount;
+}
+
+vector<Cell*> Board::getAvailableCells(const sf::Vector2f& _queenPosition) const
+{
+    vector<Cell*> availableCells = vector<Cell*>();
+    
+    
+    for(auto line : board)
+        for(auto cell : line)
+            if(queen->canMove(_queenPosition, cell))
+                availableCells.push_back(cell);
+
+    return availableCells;
+}
+
+const sf::Vector2f& Board::getQueenPosition() const
+{
+    return queen->getPosition();
 }
 
 void Board::draw(sf::RenderWindow* const _renderWindow)

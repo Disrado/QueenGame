@@ -22,13 +22,13 @@ Queen::~Queen()
     delete queenPicture;
 }
 
-bool Queen::canMove(Cell* _targetCell)
+bool Queen::canMove(const sf::Vector2f& _queenPosition, Cell* _targetCell)
 {
     auto newPosition = _targetCell->getCenterCoord();
     
-    if((newPosition.x == position.x || newPosition.y == position.y ||
-        abs(newPosition.x - position.x) == abs(newPosition.y - position.y)) &&
-       _targetCell->getWeight() != 0)
+    if(_queenPosition != newPosition && _targetCell->getWeight() != 0 &&
+       (newPosition.x == _queenPosition.x || newPosition.y == _queenPosition.y ||
+        abs(newPosition.x - _queenPosition.x) == abs(newPosition.y - _queenPosition.y)))
        return  true;
     else
         return false;
@@ -36,7 +36,7 @@ bool Queen::canMove(Cell* _targetCell)
 
 void Queen::move(Cell* _targetCell)
 {
-    if(this->canMove(_targetCell)) {
+    if(this->canMove(position, _targetCell)) {
         position = _targetCell->getCenterCoord();
         queenPicture->setPosition(position);
         conqueredPoints = _targetCell->getWeight();
@@ -44,7 +44,7 @@ void Queen::move(Cell* _targetCell)
     }
 }
 
-sf::Vector2f Queen::getPosition()
+const sf::Vector2f& Queen::getPosition()
 {
     return position;
 }

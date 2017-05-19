@@ -13,6 +13,7 @@ class Board
 {
 private:
     vector<vector<Cell*>> board;
+    int availableCellCount;
     Queen* queen;
 
 private:
@@ -21,7 +22,12 @@ private:
 public:
     Board(const sf::Vector2u& _windowSize, const int _numCellsPerLine);
     ~Board();
-    int moveQueen(sf::Vector2i _newPosition);
+    int getQueenPoints() const;
+    bool queenCanMove(const sf::Vector2f& _newPosition) const;
+    int getAvailableCellCount();
+    vector<Cell*> getAvailableCells(const sf::Vector2f& _queenPosition) const;
+    const sf::Vector2f& getQueenPosition() const;
+    void moveQueen(const sf::Vector2f& _newPosition);
     void draw(sf::RenderWindow* _renderWindow);
 };
 

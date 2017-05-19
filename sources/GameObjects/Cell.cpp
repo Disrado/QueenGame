@@ -75,7 +75,7 @@ const int Cell::getWeight() const
     return weight;
 }
 
-const sf::Vector2f Cell::getSize() const
+const sf::Vector2f& Cell::getSize() const
 {
     return size;
 }
@@ -85,7 +85,7 @@ CellType Cell::getType() const
     return cellType;
 }	
 
-sf::Vector2f Cell::getCenterCoord() const
+const sf::Vector2f Cell::getCenterCoord() const
 {
     return sf::Vector2f(position.x + size.x / 2,
                         position.y + size.y / 2);
@@ -108,7 +108,7 @@ void Cell::resetWeight()
     weightLabel->setString("");
 }
 
-bool Cell::checkBelongs(const sf::Vector2i& _point)
+bool Cell::checkBelongs(const sf::Vector2f& _point) const
 {
     return layer->getGlobalBounds().contains(_point.x, _point.y);	
 }

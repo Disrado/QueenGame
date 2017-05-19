@@ -34,14 +34,14 @@ public:
 
     CellType getType() const;
     const int getWeight() const;
-    const sf::Vector2f getSize() const;
-    sf::Vector2f getCenterCoord() const;
+    const sf::Vector2f& getSize() const;
+    const sf::Vector2f getCenterCoord() const;
     
     void showFrame();
     void resetWeight();
     void disableFrame();
     void draw(sf::RenderWindow* const);
-    bool checkBelongs(const sf::Vector2i& _point);
+    bool checkBelongs(const sf::Vector2f& _point) const;
 };
 
 #endif //CELL_HPP

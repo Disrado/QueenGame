@@ -1,16 +1,23 @@
 #include "Player.hpp"
 
-Player::Player()
+Player::Player(const std::string& _name)
 {
+    name = _name;
     score = 0;
 }
 
-int Player::getScore()
+const std::string& Player::getName() const
+{
+    return name;
+}
+
+int Player::getScore() const
 {
     return score;
 }
 
-void Player::turn(const sf::Vector2i& _newPosition,  Board* _board)
+void Player::turn(const sf::Vector2f& _newPosition,  Board* _board)
 {
-    score += _board->moveQueen(_newPosition);
+    _board->moveQueen(_newPosition);
+    score += _board->getQueenPoints();
 }

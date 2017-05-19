@@ -30,7 +30,9 @@ Scene* SceneManager::createScene(Scenes _sceneType)
         return (Scene*)new PrePlayScene(renderWindow->getSize(), gui, this);
         break;
     case Scenes::End:
-        return (Scene*)new EndScene(renderWindow->getSize(), gui, this);
+        return (Scene*)new EndScene(renderWindow->getSize(), gui, this,
+                                    playScene->getPlayArbiter()->getWinnerName(),
+                                    playScene->getPlayArbiter()->getWinnerScore());
         break;
     }
 }
@@ -78,8 +80,9 @@ void SceneManager::replaceCurrentScene(Scenes _newScene)
         break;
 
     case::Scenes::End:
+        auto endScene = this->createScene(Scenes::End);
         delete currentScene;
-        currentScene = this->createScene(Scenes::End);
+        currentScene = endScene;
         break;
     }
 

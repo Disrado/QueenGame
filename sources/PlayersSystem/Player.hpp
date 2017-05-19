@@ -6,13 +6,17 @@
 class Player
 {
 protected:
+    std::string name;
     int score;
 
 public:
-    Player();
+    Player(const std::string& _name);
     virtual ~Player() {}
-    int getScore();    
-    virtual void turn(const sf::Vector2i& _newPosition, Board* _board);
+    
+    int getScore() const;
+    const std::string& getName() const;
+    
+    virtual void turn(const sf::Vector2f& _newPosition, Board* _board);
 };
 
 #endif //PLAYER_HPP
