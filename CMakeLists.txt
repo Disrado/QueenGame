@@ -15,8 +15,8 @@ set(BOOST_LIBRARIES_DIR ${CMAKE_SOURCE_DIR}/extlibs/BOOST/)
 set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/sources/)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin/)
 
-include_directories(${CMAKE_SOURCE_DIR}/extincludes/TGUI/)
-include_directories(${CMAKE_SOURCE_DIR}/extincludes/SFML/)
+include_directories(${CMAKE_SOURCE_DIR}/extincludes/)
+include_directories(${CMAKE_SOURCE_DIR}/extincludes/)
 
 file( GLOB SOURCES "${SOURCE_DIR}/include/SceneManagment/Scenes/*.hpp"
   "${SOURCE_DIR}/include/ResourceManagment/*.hpp"
