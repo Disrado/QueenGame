@@ -32,8 +32,6 @@ find_library( TGUI             libtgui.so.0.7.4              ${TGUI_LIBRARIES_DI
 find_library( BOOST_SYSTEM     libboost_system.so.1.63.0     ${BOOST_LIBRARIES_DIR} )
 find_library( BOOST_FILESYSTEM libboost_filesystem.so.1.63.0 ${BOOST_LIBRARIES_DIR} )
 
-string(ASCII 27 Esc)         
-
 message( "\nCheckings libraries ..." )
 message( STATUS "   sfml_graphics: " ${SFML_GRAPHICS} )
 message( STATUS "     sfml_system: " ${SFML_SYSTEM} )
