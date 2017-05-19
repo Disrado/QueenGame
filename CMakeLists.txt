@@ -33,12 +33,12 @@ file( GLOB SOURCES "${SOURCE_DIR}/include/SceneManagment/Scenes/*.hpp"
   "${SOURCE_DIR}/src/GameSystem/*.cpp"
   "${SOURCE_DIR}/src/Logic/*.cpp")
 
-find_library( SFML_GRAPHICS    libsfml-graphics.so.2.4.1     ${SFML_LIBRARIES_DIR} )
-find_library( SFML_SYSTEM      libsfml-system.so.2.4.1       ${SFML_LIBRARIES_DIR} )
-find_library( SFML_WINDOW      libsfml-window.so.2.4.1       ${SFML_LIBRARIES_DIR} )
-find_library( TGUI             libtgui.so.0.7.4              ${TGUI_LIBRARIES_DIR} )
-find_library( BOOST_SYSTEM     libboost_system.so.1.63.0     ${BOOST_LIBRARIES_DIR} )
-find_library( BOOST_FILESYSTEM libboost_filesystem.so.1.63.0 ${BOOST_LIBRARIES_DIR} )
+find_library( SFML_GRAPHICS    libsfml-graphics.so    ${SFML_LIBRARIES_DIR} )
+find_library( SFML_SYSTEM      libsfml-system.so      ${SFML_LIBRARIES_DIR} )
+find_library( SFML_WINDOW      libsfml-window.so      ${SFML_LIBRARIES_DIR} )
+find_library( TGUI             libtgui.so             ${TGUI_LIBRARIES_DIR} )
+find_library( BOOST_SYSTEM     libboost_system.so     ${BOOST_LIBRARIES_DIR} )
+find_library( BOOST_FILESYSTEM libboost_filesystem.so ${BOOST_LIBRARIES_DIR} )
 
 message( "\nCheckings libraries ..." )
 message( STATUS "   sfml_graphics: " ${SFML_GRAPHICS} )
