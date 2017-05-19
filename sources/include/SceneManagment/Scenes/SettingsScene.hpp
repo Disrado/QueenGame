@@ -1,8 +1,8 @@
 #ifndef SETTINGSSCENE_HPP
 #define SETTINGSSCENE_HPP
 
+#include <TGUI/TGUI.hpp>
 #include <memory>
-#include "../../TGUI/TGUI.hpp"
 #include "../../GameSystem/Settings.hpp"
 #include "../SceneManager.hpp"
 #include "Scene.hpp"

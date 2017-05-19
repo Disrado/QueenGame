@@ -1,9 +1,9 @@
 #ifndef PLAY_SCENE_HPP
 #define PLAY_SCENE_HPP
 
+#include <TGUI/TGUI.hpp>
 #include <string>
 #include <memory>
-#include "../../TGUI/TGUI.hpp"
 #include "../../PlayersSystem/PlayArbiter.hpp"
 #include "../../GameSystem/Settings.hpp"
 #include "../../GameObjects/Board.hpp"

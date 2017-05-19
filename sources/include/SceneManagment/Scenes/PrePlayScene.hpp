@@ -1,7 +1,7 @@
 #ifndef PREPLAYSCENE_HPP
 #define PREPLAYSCENE_HPP
 
-#include "../../TGUI/TGUI.hpp"
+#include <TGUI/TGUI.hpp>
 #include "../../GameSystem/Settings.hpp"
 #include "../SceneManager.hpp"
 #include "Scene.hpp"

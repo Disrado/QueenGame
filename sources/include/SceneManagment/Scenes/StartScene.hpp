@@ -1,8 +1,8 @@
 #ifndef STARTSCENE_HPP
 #define STARTSCENE_HPP
 
+#include <TGUI/TGUI.hpp>
 #include <memory>
-#include "../../TGUI/TGUI.hpp"
 #include "../SceneManager.hpp"
 #include "Scene.hpp"
 

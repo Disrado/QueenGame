@@ -1,8 +1,8 @@
 #ifndef PAUSESCENE_HPP
 #define PAUSESCENE_HPP
 
+#include <TGUI/TGUI.hpp>
 #include <memory>
-#include "../../TGUI/TGUI.hpp"
 #include "../SceneManager.hpp"
 
 class SceneManager;

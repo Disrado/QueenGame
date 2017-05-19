@@ -1,8 +1,8 @@
 #ifndef ENDSCENE_HPP
 #define ENDSCENE_HPP
 
+#include <TGUI/TGUI.hpp>
 #include <string>
-#include "../../TGUI/TGUI.hpp"
 #include "../SceneManager.hpp"
 #include "Scene.hpp"
 

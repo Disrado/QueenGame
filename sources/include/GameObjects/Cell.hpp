@@ -1,7 +1,7 @@
 #ifndef CELL_HPP
 #define CELL_HPP
 
-#include "../SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 #include "../ResourceManagment/ResourceManager.hpp"
 
 using namespace std;

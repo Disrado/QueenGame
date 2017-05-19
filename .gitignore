@@ -1,5 +1,5 @@
 # All build files
-linux_build/build/
+build/
 
 #Emacs NeoTree
 sources/ *NeoTree*

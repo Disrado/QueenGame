@@ -2,10 +2,10 @@
 #define RESOURCE_MANAGER_HPP
 
 #include <boost/filesystem.hpp>
+#include <SFML/Graphics.hpp>
+#include <TGUI/TGUI.hpp>
 #include <memory>
 #include <string>
-#include "../SFML/Graphics.hpp"
-#include "../TGUI/TGUI.hpp"
 
 class ResourceManager
 {

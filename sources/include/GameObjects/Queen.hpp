@@ -1,8 +1,8 @@
 #ifndef QUEEN_HPP
 #define QUEEN_HPP
 
+#include <SFML/Graphics.hpp>
 #include <cmath>
-#include "../SFML/Graphics.hpp"
 #include "../ResourceManagment/ResourceManager.hpp"
 #include "Cell.hpp"
 
