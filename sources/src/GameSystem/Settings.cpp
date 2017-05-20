@@ -2,15 +2,13 @@
 
 Settings::Settings()
 {
-    boardSize = 8;
-    turnHelpSwitch = Switch::On;
-    opponentType = OpponentType::player;
+    firstPlayerName = "";
+    secondPlayerName = "";
+    opponentType = OpponentType::bot;
     level = DifficultyLevel::Easy;
-}
-
-int Settings::getBoardSize()
-{
-    return boardSize;
+    turnHelpSwitch = Switch::On;
+    boardSize = 4;
+    music = Switch::On;
 }
 
 Settings& Settings::getInstance()
@@ -19,9 +17,18 @@ Settings& Settings::getInstance()
     return instance;
 }
 
-void Settings::enableTurnHelp()
+bool Settings::isMusicEnabled() const
 {
-    turnHelpSwitch = Switch::On;
+    if(music == Switch::On)
+        return true;
+    return false;
+}
+
+bool Settings::isHelpEnabled() const
+{
+    if(turnHelpSwitch == Switch::On)
+        return true;
+    return false;
 }
 
 void Settings::disableTurnHelp()
@@ -29,26 +36,19 @@ void Settings::disableTurnHelp()
     turnHelpSwitch = Switch::Off;
 }
 
-bool Settings::isHelpEnabled()
+void Settings::enableTurnHelp()
 {
-    if(turnHelpSwitch == Switch::On)
-        return true;
-    return false;
+    turnHelpSwitch = Switch::On;
 }
 
-void Settings::setBoardSize(int _boardSize)
+void Settings::disableMusic()
 {
-    boardSize = _boardSize;
+    music = Switch::Off;
 }
 
-void Settings::setOpponentType(OpponentType _type)
+void Settings::enableMusic()
 {
-    opponentType = _type;
-}
-
-OpponentType Settings::getOpponentType()
-{
-    return opponentType;
+    music = Switch::On;
 }
 
 void Settings::setDifficultyLevel(DifficultyLevel _level)
@@ -56,7 +56,27 @@ void Settings::setDifficultyLevel(DifficultyLevel _level)
     level = _level;
 }
 
-DifficultyLevel Settings::getDifficultyLevel()
+void Settings::setOpponentType(OpponentType _type)
+{
+    opponentType = _type;
+}
+
+void Settings::setBoardSize(int _boardSize)
+{
+    boardSize = _boardSize;
+}
+
+DifficultyLevel Settings::getDifficultyLevel() const
 {
     return level;
+}
+
+OpponentType Settings::getOpponentType() const
+{
+    return opponentType;
+}
+
+int Settings::getBoardSize() const
+{
+    return boardSize;
 }

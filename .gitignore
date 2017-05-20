@@ -1,6 +1,6 @@
 # All build files
 build/
-bin/*
+bin/
 
 #Emacs NeoTree
 sources/ *NeoTree*

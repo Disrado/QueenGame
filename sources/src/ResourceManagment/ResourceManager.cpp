@@ -6,12 +6,12 @@ ResourceManager& ResourceManager::getInstance()
     return instance;
 }
 
-void ResourceManager::loadTexturesFromDirectory(const std::string& _pathToFiles)
+void ResourceManager::loadTexturesFromDirectory(const std::string& _pathToTextures)
 {
     using namespace boost::filesystem;
     
     std::string valid_extension(".png");
-    path pathToFiles = system_complete(_pathToFiles);
+    path pathToFiles = system_complete(_pathToTextures);
     
     for(directory_iterator it (pathToFiles); it != directory_iterator(); ++it) {
         if(is_regular_file(it->status()) && (it->path().extension() == valid_extension)) {
@@ -25,12 +25,31 @@ void ResourceManager::loadTexturesFromDirectory(const std::string& _pathToFiles)
     }
 }
 
-void ResourceManager::loadFontsFromDirectory(const std::string& _pathToFiles)
+void ResourceManager::loadFontsFromDirectory(const std::string& _pathToFonts)
 {
     using namespace boost::filesystem;
     
     std::string valid_extension(".ttf");
-    path pathToFiles = system_complete(_pathToFiles);
+    path pathToFiles = system_complete(_pathToFonts);
+    
+    for(directory_iterator it (pathToFiles); it != directory_iterator(); ++it) {
+        if(is_regular_file(it->status()) && (it->path().extension() == valid_extension)) {
+            
+            auto font = std::make_shared<sf::Font>();
+            font->loadFromFile(it->path().string());
+            
+            std::string filename = cropExtension(it->path().filename().string());
+            fonts.insert(std::make_pair(filename, font));
+        }
+    }
+}
+
+void ResourceManager::loadMusicFromDirectory(const std::string& _pathToMusic)
+{
+    using namespace boost::filesystem;
+    
+    std::string valid_extension(".ttf");
+    path pathToFiles = system_complete(_pathToMusic);
     
     for(directory_iterator it (pathToFiles); it != directory_iterator(); ++it) {
         if(is_regular_file(it->status()) && (it->path().extension() == valid_extension)) {

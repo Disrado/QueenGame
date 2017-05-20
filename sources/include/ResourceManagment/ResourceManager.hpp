@@ -13,6 +13,7 @@ private:
     std::shared_ptr<tgui::Theme> guiTheme;
     std::map<std::string, std::shared_ptr<sf::Texture>> textures;
     std::map<std::string, std::shared_ptr<sf::Font>> fonts;
+    std::map<std::string, std::shared_ptr<sf::Font>> music;
     
 private:
     ResourceManager() {}
@@ -24,9 +25,10 @@ public:
     
     ResourceManager(const ResourceManager&) = delete;
     ResourceManager& operator=(const ResourceManager&) = delete;
-    
-    void loadTexturesFromDirectory(const std::string& pathToFiles);
-    void loadFontsFromDirectory(const std::string& pathToFiles);
+
+    void loadTexturesFromDirectory(const std::string& _pathToTextures);
+    void loadFontsFromDirectory(const std::string& _pathTofonts);
+    void loadMusicFromDirectory(const std::string& _pathToMusic);
     void loadGuiTheme(const std::string& _pathToTheme);
     
     std::shared_ptr<sf::Texture> createVoidTexture(const std::string& _textureName);

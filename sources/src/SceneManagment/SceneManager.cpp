@@ -89,6 +89,12 @@ void SceneManager::replaceCurrentScene(Scenes _newScene)
     currentSceneType = _newScene;
 }
 
+void SceneManager::updateSettingsScene()
+{
+    delete currentScene;
+    currentScene = this->createScene(Scenes::Settings);
+}
+
 Scenes SceneManager::getCurrentSceneType()
 {
     return currentSceneType ;

@@ -6,6 +6,7 @@ PrePlayScene::PrePlayScene(const sf::Vector2u& _windowSize, tgui::Gui* _gui, Sce
     background->setScale(_windowSize.x / background->getLocalBounds().width,
                          _windowSize.y / background->getLocalBounds().height);
 
+    createLabels(_windowSize);
     createOpponentTypeTab(_windowSize);
     createBoardSizeTab(_windowSize);
     createBotLvlTab(_windowSize);
@@ -22,6 +23,33 @@ PrePlayScene::~PrePlayScene()
     gui->remove(botLvlTab);
 }
 
+void PrePlayScene::createLabels(const sf::Vector2u& _windowSize)
+{
+    opponentTypeLbl = std::make_shared<sf::Text>("Opponent type", *(ResourceManager::getInstance().getFont("KarnacOne")));
+    opponentTypeLbl->setCharacterSize(_windowSize.y / 16);
+    opponentTypeLbl->setOutlineThickness(3.0);
+    opponentTypeLbl->setFillColor(sf::Color::Black);
+    opponentTypeLbl->setOutlineColor(sf::Color::Red);
+    opponentTypeLbl->setPosition(_windowSize.x / 2 - opponentTypeLbl->getLocalBounds().width - _windowSize.x / 60,
+                                 _windowSize.y * 1/4);
+
+    boardSizeLbl = std::make_shared<sf::Text>("Board Size", *(ResourceManager::getInstance().getFont("KarnacOne")));
+    boardSizeLbl->setCharacterSize(_windowSize.y / 16);
+    boardSizeLbl->setOutlineThickness(3.0);
+    boardSizeLbl->setFillColor(sf::Color::Black);
+    boardSizeLbl->setOutlineColor(sf::Color::Red);
+    boardSizeLbl->setPosition(_windowSize.x / 2 - boardSizeLbl->getLocalBounds().width - _windowSize.x / 60,
+                              opponentTypeLbl->getPosition().y + _windowSize.y / 8);
+
+    botLvlLbl = std::make_shared<sf::Text>("Bot lvl", *(ResourceManager::getInstance().getFont("KarnacOne")));
+    botLvlLbl->setCharacterSize(_windowSize.y / 16);
+    botLvlLbl->setOutlineThickness(3.0);
+    botLvlLbl->setFillColor(sf::Color::Black);
+    botLvlLbl->setOutlineColor(sf::Color::Red);
+    botLvlLbl->setPosition(_windowSize.x / 2 - botLvlLbl->getLocalBounds().width - _windowSize.x / 60,
+                           boardSizeLbl->getPosition().y + _windowSize.y / 8);
+}
+
 void PrePlayScene::createOpponentTypeTab(const sf::Vector2u& _windowSize)
 {
     opponentTypeTab = ResourceManager::getInstance().getGuiTheme()->load("Tab");
@@ -32,29 +60,50 @@ void PrePlayScene::createOpponentTypeTab(const sf::Vector2u& _windowSize)
         opponentTypeTab->select(0);
     else
         opponentTypeTab->select(1);
+
+    opponentTypeTab->setTabHeight(_windowSize.y / 16);
     
-    opponentTypeTab->setPosition((_windowSize.x / 2), (_windowSize.y / 2) + 80);
-    opponentTypeTab->connect("tabselected", [tab = opponentTypeTab] {
-            Settings::getInstance().setOpponentType((tab->getSelected() == "Player") ?
-                                                    OpponentType::player : OpponentType::bot); });
+    opponentTypeTab->setPosition(_windowSize.x / 2 + _windowSize.x / 60,
+                                 opponentTypeLbl->getPosition().y + opponentTypeLbl->getLocalBounds().height / 4 );
+    
+    opponentTypeTab->connect("tabselected", [this, tab = opponentTypeTab] {
+            Settings::getInstance().setOpponentType((tab->getSelected() == "Player") ? OpponentType::player : OpponentType::bot);
+            if(tab->getSelected() == "Player") {
+                botLvlLbl->setString("");
+                botLvlTab->hide();
+            } else {
+                botLvlLbl->setString("Bot lvl");
+                botLvlTab->show();  
+            }});
+    
      gui->add(opponentTypeTab);
 }
 
 void PrePlayScene::createBoardSizeTab(const sf::Vector2u& _windowSize)
 {
     boardSizeTab = ResourceManager::getInstance().getGuiTheme()->load("Tab");
-    boardSizeTab->insert(6, " 6 ", false);
-    boardSizeTab->insert(8, " 8 ", false);
-    boardSizeTab->insert(10, " 10 ", false);
-    if(Settings::getInstance().getBoardSize() == 6)
-        boardSizeTab->select(6);
+    boardSizeTab->insert(0, " 4 ", false);
+    boardSizeTab->insert(1, " 6 ", false);
+    boardSizeTab->insert(2, " 8 ", false);
+    boardSizeTab->insert(3, " 10 ", false);
+    
+    if(Settings::getInstance().getBoardSize() == 4)
+        boardSizeTab->select(0);
+    else if(Settings::getInstance().getBoardSize() == 6)
+        boardSizeTab->select(1);
     else if(Settings::getInstance().getBoardSize() == 8)
-        boardSizeTab->select((unsigned int)8);
+        boardSizeTab->select(2);
     else
-        boardSizeTab->select(10);
-    boardSizeTab->setPosition((_windowSize.x / 2), (_windowSize.y / 2) + 40);  
+        boardSizeTab->select(3);
+
+    boardSizeTab->setTabHeight(_windowSize.y / 16);
+    
+    boardSizeTab->setPosition(_windowSize.x / 2 + _windowSize.x / 60,
+                              boardSizeLbl->getPosition().y +  + boardSizeLbl->getLocalBounds().height / 4);
+    
     boardSizeTab->connect("tabselected", [tab = boardSizeTab] {
             Settings::getInstance().setBoardSize(std::stoi(tab->getSelected().toAnsiString())); });
+    
     gui->add(boardSizeTab);
 }
 
@@ -64,6 +113,8 @@ void PrePlayScene::createBotLvlTab(const sf::Vector2u& _windowSize)
     botLvlTab->insert(0, "  Easy  ", false);
     botLvlTab->insert(1, " Medium ", false);
     botLvlTab->insert(2, "  Hard  ", false);
+
+    botLvlTab->setTabHeight(_windowSize.y / 16);
     
     if(Settings::getInstance().getDifficultyLevel() == DifficultyLevel::Easy)
         botLvlTab->select(0);
@@ -72,7 +123,9 @@ void PrePlayScene::createBotLvlTab(const sf::Vector2u& _windowSize)
     else
         botLvlTab->select(2);
         
-    botLvlTab->setPosition((_windowSize.x / 2), (_windowSize.y / 2) + 120);
+    botLvlTab->setPosition(_windowSize.x / 2 + _windowSize.x / 60,
+                           botLvlLbl->getPosition().y + botLvlLbl->getLocalBounds().height / 4);
+    
     botLvlTab->connect("tabselected", [tab = botLvlTab] {
             if(tab->getSelected() == "  Easy"  )
                 Settings::getInstance().setDifficultyLevel(DifficultyLevel::Easy);
@@ -80,6 +133,7 @@ void PrePlayScene::createBotLvlTab(const sf::Vector2u& _windowSize)
                 Settings::getInstance().setDifficultyLevel(DifficultyLevel::Medium);
             else
                 Settings::getInstance().setDifficultyLevel(DifficultyLevel::Hard); });
+    
     gui->add(botLvlTab);
 }
 
@@ -107,5 +161,8 @@ void PrePlayScene::createBackBtn(const sf::Vector2u& _windowSize)
 void PrePlayScene::draw(sf::RenderWindow* _renderWindow)
 {
     _renderWindow->draw(*background);
+    _renderWindow->draw(*opponentTypeLbl);
+    _renderWindow->draw(*boardSizeLbl);
+    _renderWindow->draw(*botLvlLbl);
     gui->draw();
 }

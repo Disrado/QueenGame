@@ -1,6 +1,7 @@
 #ifndef SETTINGS_HPP
 #define SETTINGS_HPP
 
+#include <SFML/System/Vector2.hpp>
 #include <string>
 
 enum DifficultyLevel { Easy, Medium, Hard };
@@ -10,12 +11,13 @@ enum Switch { On, Off };
 class Settings
 {
 private:
-    int boardSize;
-    Switch turnHelpSwitch; 
+    std::string secondPlayerName;
+    std::string firstPlayerName;
     OpponentType opponentType;
     DifficultyLevel level;
-    std::string firstPlayerName;
-    std::string secondPlayerName;
+    Switch turnHelpSwitch;
+    int boardSize;
+    Switch music;
 
 private:
     Settings();
@@ -27,16 +29,24 @@ public:
     Settings(Settings const&) = delete;
     Settings& operator= (Settings const&) = delete;
 
-    void enableTurnHelp();
+    bool isMusicEnabled() const;
+    bool isHelpEnabled() const;
+
     void disableTurnHelp();
-    bool isHelpEnabled();
+    void enableTurnHelp();
+    void disableMusic();
+    void enableMusic();
     
-    void setBoardSize(int _boardSize);
-    void setOpponentType(OpponentType _type);
     void setDifficultyLevel(DifficultyLevel _level);
-    int getBoardSize();
-    OpponentType getOpponentType();
-    DifficultyLevel getDifficultyLevel();
+    void setOpponentType(OpponentType _type);
+    void setBoardSize(int _boardSize);
+
+    DifficultyLevel getDifficultyLevel() const;
+    OpponentType getOpponentType() const;
+    int getBoardSize() const;
+
+
+
 };
 
 #endif //SETTINGS_HPP

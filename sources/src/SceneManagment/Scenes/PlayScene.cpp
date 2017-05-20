@@ -8,7 +8,7 @@ PlayScene::PlayScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneMana
     background->setColor(sf::Color(254, 254, 254, 180));
     
     playArbiter = new PlayArbiter(_smgr);    
-    board = new Board(_windowSize, 4/*Settings::getInstance().getBoardSize()*/);
+    board = new Board(_windowSize, Settings::getInstance().getBoardSize());
 
     createPauseBtn(_windowSize);
     createSecondPlayerName(_windowSize);
