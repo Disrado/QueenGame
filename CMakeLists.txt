@@ -16,7 +16,7 @@ set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/sources/)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin/)
 
 include_directories(${CMAKE_SOURCE_DIR}/extincludes/)
-include_directories(${CMAKE_SOURCE_DIR}/extincludes/)
+include_directories(${SFML_LIBRARIES_DIR})
 
 file( GLOB SOURCES "${SOURCE_DIR}/include/SceneManagment/Scenes/*.hpp"
   "${SOURCE_DIR}/include/ResourceManagment/*.hpp"
@@ -33,12 +33,12 @@ file( GLOB SOURCES "${SOURCE_DIR}/include/SceneManagment/Scenes/*.hpp"
   "${SOURCE_DIR}/src/GameSystem/*.cpp"
   "${SOURCE_DIR}/src/Logic/*.cpp")
 
-find_library( SFML_GRAPHICS    libsfml-graphics.so    ${SFML_LIBRARIES_DIR} )
-find_library( SFML_SYSTEM      libsfml-system.so      ${SFML_LIBRARIES_DIR} )
-find_library( SFML_WINDOW      libsfml-window.so      ${SFML_LIBRARIES_DIR} )
-find_library( TGUI             libtgui.so             ${TGUI_LIBRARIES_DIR} )
-find_library( BOOST_SYSTEM     libboost_system.so     ${BOOST_LIBRARIES_DIR} )
-find_library( BOOST_FILESYSTEM libboost_filesystem.so ${BOOST_LIBRARIES_DIR} )
+find_library( SFML_GRAPHICS sfml-graphics          ${SFML_LIBRARIES_DIR} )
+find_library( SFML_SYSTEM sfml-system              ${SFML_LIBRARIES_DIR} )
+find_library( SFML_WINDOW sfml-window              ${SFML_LIBRARIES_DIR} )
+find_library( TGUI tgui                         ${TGUI_LIBRARIES_DIR} )
+find_library( BOOST_SYSTEM boost_system         ${BOOST_LIBRARIES_DIR} )
+find_library( BOOST_FILESYSTEM boost_filesystem ${BOOST_LIBRARIES_DIR} )
 
 message( "\nCheckings libraries ..." )
 message( STATUS "   sfml_graphics: " ${SFML_GRAPHICS} )
@@ -49,14 +49,18 @@ message( STATUS "boost_filesystem: " ${BOOST_FILESYSTEM} )
 message( STATUS "    boost_system: " ${BOOST_SYSTEM} )
 message( "" )
 
+link_directories( ${SFML_LIBRARIES_DIR} )
+link_directories( ${TGUI_LIBRARIES_DIR} )
+link_directories( ${BOOST_LIBRARIES_DIR} ) 
+
+message(${SFML_LIBRARIES_DIR})
+message(${TGUI_LIBRARIES_DIR})
+
 set( CMAKE_CXX_FLAGS "-std=c++14 -Wall" )
 
 add_executable( run ${SOURCES} )
 
-target_link_libraries( run ${SFML_GRAPHICS}
-                           ${SFML_SYSTEM}
-                           ${SFML_WINDOW}
-                           ${TGUI}
-                           ${BOOST_FILESYSTEM}
-                           ${BOOST_SYSTEM} )
-			  
+target_link_libraries( run sfml-system sfml-window sfml-graphics )
+target_link_libraries( run tgui )
+target_link_libraries( run boost_system boost_filesystem)
+
