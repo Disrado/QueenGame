@@ -67,15 +67,15 @@ void PlayArbiter::turn(const sf::Vector2f& _mousePosition)
     smgr->getPlayScene()->setSecondPlayerScore(secondPlayer->getScore());
     smgr->getPlayScene()->setFirstPlayerScore(firstPlayer->getScore());
 
-    if(board->getAvailableCellCount() == 0) {
-        if(firstPlayer->getScore() > secondPlayer->getScore()) {
-            winnerName = firstPlayer->getName();
-            winnerScore = firstPlayer->getScore();
-        } else if(firstPlayer->getScore() < secondPlayer->getScore()) {
-            winnerName = secondPlayer->getName();
-            winnerScore = secondPlayer->getScore();
-        }
+    // if(board->getAvailableCellCount() == 0) {
+    //     if(firstPlayer->getScore() > secondPlayer->getScore()) {
+    //         winnerName = firstPlayer->getName();
+    //         winnerScore = firstPlayer->getScore();
+    //     } else if(firstPlayer->getScore() < secondPlayer->getScore()) {
+    //         winnerName = secondPlayer->getName();
+    //         winnerScore = secondPlayer->getScore();
+    //     }
         
-        smgr->replaceCurrentScene(Scenes::End);
-    }
+    //     smgr->replaceCurrentScene(Scenes::End);
+    // }
 }

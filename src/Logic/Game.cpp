@@ -28,6 +28,8 @@ Game::~Game()
 void Game::startLoop()
 {
     sf::Event event;
+    sf::Clock clock;
+    float loopTime;
     while (renderWindow->isOpen()) {
         
         while (renderWindow->pollEvent(event)) {
@@ -37,7 +39,12 @@ void Game::startLoop()
             gui->handleEvent(event);
             eventHandler->HandleUserActions(event);
         }
-	
+
+        loopTime = clock.getElapsedTime().asMicroseconds();
+        loopTime /= 80000;
+        clock.restart();
+
+        smgr->updateCurrentScene(loopTime);
         renderWindow->clear();
         smgr->drawScene();
         renderWindow->display();

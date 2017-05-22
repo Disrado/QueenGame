@@ -17,6 +17,7 @@ public:
     Scene(SceneManager* _smgr, tgui::Gui* _gui) : smgr(_smgr), gui(_gui)
     {}
     virtual ~Scene() { delete background; }
+    virtual void update(float _dTime) { }
     virtual void draw(sf::RenderWindow* _renderWindow) = 0;
 };
 

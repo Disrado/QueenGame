@@ -124,6 +124,11 @@ PlayArbiter* PlayScene::getPlayArbiter()
     return playArbiter;
 }
 
+void PlayScene::update(float _dTime)
+{
+    board->update(_dTime);
+}
+
 void PlayScene::draw(sf::RenderWindow* _renderWindow)
 {
     _renderWindow->draw(*background);

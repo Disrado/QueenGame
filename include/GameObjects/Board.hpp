@@ -6,7 +6,6 @@
 #include "Queen.hpp"
 #include "Cell.hpp"
 
-
 using namespace std;
 
 class Board
@@ -28,6 +27,7 @@ public:
     vector<Cell*> getAvailableCells(const sf::Vector2f& _queenPosition) const;
     const sf::Vector2f& getQueenPosition() const;
     void moveQueen(const sf::Vector2f& _newPosition);
+    void update(float _dTime);
     void draw(sf::RenderWindow* _renderWindow);
 };
 

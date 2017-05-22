@@ -89,12 +89,6 @@ void SceneManager::replaceCurrentScene(Scenes _newScene)
     currentSceneType = _newScene;
 }
 
-void SceneManager::updateSettingsScene()
-{
-    delete currentScene;
-    currentScene = this->createScene(Scenes::Settings);
-}
-
 Scenes SceneManager::getCurrentSceneType()
 {
     return currentSceneType ;
@@ -104,7 +98,12 @@ PlayScene* SceneManager::getPlayScene()
 {
     return playScene;
 }
-    
+
+void SceneManager::updateCurrentScene(float _dTime)
+{
+    currentScene->update(_dTime);
+}
+
 void SceneManager::drawScene()
 {
     currentScene->draw(renderWindow);

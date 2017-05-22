@@ -40,6 +40,7 @@ public:
     void setSecondPlayerScore(int _score);
     Board* getBoard();
     PlayArbiter* getPlayArbiter();
+    void update(float _dTime) override;
     void draw(sf::RenderWindow* _renderWindow) override;
 };
 

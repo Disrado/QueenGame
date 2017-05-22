@@ -14,7 +14,8 @@ private:
     std::map<std::string, std::shared_ptr<sf::Texture>> textures;
     std::map<std::string, std::shared_ptr<sf::Font>> fonts;
     std::map<std::string, std::shared_ptr<sf::Font>> music;
-    
+
+    // TODO: remove second "private"
 private:
     ResourceManager() {}
     ~ResourceManager() {}

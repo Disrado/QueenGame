@@ -14,13 +14,18 @@ private:
     sf::Vector2f position;
     int conqueredPoints;
     
+    Cell* cellToMove;
+    bool inMove;
+    
 public:
     Queen(const sf::Vector2f& _cellSize, Cell* _spawnCell);
     ~Queen();
     const sf::Vector2f& getPosition();
     int getConqueredPoints();
+    bool isMove();
     bool canMove(const sf::Vector2f& _queenPosition, Cell* targetCell);
     void move(Cell* targetCell);
+    void update(float _dTime);
     void draw(sf::RenderWindow* const window);
 };
 

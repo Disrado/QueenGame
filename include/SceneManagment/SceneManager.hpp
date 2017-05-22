@@ -25,7 +25,7 @@ class SceneManager
 private:
     sf::RenderWindow* renderWindow;
     tgui::Gui* gui;
-    PlayScene* playScene;
+    PlayScene* playScene;//because playscene live longer and need to other classes
     Scene* currentScene;
     Scenes currentSceneType;
 
@@ -35,9 +35,9 @@ private:
 public:
     SceneManager(sf::RenderWindow *_renderWindow, tgui::Gui *_gui);
     Scenes getCurrentSceneType();
-    PlayScene* getPlayScene(); //because playscene live longer and need to other classes
+    PlayScene* getPlayScene(); 
     void replaceCurrentScene(Scenes _newScene);
-    void updateSettingsScene(); //calling after change resolution on settings scene
+    void updateCurrentScene(float _dTime);
     void drawScene();
 };
 

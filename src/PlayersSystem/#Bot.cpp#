@@ -12,6 +12,10 @@ void Bot::turn(const sf::Vector2f& _newPosition, Board* _board)
     sf::Vector2f newPosition = sf::Vector2f();
     auto availableCells = _board->getAvailableCells(_board->getQueenPosition());
 
+    // TODO: if "draw" - show real score
+    // TODO: send getAvailableCells in Queen
+    // TODO: поюзать умные указатели в getAvailablecells
+    
     if(availableCells.size() == 1)
         newPosition = availableCells[0]->getCenterCoord();
     else

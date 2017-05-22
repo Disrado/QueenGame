@@ -1,4 +1,5 @@
 #include "../../include/GameObjects/Queen.hpp"
+#include <iostream>
 
 Queen::Queen(const sf::Vector2f& _cellSize, Cell* _spawnCell)
 {
@@ -14,6 +15,8 @@ Queen::Queen(const sf::Vector2f& _cellSize, Cell* _spawnCell)
     queenPicture->setPosition(position);
     _spawnCell->resetWeight();
 
+
+    inMove = false;
     conqueredPoints = 0;
 }
 
@@ -26,7 +29,7 @@ bool Queen::canMove(const sf::Vector2f& _queenPosition, Cell* _targetCell)
 {
     auto newPosition = _targetCell->getCenterCoord();
     
-    if(_queenPosition != newPosition && _targetCell->getWeight() != 0 &&
+    if(_queenPosition != newPosition && _targetCell->getWeight() != 0 && !inMove &&
        (newPosition.x == _queenPosition.x || newPosition.y == _queenPosition.y ||
         abs(newPosition.x - _queenPosition.x) == abs(newPosition.y - _queenPosition.y)))
        return  true;
@@ -37,10 +40,10 @@ bool Queen::canMove(const sf::Vector2f& _queenPosition, Cell* _targetCell)
 void Queen::move(Cell* _targetCell)
 {
     if(this->canMove(position, _targetCell)) {
-        position = _targetCell->getCenterCoord();
-        queenPicture->setPosition(position);
-        conqueredPoints = _targetCell->getWeight();
-        _targetCell->resetWeight();
+        inMove = true;
+        cellToMove = _targetCell;
+        //position = _targetCell->getCenterCoord();
+        //queenPicture->setPosition(position);
     }
 }
 
@@ -54,6 +57,29 @@ int Queen::getConqueredPoints()
     int points = conqueredPoints;
     conqueredPoints = 0;
     return points;
+}
+
+void Queen::update(float _dTime)
+{
+    float speed = 12.0;
+    
+    if(inMove) {
+        position += {(int)_dTime * speed, (int)-_dTime * speed};
+        queenPicture->setPosition(position);
+        
+        if(cellToMove->checkBelongs(position)) {
+            position = cellToMove->getCenterCoord();
+            queenPicture->setPosition(position);
+            conqueredPoints = cellToMove->getWeight();
+            cellToMove->resetWeight();
+            inMove = false;
+        }
+    }        
+}
+
+bool Queen::isMove()
+{
+    return inMove;
 }
 
 void Queen::draw(sf::RenderWindow* const window)

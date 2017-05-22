@@ -9,7 +9,7 @@ project(QueenGame)
 set(SFML_LIBRARIES_DIR ${CMAKE_SOURCE_DIR}/extlibs/SFML/)
 set(TGUI_LIBRARIES_DIR ${CMAKE_SOURCE_DIR}/extlibs/TGUI/)
 set(BOOST_LIBRARIES_DIR ${CMAKE_SOURCE_DIR}/extlibs/BOOST/)
-set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/sources/)
+set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin/)
 
 include_directories(${CMAKE_SOURCE_DIR}/extincludes/)

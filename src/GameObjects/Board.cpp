@@ -78,20 +78,23 @@ void Board::hightlightPossibleMoves()
 
 int Board::getAvailableCellCount()
 {
-    availableCellCount = 0;
-    
-    for(auto line : board)
-        for(auto cell : line)
-            if(queen->canMove(queen->getPosition(), cell))
-                availableCellCount++;
-
-    return availableCellCount;
+    if(queen->isMove()) {
+        availableCellCount = 0;
+        
+        for(auto line : board)
+            for(auto cell : line)
+                if(queen->canMove(queen->getPosition(), cell))
+                    availableCellCount++;
+        
+        return availableCellCount;
+    } else {
+        return 0;
+    }
 }
 
 vector<Cell*> Board::getAvailableCells(const sf::Vector2f& _queenPosition) const
 {
     vector<Cell*> availableCells = vector<Cell*>();
-    
     
     for(auto line : board)
         for(auto cell : line)
@@ -104,6 +107,11 @@ vector<Cell*> Board::getAvailableCells(const sf::Vector2f& _queenPosition) const
 const sf::Vector2f& Board::getQueenPosition() const
 {
     return queen->getPosition();
+}
+
+void Board::update(float _dTime)
+{
+    queen->update(_dTime);
 }
 
 void Board::draw(sf::RenderWindow* const _renderWindow)
