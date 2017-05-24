@@ -1,4 +1,4 @@
-#include "../../include/ResourceManagment/ResourceManager.hpp"
+#include "../../include/GameSystem/ResourceManager.hpp"
 
 ResourceManager& ResourceManager::getInstance()
 {

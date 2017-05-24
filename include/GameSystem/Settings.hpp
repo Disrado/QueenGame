@@ -19,7 +19,6 @@ private:
     int boardSize;
     Switch music;
 
-private:
     Settings();
     ~Settings() {}
     

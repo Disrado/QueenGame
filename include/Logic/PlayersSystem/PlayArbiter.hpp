@@ -1,8 +1,8 @@
 #ifndef PLAYARBITER_HPP
 #define PLAYARBITER_HPP
 
-#include "../SceneManagment/SceneManager.hpp"
-#include "../GameSystem/Settings.hpp"
+#include "../../SceneManagment/SceneManager.hpp"
+#include "../../GameSystem/Settings.hpp"
 #include "Player.hpp"
 #include "Bot.hpp"
 
@@ -20,6 +20,7 @@ private:
     CurrentTurn currentTurn;
     std::string winnerName;
     int winnerScore;
+    bool needTurn;
     
 public:
     PlayArbiter(SceneManager* _smgr);
@@ -28,6 +29,7 @@ public:
     int getSecondPlayerScore() const;
     const std::string& getWinnerName() const;
     int getWinnerScore() const;
+    void update(float _dTime);
     void turn(const sf::Vector2f& _mousePosition);
 };
 

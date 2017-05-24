@@ -4,9 +4,10 @@
 #include <TGUI/TGUI.hpp>
 #include <string>
 #include <memory>
-#include "../../PlayersSystem/PlayArbiter.hpp"
+#include "../../Logic/PlayersSystem/PlayArbiter.hpp"
 #include "../../GameSystem/Settings.hpp"
 #include "../../GameObjects/Board.hpp"
+#include "../../GameObjects/Queen.hpp"
 #include "../SceneManager.hpp"
 #include "Scene.hpp"
 
@@ -23,6 +24,7 @@ private:
     sf::Text* firstPlayerName;
     PlayArbiter* playArbiter;
     Board* board;
+    Queen* queen;
 
     void createPauseBtn(const sf::Vector2u& _windowSize);
     void createSecondPlayerScore(const sf::Vector2u& _windowSize);
@@ -36,8 +38,7 @@ public:
     ~PlayScene();
     void hideGui();
     void unhideGui();
-    void setFirstPlayerScore(int _score);
-    void setSecondPlayerScore(int _score);
+    Queen* getQueen();
     Board* getBoard();
     PlayArbiter* getPlayArbiter();
     void update(float _dTime) override;

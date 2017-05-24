@@ -7,6 +7,8 @@ EndScene::EndScene(const sf::Vector2u& _windowSize,
                    const int _winnerScore) : Scene(_smgr, _gui)
 {
     background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("chess_background")));
+    background->setScale(_windowSize.x / background->getLocalBounds().width,
+                         _windowSize.y / background->getLocalBounds().height);
 
     createWinnerNameLbl(_windowSize, _winnerName);
     createWinnerScoreLbl(_windowSize, _winnerScore);
@@ -23,8 +25,7 @@ EndScene::~EndScene()
 void EndScene::createWinnerNameLbl(const sf::Vector2u& _windowSize,
                                    const std::string& _winnerName)
 {
-    winnerNameLbl = new sf::Text((_winnerName == "") ? "Draw" : "Winner: " + _winnerName,
-                                 *(ResourceManager::getInstance().getFont("KarnacOne")));
+    winnerNameLbl = new sf::Text(_winnerName, *(ResourceManager::getInstance().getFont("KarnacOne")));
     winnerNameLbl->setCharacterSize(_windowSize.y / 10);
     winnerNameLbl->setOutlineThickness(3.0);
     winnerNameLbl->setFillColor(sf::Color::Black);

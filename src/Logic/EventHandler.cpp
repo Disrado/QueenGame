@@ -3,6 +3,7 @@
 EventHandler::EventHandler(SceneManager* _smgr) : smgr(_smgr)
 {}
 
+#include <iostream>
 void EventHandler::HandleUserActions(sf::Event& event)
 {
     if(event.type == sf::Event::MouseButtonPressed) {

@@ -1,27 +1,26 @@
-#include "../../include/PlayersSystem/Bot.hpp"
+#include "../../../include/Logic/PlayersSystem/Bot.hpp"
 
 Bot::Bot(const std::string& _name) : Player(_name)
 {
     hardLevel = Settings::getInstance().getDifficultyLevel();
 }
 
-void Bot::turn(const sf::Vector2f& _newPosition, Board* _board)
-{// _new Position is ignored
+void Bot::setPositionForTurn(const sf::Vector2f& _mousePosition, Queen* _queen)
+{
     int bestTempDiff = 0; //Biggest difference between two cells weights in one loop
     int bestTurnDiff = 0; //in all turn
-    sf::Vector2f newPosition = sf::Vector2f();
-    auto availableCells = _board->getAvailableCells(_board->getQueenPosition());
+    Cell* cellToMove = nullptr;
+    auto availableCells = _queen->getAvailableCells(_queen->getPosition());
 
     // TODO: if "draw" - show score
-    // TODO: send getAvailableCells in Queen
     // TODO: поюзать умные указатели в getAvailablecells
     
     if(availableCells.size() == 1)
-        newPosition = availableCells[0]->getCenterCoord();
+        cellToMove = availableCells[0];
     else
         for(auto cell : availableCells) {
-            auto nextAvailableCells = _board->getAvailableCells(cell->getCenterCoord());
-            
+            auto nextAvailableCells = _queen->getAvailableCells(cell->getCenterCoord());
+
             for(auto nextCell : nextAvailableCells) {
                 int cellDiff = cell->getWeight() - nextCell->getWeight();
                 if(cellDiff > bestTempDiff)
@@ -30,10 +29,23 @@ void Bot::turn(const sf::Vector2f& _newPosition, Board* _board)
 
             if(bestTurnDiff < bestTempDiff) {
                 bestTurnDiff = bestTempDiff;
-                newPosition = cell->getCenterCoord();
+                cellToMove = cell;
             }
         }
     
-    _board->moveQueen(newPosition);
-    score += _board->getQueenPoints();
+    positionForTurn = cellToMove->getCenterCoord();
+    finishTurn = false;
+}
+
+void Bot::turn(Board* _board, Queen* _queen)
+{
+   if(finishTurn)
+        return;
+
+   std::this_thread::sleep_for(400ms);
+
+   _queen->move(_board->getCellByCoord(positionForTurn));
+    score += _queen->getConqueredPoints();
+    
+    finishTurn = true;
 }

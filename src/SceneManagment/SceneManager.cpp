@@ -30,9 +30,9 @@ Scene* SceneManager::createScene(Scenes _sceneType)
         return (Scene*)new PrePlayScene(renderWindow->getSize(), gui, this);
         break;
     case Scenes::End:
-        return (Scene*)new EndScene(renderWindow->getSize(), gui, this,
-                                    playScene->getPlayArbiter()->getWinnerName(),
-                                    playScene->getPlayArbiter()->getWinnerScore());
+        return (Scene*)new EndScene(renderWindow->getSize(), gui, this, "AA", 10);
+                                    //playScene->getPlayArbiter()->getWinnerName(),
+                                    //playScene->getPlayArbiter()->getWinnerScore());
         break;
     }
 }

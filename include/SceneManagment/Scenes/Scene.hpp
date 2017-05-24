@@ -1,7 +1,7 @@
 #ifndef SCENE_HPP
 #define SCENE_HPP
 
-#include "../../ResourceManagment/ResourceManager.hpp"
+#include "../../GameSystem/ResourceManager.hpp"
 #include "../SceneManager.hpp"
 
 class SceneManager;

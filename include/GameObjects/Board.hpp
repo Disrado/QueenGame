@@ -2,8 +2,6 @@
 #define BOARD_HPP
 
 #include <vector>
-#include "../GameSystem/Settings.hpp"
-#include "Queen.hpp"
 #include "Cell.hpp"
 
 using namespace std;
@@ -12,21 +10,14 @@ class Board
 {
 private:
     vector<vector<Cell*>> board;
-    int availableCellCount;
-    Queen* queen;
-
-private:
-    void hightlightPossibleMoves();
-    
+    vector<Cell*> hightlightedCells;
+        
 public:
     Board(const sf::Vector2u& _windowSize, const int _numCellsPerLine);
     ~Board();
-    int getQueenPoints() const;
-    bool queenCanMove(const sf::Vector2f& _newPosition) const;
-    int getAvailableCellCount();
-    vector<Cell*> getAvailableCells(const sf::Vector2f& _queenPosition) const;
-    const sf::Vector2f& getQueenPosition() const;
-    void moveQueen(const sf::Vector2f& _newPosition);
+    Cell* getCellByCoord(const sf::Vector2f& _position) const;
+    const vector<vector<Cell*>>& getCells() const;
+    void hightlightPossibleMoves(const vector<Cell*>& _validCell);
     void update(float _dTime);
     void draw(sf::RenderWindow* _renderWindow);
 };

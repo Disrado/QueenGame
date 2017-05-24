@@ -9,12 +9,13 @@ PlayScene::PlayScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneMana
     
     playArbiter = new PlayArbiter(_smgr);    
     board = new Board(_windowSize, Settings::getInstance().getBoardSize());
+    queen = new Queen(board);
 
     createPauseBtn(_windowSize);
-    createSecondPlayerName(_windowSize);
     createFirstPlayerName(_windowSize);
-    createSecondPlayerScore(_windowSize);
+    createSecondPlayerName(_windowSize);
     createFirstPlayerScore(_windowSize);
+    createSecondPlayerScore(_windowSize);
 }
 
 PlayScene::~PlayScene()
@@ -25,6 +26,7 @@ PlayScene::~PlayScene()
     delete secondPlayerScore;
     delete playArbiter;
     delete board;
+    delete queen;
 
     gui->remove(pauseBtn);
 }
@@ -65,25 +67,28 @@ void PlayScene::createFirstPlayerScore(const sf::Vector2u& _windowSize)
                                   firstPlayerScore->getLocalBounds().width / 2,
                                   firstPlayerName->getPosition().y + firstPlayerScore->getLocalBounds().height * 2);
 }
+
+void PlayScene::createFirstPlayerName(const sf::Vector2u& _windowSize)
+{
+    firstPlayerName = new sf::Text("Player 1", *(ResourceManager::getInstance().getFont("KarnacOne")));
+    firstPlayerName->setCharacterSize(_windowSize.y / 10);
+    firstPlayerName->setPosition((_windowSize.x / 50 ), _windowSize.y * 5/9);
+    firstPlayerName->setOutlineThickness(3.0);
+    firstPlayerName->setFillColor(sf::Color::Black);
+    firstPlayerName->setOutlineColor(sf::Color::Red);
+}
+
 void PlayScene::createSecondPlayerName(const sf::Vector2u& _windowSize)
 {
     secondPlayerName = new sf::Text((Settings::getInstance().getOpponentType() == OpponentType::bot) ? "Bot" : "Player 2",
                                     *(ResourceManager::getInstance().getFont("KarnacOne")));
     secondPlayerName->setCharacterSize(_windowSize.y / 10);
+    secondPlayerName->setPosition(_windowSize.x - (_windowSize.x / 50 ) - firstPlayerName->getLocalBounds().width -
+                                  (secondPlayerName->getLocalBounds().width - firstPlayerName->getLocalBounds().width) / 2,
+                                  _windowSize.y * 5/9);
     secondPlayerName->setOutlineThickness(3.0);
     secondPlayerName->setFillColor(sf::Color::Black);
     secondPlayerName->setOutlineColor(sf::Color::Red);
-    secondPlayerName->setPosition(_windowSize.x - 40 - secondPlayerName->getLocalBounds().width, _windowSize.y * 5/9);
-}
-    
-void PlayScene::createFirstPlayerName(const sf::Vector2u& _windowSize)
-{
-    firstPlayerName = new sf::Text("Player 1", *(ResourceManager::getInstance().getFont("KarnacOne")));
-    firstPlayerName->setCharacterSize(_windowSize.y / 10);
-    firstPlayerName->setPosition(_windowSize.x - (_windowSize.x - 40), _windowSize.y * 5/9);
-    firstPlayerName->setOutlineThickness(3.0);
-    firstPlayerName->setFillColor(sf::Color::Black);
-    firstPlayerName->setOutlineColor(sf::Color::Red);
 }
 
 void PlayScene::hideGui()
@@ -95,28 +100,15 @@ void PlayScene::unhideGui()
 {
     pauseBtn->show();
 }
-    
-void PlayScene::setFirstPlayerScore(int _score)
-{
-    std::string score = std::to_string(_score);
-    while(score.size() < 4)
-        score = "0" + score;
-    
-    firstPlayerScore->setString(score);
-}
-
-void PlayScene::setSecondPlayerScore(int _score)
-{
-    std::string score = std::to_string(_score);
-    while(score.size() < 4)
-        score = "0" + score;
-    
-    secondPlayerScore->setString(score);
-}
 
 Board* PlayScene::getBoard()
 {
     return board;
+}
+
+Queen* PlayScene::getQueen()
+{
+    return queen;
 }
 
 PlayArbiter* PlayScene::getPlayArbiter()
@@ -126,7 +118,20 @@ PlayArbiter* PlayScene::getPlayArbiter()
 
 void PlayScene::update(float _dTime)
 {
-    board->update(_dTime);
+    queen->update(_dTime);
+
+    if(!queen->isMoving())
+        board->hightlightPossibleMoves(queen->getAvailableCells(queen->getPosition()));
+
+    playArbiter->update(_dTime);
+    
+    std::string score = std::to_string(playArbiter->getFirstPlayerScore());
+    while(score.size() < 4) score = "0" + score;
+    firstPlayerScore->setString(score);
+    
+    score = std::to_string(playArbiter->getSecondPlayerScore());
+    while(score.size() < 4) score = "0" + score;
+    secondPlayerScore->setString(score);
 }
 
 void PlayScene::draw(sf::RenderWindow* _renderWindow)
@@ -137,5 +142,6 @@ void PlayScene::draw(sf::RenderWindow* _renderWindow)
     _renderWindow->draw(*secondPlayerName);
     _renderWindow->draw(*secondPlayerScore);
     board->draw(_renderWindow);
+    queen->draw(_renderWindow);
     gui->draw();
 }

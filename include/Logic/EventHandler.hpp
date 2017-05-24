@@ -3,7 +3,7 @@
 
 #include "../SceneManagment/Scenes/PlayScene.hpp"
 #include "../SceneManagment/SceneManager.hpp"
-#include "../PlayersSystem/PlayArbiter.hpp"
+#include "PlayersSystem/PlayArbiter.hpp"
 
 class EventHandler
 {

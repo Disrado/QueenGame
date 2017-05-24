@@ -12,28 +12,28 @@ set(BOOST_LIBRARIES_DIR ${CMAKE_SOURCE_DIR}/extlibs/BOOST/)
 set(SOURCE_DIR ${CMAKE_SOURCE_DIR}/)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin/)
 
+#SGML-headers
 include_directories(${CMAKE_SOURCE_DIR}/extincludes/)
-include_directories(${SFML_LIBRARIES_DIR})
 
 link_directories(${SFML_LIBRARIES_DIR})
 link_directories(${TGUI_LIBRARIES_DIR})
 link_directories(${BOOST_LIBRARIES_DIR}) 
 
-file(GLOB SOURCES
-  "${SOURCE_DIR}/include/SceneManagment/Scenes/*.hpp"
-  "${SOURCE_DIR}/include/ResourceManagment/*.hpp"
-  "${SOURCE_DIR}/include/SceneManagment/*.hpp"
-  "${SOURCE_DIR}/include/PlayersSystem/*.hpp"
+file(GLOB HEADERS
   "${SOURCE_DIR}/include/GameObjects/*.hpp"
-  "${SOURCE_DIR}/include/GameSystem/*.hpp"
+  "${SOURCE_DIR}/include/SceneManagment/Scenes/*.hpp"
+  "${SOURCE_DIR}/include/SceneManagment/*.hpp"
   "${SOURCE_DIR}/include/Logic/*.hpp"
-  "${SOURCE_DIR}/src/SceneManagment/Scenes/*.cpp" 
-  "${SOURCE_DIR}/src/ResourceManagment/*.cpp"
-  "${SOURCE_DIR}/src/SceneManagment/*.cpp"
-  "${SOURCE_DIR}/src/PlayersSystem/*.cpp"
+  "${SOURCE_DIR}/include/Logic/PlayersSystem/*.hpp"
+  "${SOURCE_DIR}/include/GameSystem/*.hpp")
+
+file(GLOB SOURCES
   "${SOURCE_DIR}/src/GameObjects/*.cpp"
-  "${SOURCE_DIR}/src/GameSystem/*.cpp"
-  "${SOURCE_DIR}/src/Logic/*.cpp")
+  "${SOURCE_DIR}/src/SceneManagment/Scenes/*.cpp" 
+  "${SOURCE_DIR}/src/SceneManagment/*.cpp"
+  "${SOURCE_DIR}/src/Logic/*.cpp"
+  "${SOURCE_DIR}/src/Logic/PlayersSystem/*.cpp"
+  "${SOURCE_DIR}/src/GameSystem/*.cpp")
 
 find_library(SFML_GRAPHICS    sfml-graphics    ${SFML_LIBRARIES_DIR})
 find_library(SFML_SYSTEM      sfml-system      ${SFML_LIBRARIES_DIR})
@@ -55,7 +55,7 @@ set(CMAKE_CXX_FLAGS "-std=c++14 -Wall")
 
 file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
-add_executable(run ${SOURCES})
+add_executable(run ${SOURCES} ${HEADERS})
 
 target_link_libraries(run
   sfml-system

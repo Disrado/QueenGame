@@ -4,8 +4,7 @@ Cell::Cell()
 {
     layer = new sf::RectangleShape(sf::Vector2f());
     weightLabel = new sf::Text("", *(ResourceManager::getInstance().getFont("Kurale")));
-    //    weightLabel->setCharacterSize(60);
-    weightLabel->setOutlineThickness(1.0);
+        weightLabel->setOutlineThickness(1.0);
     weightLabel->setFillColor(sf::Color(50, 120, 100, 255));
     weightLabel->setOutlineColor(sf::Color(50, 100, 100, 255));
     
@@ -18,6 +17,16 @@ Cell::~Cell()
 {
     delete layer;
     delete weightLabel;
+}
+
+bool Cell::isHightLight() const
+{
+    return hightLight;
+}
+
+bool Cell::checkBelongs(const sf::Vector2f& _point) const
+{
+    return layer->getGlobalBounds().contains(_point.x, _point.y);	
 }
 
 void Cell::setSize(const sf::Vector2f& _size)
@@ -37,19 +46,16 @@ void Cell::setType(CellType _type)
         layer->setTexture(ResourceManager::getInstance().getTexture("white"));
 } 
 
-void Cell::setPosition(const float x, const float y)
+void Cell::setPosition(const sf::Vector2f& _newPosition)
 {
-    position = sf::Vector2f(x, y);
-    layer->setPosition(x, y);
+    position = sf::Vector2f(_newPosition);
+    layer->setPosition(_newPosition);
     
-    auto textRect = weightLabel->getLocalBounds();
-    
-    auto cell_center = sf::Vector2f(x + size.x / 2, y + size.y / 2);
-    auto text_center = sf::Vector2f(textRect.width / 2, textRect.height / 2);
+    auto cell_center = sf::Vector2f(_newPosition.x + size.x / 2, _newPosition.y + size.y / 2);
+    auto text_center = sf::Vector2f(weightLabel->getLocalBounds().width / 2,
+                                    weightLabel->getLocalBounds().height / 2);
     
     weightLabel->setOrigin(text_center.x, text_center.y);
-    //    weightLabel->setScale(1.2, 1.2);
-    
     weightLabel->setPosition(cell_center.x, cell_center.y - 15);
 }
                 
@@ -59,6 +65,8 @@ void Cell::showFrame()
         this->setTexture(ResourceManager::getInstance().getTexture("black_with_frame"));
     else
         this->setTexture(ResourceManager::getInstance().getTexture("white_with_frame"));
+
+    hightLight = true;
 }
 
 void Cell::disableFrame()
@@ -66,7 +74,9 @@ void Cell::disableFrame()
     if(this->cellType == CellType::Black)
         this->setTexture(ResourceManager::getInstance().getTexture("black"));
     else
-        this->setTexture(ResourceManager::getInstance().getTexture("white"));    
+        this->setTexture(ResourceManager::getInstance().getTexture("white"));
+
+    hightLight = false;
 }
 
 const int Cell::getWeight() const
@@ -105,11 +115,6 @@ void Cell::resetWeight()
 {
     weight = 0;
     weightLabel->setString("");
-}
-
-bool Cell::checkBelongs(const sf::Vector2f& _point) const
-{
-    return layer->getGlobalBounds().contains(_point.x, _point.y);	
 }
 
 void Cell::draw(sf::RenderWindow* const window)

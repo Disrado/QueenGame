@@ -2,7 +2,7 @@
 #define CELL_HPP
 
 #include <SFML/Graphics.hpp>
-#include "../ResourceManagment/ResourceManager.hpp"
+#include "../GameSystem/ResourceManager.hpp"
 
 using namespace std;
 
@@ -19,18 +19,21 @@ private:
     sf::Vector2f size;
     CellType cellType;
     int weight;
+    bool hightLight;
 
-private:
     void setTexture(sf::Texture* _newTexture);
     
 public:
     Cell();
     ~Cell();
 
+    bool isHightLight() const;
+    bool checkBelongs(const sf::Vector2f& _point) const;
+    
     void setWeight(const int);
     void setType(CellType _type);
     void setSize(const sf::Vector2f&);
-    void setPosition(const float, const float);
+    void setPosition(const sf::Vector2f& _newPosition);
 
     CellType getType() const;
     const int getWeight() const;
@@ -41,7 +44,6 @@ public:
     void resetWeight();
     void disableFrame();
     void draw(sf::RenderWindow* const);
-    bool checkBelongs(const sf::Vector2f& _point) const;
 };
 
 #endif //CELL_HPP

@@ -29,7 +29,6 @@ private:
     Scene* currentScene;
     Scenes currentSceneType;
 
-private:
     Scene* createScene(Scenes _sceneType);
     
 public:

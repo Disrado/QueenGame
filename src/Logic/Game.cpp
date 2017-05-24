@@ -41,7 +41,7 @@ void Game::startLoop()
         }
 
         loopTime = clock.getElapsedTime().asMicroseconds();
-        loopTime /= 80000;
+        loopTime /= 800;
         clock.restart();
 
         smgr->updateCurrentScene(loopTime);

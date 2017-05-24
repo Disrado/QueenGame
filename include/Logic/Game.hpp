@@ -1,9 +1,9 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include "../ResourceManagment/ResourceManager.hpp"
+#include "../GameSystem/ResourceManager.hpp"
 #include "../SceneManagment/SceneManager.hpp"
-#include "../PlayersSystem/PlayArbiter.hpp"
+#include "PlayersSystem/PlayArbiter.hpp"
 #include "EventHandler.hpp"
 
 const string PATH_TO_GUI_THEME = "../media/GUITheme/Black.txt";
