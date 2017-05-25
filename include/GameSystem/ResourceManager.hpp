@@ -3,17 +3,20 @@
 
 #include <BOOST/filesystem.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <TGUI/TGUI.hpp>
+#include <vector>
+#include <map>
 #include <memory>
 #include <string>
 
 class ResourceManager
 {
 private:
-    std::shared_ptr<tgui::Theme> guiTheme;
     std::map<std::string, std::shared_ptr<sf::Texture>> textures;
     std::map<std::string, std::shared_ptr<sf::Font>> fonts;
-    std::map<std::string, std::shared_ptr<sf::Font>> music;
+    std::vector<std::shared_ptr<sf::Music>> music;
+    std::shared_ptr<tgui::Theme> guiTheme;
     
     ResourceManager() {}
     ~ResourceManager() {}
@@ -32,9 +35,10 @@ public:
     
     std::shared_ptr<sf::Texture> createVoidTexture(const std::string& _textureName);
     void removeTexture(const std::string& _textureName);
-    
+
     sf::Texture* getTexture(const std::string& _textureName) const;
     sf::Font* getFont(const std::string& _fontName) const;
+    const std::vector<std::shared_ptr<sf::Music>>& getMusic() const;
     std::shared_ptr<tgui::Theme> getGuiTheme() const;
 };
 

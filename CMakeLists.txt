@@ -38,6 +38,7 @@ file(GLOB SOURCES
 find_library(SFML_GRAPHICS    sfml-graphics    ${SFML_LIBRARIES_DIR})
 find_library(SFML_SYSTEM      sfml-system      ${SFML_LIBRARIES_DIR})
 find_library(SFML_WINDOW      sfml-window      ${SFML_LIBRARIES_DIR})
+find_library(SFML_AUDIO      sfml-audio       ${SFML_LIBRARIES_DIR})
 find_library(TGUI             tgui             ${TGUI_LIBRARIES_DIR})
 find_library(BOOST_SYSTEM     boost_system     ${BOOST_LIBRARIES_DIR})
 find_library(BOOST_FILESYSTEM boost_filesystem ${BOOST_LIBRARIES_DIR})
@@ -45,7 +46,8 @@ find_library(BOOST_FILESYSTEM boost_filesystem ${BOOST_LIBRARIES_DIR})
 message("\nCheckings libraries ..." )
 message(STATUS "   sfml_graphics: " ${SFML_GRAPHICS})
 message(STATUS "     sfml_system: " ${SFML_SYSTEM})
-message(STATUS "     sfml_window: " ${SFML_WINDOW})   
+message(STATUS "     sfml_window: " ${SFML_WINDOW})
+message(STATUS "      sfml_audio: " ${SFML_AUDIO})   
 message(STATUS "            tgui: " ${TGUI})
 message(STATUS "boost_filesystem: " ${BOOST_FILESYSTEM})
 message(STATUS "    boost_system: " ${BOOST_SYSTEM})
@@ -61,6 +63,7 @@ target_link_libraries(run
   sfml-system
   sfml-window
   sfml-graphics
+  sfml-audio
   tgui
   boost_system
   boost_filesystem)

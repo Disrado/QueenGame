@@ -16,6 +16,8 @@ PlayScene::PlayScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneMana
     createSecondPlayerName(_windowSize);
     createFirstPlayerScore(_windowSize);
     createSecondPlayerScore(_windowSize);
+
+    MusicPlayer::getInstance().play();
 }
 
 PlayScene::~PlayScene()

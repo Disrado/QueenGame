@@ -48,8 +48,9 @@ void PrePlayScene::createLabels(const sf::Vector2u& _windowSize)
     botLvlLbl->setOutlineColor(sf::Color::Red);
     botLvlLbl->setPosition(_windowSize.x / 2 - botLvlLbl->getLocalBounds().width - _windowSize.x / 60,
                            boardSizeLbl->getPosition().y + _windowSize.y / 8);
+    if(Settings::getInstance().getOpponentType() == OpponentType::player)
+        botLvlLbl->setString("");
 }
-
 void PrePlayScene::createOpponentTypeTab(const sf::Vector2u& _windowSize)
 {
     opponentTypeTab = ResourceManager::getInstance().getGuiTheme()->load("Tab");
@@ -67,7 +68,9 @@ void PrePlayScene::createOpponentTypeTab(const sf::Vector2u& _windowSize)
                                  opponentTypeLbl->getPosition().y + opponentTypeLbl->getLocalBounds().height / 4 );
     
     opponentTypeTab->connect("tabselected", [this, tab = opponentTypeTab] {
-            Settings::getInstance().setOpponentType((tab->getSelected() == "Player") ? OpponentType::player : OpponentType::bot);
+            Settings::getInstance().setOpponentType((tab->getSelected() == "Player") ?
+                                                    OpponentType::player :
+                                                    OpponentType::bot);
             if(tab->getSelected() == "Player") {
                 botLvlLbl->setString("");
                 botLvlTab->hide();
@@ -108,7 +111,7 @@ void PrePlayScene::createBoardSizeTab(const sf::Vector2u& _windowSize)
 }
 
 void PrePlayScene::createBotLvlTab(const sf::Vector2u& _windowSize)
-{
+{   
     botLvlTab = ResourceManager::getInstance().getGuiTheme()->load("Tab");
     botLvlTab->insert(0, "  Easy  ", false);
     botLvlTab->insert(1, " Medium ", false);
@@ -135,6 +138,9 @@ void PrePlayScene::createBotLvlTab(const sf::Vector2u& _windowSize)
                 Settings::getInstance().setDifficultyLevel(DifficultyLevel::Hard); });
     
     gui->add(botLvlTab);
+
+    if(Settings::getInstance().getOpponentType() == OpponentType::player)
+        botLvlTab->hide();
 }
 
 void PrePlayScene::createStartBtn(const sf::Vector2u& _windowSize)

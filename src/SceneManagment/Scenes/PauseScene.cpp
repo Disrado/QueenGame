@@ -9,6 +9,7 @@ PauseScene::PauseScene(const sf::RenderWindow* _renderWindow, tgui::Gui* _gui, S
 
     createResumeBtn(_renderWindow->getSize());
     createExitBtn(_renderWindow->getSize());
+    MusicPlayer::getInstance().pause();
 }
 
 PauseScene::~PauseScene()
@@ -25,7 +26,11 @@ void PauseScene::createResumeBtn(const sf::Vector2u& _windowSize)
     resumeBtn->setPosition((_windowSize.x / 2) - (resumeBtn->getSize().x / 2),
                            (_windowSize.y / 2) - resumeBtn->getSize().y * 0.75);
     resumeBtn->setText("Resume");
-    resumeBtn->connect("mousereleased",[_smgr = smgr](){ _smgr->replaceCurrentScene(Scenes::Play); });
+    resumeBtn->connect("mousereleased",
+                       [_smgr = smgr](){
+                           _smgr->replaceCurrentScene(Scenes::Play);
+                           MusicPlayer::getInstance().play();
+                       });
     gui->add(resumeBtn);
 }
 

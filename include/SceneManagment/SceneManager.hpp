@@ -5,6 +5,7 @@
 #include "Scenes/SettingsScene.hpp"
 #include "Scenes/PrePlayScene.hpp"
 #include "Scenes/PauseScene.hpp"
+#include "Scenes/AboutScene.hpp"
 #include "Scenes/StartScene.hpp" 
 #include "Scenes/PlayScene.hpp"
 #include "Scenes/EndScene.hpp"
@@ -13,12 +14,13 @@
 class SettingsScene;
 class PrePlayScene;
 class StartScene;
+class AboutScene;
 class PauseScene;
 class PlayScene;
 class EndScene;
 class Scene;
 
-enum Scenes { Play, Start, Settings, Pause, PrePlay, End };
+enum Scenes { Play, Start, Settings, About, Pause, PrePlay, End };
 
 class SceneManager
 {

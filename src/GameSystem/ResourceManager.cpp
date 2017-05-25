@@ -17,10 +17,10 @@ void ResourceManager::loadTexturesFromDirectory(const std::string& _pathToTextur
         if(is_regular_file(it->status()) && (it->path().extension() == valid_extension)) {
             
             auto texture = std::make_shared<sf::Texture>();
-            texture->loadFromFile(it->path().string());
-            
-            std::string filename = cropExtension(it->path().filename().string());
-            textures.insert(std::make_pair(filename, texture));
+            if(texture->loadFromFile(it->path().string())) {
+                std::string filename = cropExtension(it->path().filename().string());
+                textures.insert(std::make_pair(filename, texture));
+            }
         }
     }
 }
@@ -36,10 +36,10 @@ void ResourceManager::loadFontsFromDirectory(const std::string& _pathToFonts)
         if(is_regular_file(it->status()) && (it->path().extension() == valid_extension)) {
             
             auto font = std::make_shared<sf::Font>();
-            font->loadFromFile(it->path().string());
-            
-            std::string filename = cropExtension(it->path().filename().string());
-            fonts.insert(std::make_pair(filename, font));
+            if(font->loadFromFile(it->path().string())) {
+                std::string filename = cropExtension(it->path().filename().string());
+                fonts.insert(std::make_pair(filename, font));
+            }
         }
     }
 }
@@ -48,17 +48,15 @@ void ResourceManager::loadMusicFromDirectory(const std::string& _pathToMusic)
 {
     using namespace boost::filesystem;
     
-    std::string valid_extension(".ttf");
+    std::string valid_extension(".wav");
     path pathToFiles = system_complete(_pathToMusic);
     
     for(directory_iterator it (pathToFiles); it != directory_iterator(); ++it) {
         if(is_regular_file(it->status()) && (it->path().extension() == valid_extension)) {
             
-            auto font = std::make_shared<sf::Font>();
-            font->loadFromFile(it->path().string());
-            
-            std::string filename = cropExtension(it->path().filename().string());
-            fonts.insert(std::make_pair(filename, font));
+            auto track = std::make_shared<sf::Music>();
+            if(track->openFromFile(it->path().string()))
+                music.push_back(track);
         }
     }
 }
@@ -103,6 +101,11 @@ sf::Font* ResourceManager::getFont(const std::string& _fontName) const
         return found->second.get();
     else
         return nullptr;
+}
+
+const std::vector<std::shared_ptr<sf::Music>>& ResourceManager::getMusic() const
+{
+    return music;
 }
 
 std::shared_ptr<tgui::Theme> ResourceManager::getGuiTheme() const

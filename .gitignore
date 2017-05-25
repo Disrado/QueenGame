@@ -1,6 +1,7 @@
 # All build files
 build/
 bin/
+media/music/
 
 #Emacs NeoTree
 sources/ *NeoTree*

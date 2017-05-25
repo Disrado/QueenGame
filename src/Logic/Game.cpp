@@ -11,8 +11,9 @@ Game::Game()
 
     ResourceManager::getInstance().loadTexturesFromDirectory(PATH_TO_PICTURES);
     ResourceManager::getInstance().loadFontsFromDirectory(PATH_TO_FONTS);
+    ResourceManager::getInstance().loadMusicFromDirectory(PATH_TO_MUSIC);
     ResourceManager::getInstance().loadGuiTheme(PATH_TO_GUI_THEME);
-
+        
     smgr = new SceneManager(renderWindow, gui);
     eventHandler = new EventHandler(smgr);
 }
@@ -25,7 +26,7 @@ Game::~Game()
     delete eventHandler;
 }
 
-void Game::startLoop()
+void Game::start()
 {
     sf::Event event;
     while (renderWindow->isOpen()) {
@@ -40,7 +41,8 @@ void Game::startLoop()
 
         renderWindow->clear();
         smgr->updateCurrentScene();
+        MusicPlayer::getInstance().update();
         smgr->drawScene();
         renderWindow->display();
-    }    
+    }
 }

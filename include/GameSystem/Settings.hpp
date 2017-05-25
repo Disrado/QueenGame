@@ -2,7 +2,11 @@
 #define SETTINGS_HPP
 
 #include <SFML/System/Vector2.hpp>
+#include <iostream>
+#include <fstream>
 #include <string>
+
+const std::string PATH_TO_SETTINGS_FILE = "../settings/SETTINGS.DAT";
 
 enum DifficultyLevel { Easy, Medium, Hard };
 enum OpponentType { player, bot };
@@ -16,36 +20,39 @@ private:
     OpponentType opponentType;
     DifficultyLevel level;
     Switch turnHelpSwitch;
-    int boardSize;
+    float musicVolume;
     Switch music;
+    int boardSize;
 
     Settings();
-    ~Settings() {}
+    ~Settings() { writeSettingsToFile(); }
+
+    void writeSettingsToFile() const;
+    void readSettingsFromFile();
     
 public:
     static Settings& getInstance();
 
-    Settings(Settings const&) = delete;
     Settings& operator= (Settings const&) = delete;
-
+    Settings(Settings const&) = delete;
+    
     bool isMusicEnabled() const;
     bool isHelpEnabled() const;
-
+    
     void disableTurnHelp();
     void enableTurnHelp();
     void disableMusic();
     void enableMusic();
-    
+
     void setDifficultyLevel(DifficultyLevel _level);
     void setOpponentType(OpponentType _type);
+    void setMusicVolume(float _volume);
     void setBoardSize(int _boardSize);
-
+    
     DifficultyLevel getDifficultyLevel() const;
+    float getMusicVolume() const;
     OpponentType getOpponentType() const;
     int getBoardSize() const;
-
-
-
 };
 
 #endif //SETTINGS_HPP

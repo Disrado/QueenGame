@@ -5,6 +5,7 @@
 #include <string>
 #include <memory>
 #include "../../Logic/PlayersSystem/PlayArbiter.hpp"
+#include "../../GameSystem/MusicPlayer.hpp"
 #include "../../GameSystem/Settings.hpp"
 #include "../../GameObjects/Board.hpp"
 #include "../../GameObjects/Queen.hpp"

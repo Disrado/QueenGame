@@ -12,14 +12,17 @@ class SceneManager;
 class SettingsScene : public Scene
 {
 private:
+    std::shared_ptr<tgui::Slider> volumeSlider;
     std::shared_ptr<tgui::Tab> musicSwitchTab;
     std::shared_ptr<tgui::Tab> helpSwitchTab;
     std::shared_ptr<tgui::Button> backBtn;
+    std::shared_ptr<sf::Text> volumeLbl;
     std::shared_ptr<sf::Text> musicLbl;
     std::shared_ptr<sf::Text> helpLbl;
-    
+
     void createMusicSwitchTab(const sf::Vector2u& _windowSize);
     void createHelpSwitchTab(const sf::Vector2u& _windowSize);
+    void createVolumeSlider(const sf::Vector2u& _windowSize);
     void createBackButton(const sf::Vector2u& _windowSize);
     void createLabels(const sf::Vector2u& _windowSize);
     

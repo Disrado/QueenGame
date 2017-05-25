@@ -16,18 +16,21 @@ Scene* SceneManager::createScene(Scenes _sceneType)
     case Scenes::Start:
         return (Scene*)new StartScene(renderWindow->getSize(), gui, this);
         break;
-    case Scenes::Play:
-        playScene = new PlayScene(renderWindow->getSize(), gui, this);
-        return (Scene*)playScene;
+    case Scenes::PrePlay:
+        return (Scene*)new PrePlayScene(renderWindow->getSize(), gui, this);
         break;
     case Scenes::Settings:
         return (Scene*)new SettingsScene(renderWindow->getSize(), gui, this);
         break;
+    case Scenes::About:
+        return (Scene*)new AboutScene(renderWindow->getSize(), gui, this);
+        break;
+    case Scenes::Play:
+        playScene = new PlayScene(renderWindow->getSize(), gui, this);
+        return (Scene*)playScene;
+        break;
     case Scenes::Pause:
         return (Scene*)new PauseScene(renderWindow, gui, this);
-        break;
-    case Scenes::PrePlay:
-        return (Scene*)new PrePlayScene(renderWindow->getSize(), gui, this);
         break;
     case Scenes::End:
         return (Scene*)new EndScene(renderWindow->getSize(), gui, this,
@@ -53,6 +56,16 @@ void SceneManager::replaceCurrentScene(Scenes _newScene)
         delete currentScene;
         currentScene = this->createScene(Scenes::PrePlay);
         break;
+
+    case::Scenes::Settings:
+        delete currentScene;
+        currentScene = this->createScene(Scenes::Settings);
+        break;
+        
+    case::Scenes::About:
+        delete currentScene;
+        currentScene = this->createScene(Scenes::About);
+        break;
         
     case::Scenes::Play:
         if(currentSceneType == Scenes::Pause) {
@@ -64,12 +77,7 @@ void SceneManager::replaceCurrentScene(Scenes _newScene)
             currentScene = this->createScene(Scenes::Play);
         }
         break;
-        
-    case::Scenes::Settings:
-        delete currentScene;
-        currentScene = this->createScene(Scenes::Settings);
-        break;
-        
+
     case::Scenes::Pause:
         if(currentSceneType == Scenes::Pause || currentSceneType != Scenes::Play)
             break;
