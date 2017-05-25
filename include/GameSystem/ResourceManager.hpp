@@ -1,0 +1,41 @@
+#ifndef RESOURCE_MANAGER_HPP
+#define RESOURCE_MANAGER_HPP
+
+#include <BOOST/filesystem.hpp>
+#include <SFML/Graphics.hpp>
+#include <TGUI/TGUI.hpp>
+#include <memory>
+#include <string>
+
+class ResourceManager
+{
+private:
+    std::shared_ptr<tgui::Theme> guiTheme;
+    std::map<std::string, std::shared_ptr<sf::Texture>> textures;
+    std::map<std::string, std::shared_ptr<sf::Font>> fonts;
+    std::map<std::string, std::shared_ptr<sf::Font>> music;
+    
+    ResourceManager() {}
+    ~ResourceManager() {}
+    std::string cropExtension(const std::string& _fileName) const;
+    
+public:
+    static ResourceManager& getInstance();
+    
+    ResourceManager(const ResourceManager&) = delete;
+    ResourceManager& operator=(const ResourceManager&) = delete;
+
+    void loadTexturesFromDirectory(const std::string& _pathToTextures);
+    void loadFontsFromDirectory(const std::string& _pathTofonts);
+    void loadMusicFromDirectory(const std::string& _pathToMusic);
+    void loadGuiTheme(const std::string& _pathToTheme);
+    
+    std::shared_ptr<sf::Texture> createVoidTexture(const std::string& _textureName);
+    void removeTexture(const std::string& _textureName);
+    
+    sf::Texture* getTexture(const std::string& _textureName) const;
+    sf::Font* getFont(const std::string& _fontName) const;
+    std::shared_ptr<tgui::Theme> getGuiTheme() const;
+};
+
+#endif //RESOURCE_MANGER_HPP
