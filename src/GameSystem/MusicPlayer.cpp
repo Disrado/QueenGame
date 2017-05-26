@@ -33,15 +33,16 @@ void MusicPlayer::update()
     if(Settings::getInstance().isMusicEnabled() && currentState == State::Playing) {
         if(playList[currentTrack]->getStatus() != sf::SoundSource::Status::Playing) {
             playList[currentTrack]->play();
-            if(playList[currentTrack]->getStatus() != sf::SoundSource::Status::Playing)
-				if (currentTrack < playList.size() - 1) {
-					playList[currentTrack]->setPlayingOffset(sf::Time::Zero);
-					playList[++currentTrack]->play();
-				} else {
-					playList[currentTrack]->setPlayingOffset(sf::Time::Zero);
-					currentTrack = 0;
-					playList[++currentTrack]->play();
-				}
+            if(playList[currentTrack]->getStatus() != sf::SoundSource::Status::Playing) {
+                if (currentTrack < playList.size() - 1) {
+                    playList[currentTrack]->setPlayingOffset(sf::Time::Zero);
+                    playList[++currentTrack]->play();
+                } else {
+                    playList[currentTrack]->setPlayingOffset(sf::Time::Zero);
+                    currentTrack = 0;
+                    playList[++currentTrack]->play();
+                }
+            }
         }
     } else {
         playList[currentTrack]->pause();

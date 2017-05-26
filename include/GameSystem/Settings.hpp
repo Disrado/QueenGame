@@ -6,7 +6,7 @@
 #include <fstream>
 #include <string>
 
-const std::string PATH_TO_SETTINGS_FILE = "../settings/SETTINGS.DAT";
+const std::string PATH_TO_SETTINGS_FILE = "../../settings/SETTINGS.DAT";
 
 enum DifficultyLevel { Easy, Medium, Hard };
 enum OpponentType { player, bot };

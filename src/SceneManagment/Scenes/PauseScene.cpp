@@ -1,16 +1,15 @@
 #include "../../../include/SceneManagment/Scenes/PauseScene.hpp"
 
-PauseScene::PauseScene(const sf::RenderWindow* _renderWindow, tgui::Gui* _gui, SceneManager* _smgr) : Scene(_smgr, _gui)
+PauseScene::PauseScene(const sf::RenderWindow* _renderWindow, tgui::Gui* _gui, SceneManager* _smgr)
+    : Scene(_smgr, _gui)
 {
-	auto windowCapture = ResourceManager::getInstance().createVoidTexture("PauseSceneBackground");
+    auto windowCapture = ResourceManager::getInstance().createVoidTexture("PauseSceneBackground");
     windowCapture->loadFromImage(_renderWindow->capture());
-    background = new sf::Sprite(*windowCapture);
+    background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("PauseSceneBackground")));
+    background->setScale(_renderWindow->getSize().x / background->getLocalBounds().width,
+                         _renderWindow->getSize().y / background->getLocalBounds().height);
     background->setColor(sf::Color(254, 254, 254, 50));
-
-	background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("PauseSceneBackground")));
-	background->setScale(_renderWindow->getSize().x / background->getLocalBounds().width,
-		_renderWindow->getSize().y / background->getLocalBounds().height);
-
+    
     createResumeBtn(_renderWindow->getSize());
     createExitBtn(_renderWindow->getSize());
     MusicPlayer::getInstance().pause();
@@ -18,7 +17,7 @@ PauseScene::PauseScene(const sf::RenderWindow* _renderWindow, tgui::Gui* _gui, S
 
 PauseScene::~PauseScene()
 {
-	MusicPlayer::getInstance().play();
+    MusicPlayer::getInstance().play();
     gui->remove(resumeBtn);
     gui->remove(exitBtn);
 }
