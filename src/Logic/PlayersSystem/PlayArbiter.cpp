@@ -55,13 +55,14 @@ void PlayArbiter::update()
             currentTurn = CurrentTurn::SecondPlayer;
             smgr->getPlayScene()->setFirstPlayerScore(firstPlayer->getScore());
         }
-    } else {
-        if(!secondPlayer->isFinishTurn()) {
-            secondPlayer->turn();
-            currentTurn = CurrentTurn::FirstPlayer;
-            smgr->getPlayScene()->setSecondPlayerScore(secondPlayer->getScore());
-        }
-    }
+	} else {
+		if (!secondPlayer->isFinishTurn()) {
+			secondPlayer->turn();
+			currentTurn = CurrentTurn::FirstPlayer;
+			smgr->getPlayScene()->setSecondPlayerScore(secondPlayer->getScore());
+		}
+	}
+
 	smgr->getPlayScene()->hightlightCells();
     
     if(queen->getAvailableCellCount(queen->getPosition()) == 0) {
@@ -84,7 +85,9 @@ void PlayArbiter::turn(const sf::Vector2f& _mousePosition)
 {
     Board* board = smgr->getPlayScene()->getBoard();
 
-    if(queen->canMove(queen->getPosition(), board->getCellByCoord(_mousePosition))) {
+    if(queen->canMove(queen->getPosition(), board->getCellByCoord(_mousePosition)) &&
+		firstPlayer->isFinishTurn() && secondPlayer->isFinishTurn()) {
+
         shared_ptr<Cell> cellToMove = board->getCellByCoord(_mousePosition);
 
         if(opponentType == OpponentType::bot) {
