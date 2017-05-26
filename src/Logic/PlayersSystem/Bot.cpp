@@ -1,4 +1,4 @@
-#include "../../include/Logic/PlayersSystem/Bot.hpp"
+#include "../../../include/Logic/PlayersSystem/Bot.hpp"
 
 Bot::Bot(const std::string& _name, Queen* _queen, DifficultyLevel _level) : Player(_name, _queen)
 {

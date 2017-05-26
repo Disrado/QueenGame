@@ -10,6 +10,8 @@
 #include <memory>
 #include <string>
 
+using namespace boost::filesystem;
+
 class ResourceManager
 {
 private:

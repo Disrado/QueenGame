@@ -22,6 +22,9 @@ PlayScene::PlayScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneMana
 
 PlayScene::~PlayScene()
 {
+	MusicPlayer::getInstance().pause();
+	MusicPlayer::getInstance().reset();
+
     delete firstPlayerName;
     delete secondPlayerName;
     delete firstPlayerScore;
@@ -144,8 +147,7 @@ PlayArbiter* PlayScene::getPlayArbiter() const
 
 void PlayScene::update()
 {
-    playArbiter->update();
-    this->hightlightCells();
+	playArbiter->update();
 }
 
 void PlayScene::draw(sf::RenderWindow* _renderWindow)

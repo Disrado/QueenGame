@@ -2,10 +2,14 @@
 
 PauseScene::PauseScene(const sf::RenderWindow* _renderWindow, tgui::Gui* _gui, SceneManager* _smgr) : Scene(_smgr, _gui)
 {
-    auto windowCapture = ResourceManager::getInstance().createVoidTexture("PauseSceneBackground");
+	auto windowCapture = ResourceManager::getInstance().createVoidTexture("PauseSceneBackground");
     windowCapture->loadFromImage(_renderWindow->capture());
     background = new sf::Sprite(*windowCapture);
     background->setColor(sf::Color(254, 254, 254, 50));
+
+	background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("PauseSceneBackground")));
+	background->setScale(_renderWindow->getSize().x / background->getLocalBounds().width,
+		_renderWindow->getSize().y / background->getLocalBounds().height);
 
     createResumeBtn(_renderWindow->getSize());
     createExitBtn(_renderWindow->getSize());
@@ -14,7 +18,7 @@ PauseScene::PauseScene(const sf::RenderWindow* _renderWindow, tgui::Gui* _gui, S
 
 PauseScene::~PauseScene()
 {
-    ResourceManager::getInstance().removeTexture("PauseSceneBackground");
+	MusicPlayer::getInstance().play();
     gui->remove(resumeBtn);
     gui->remove(exitBtn);
 }
@@ -27,10 +31,7 @@ void PauseScene::createResumeBtn(const sf::Vector2u& _windowSize)
                            (_windowSize.y / 2) - resumeBtn->getSize().y * 0.75);
     resumeBtn->setText("Resume");
     resumeBtn->connect("mousereleased",
-                       [_smgr = smgr](){
-                           _smgr->replaceCurrentScene(Scenes::Play);
-                           MusicPlayer::getInstance().play();
-                       });
+                       [_smgr = smgr](){ _smgr->replaceCurrentScene(Scenes::Play); });
     gui->add(resumeBtn);
 }
 

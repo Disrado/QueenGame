@@ -8,10 +8,10 @@
 #include "../GameSystem/Settings.hpp"
 #include "EventHandler.hpp"
 
-const std::string PATH_TO_GUI_THEME = "../media/GUITheme/Black.txt";
-const std::string PATH_TO_PICTURES = "../media/pictures/";
-const std::string PATH_TO_MUSIC = "../media/music/";
-const std::string PATH_TO_FONTS = "../media/fonts/";
+const std::string PATH_TO_GUI_THEME = "../../media/GUITheme/Black.txt";
+const std::string PATH_TO_PICTURES = "../../media/pictures/";
+const std::string PATH_TO_MUSIC = "../../media/music/";
+const std::string PATH_TO_FONTS = "../../media/fonts/";
 
 class Game
 {

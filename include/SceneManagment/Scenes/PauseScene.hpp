@@ -4,6 +4,7 @@
 #include <TGUI/TGUI.hpp>
 #include <memory>
 #include "../SceneManager.hpp"
+#include "../../GameSystem/ResourceManager.hpp"
 
 class SceneManager;
 

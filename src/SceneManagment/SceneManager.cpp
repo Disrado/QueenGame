@@ -10,32 +10,34 @@ SceneManager::SceneManager(sf::RenderWindow *_renderWindow, tgui::Gui *_gui)
     currentSceneType = Scenes::Start;
 }
 
-Scene* SceneManager::createScene(Scenes _sceneType)
+shared_ptr<Scene> SceneManager::createScene(Scenes _sceneType)
 {
     switch (_sceneType) {
     case Scenes::Start:
-        return (Scene*)new StartScene(renderWindow->getSize(), gui, this);
+		if (currentSceneType == Scenes::Pause)
+			playScene.reset();
+        return shared_ptr<Scene>((Scene*)new StartScene(renderWindow->getSize(), gui, this));
         break;
     case Scenes::PrePlay:
-        return (Scene*)new PrePlayScene(renderWindow->getSize(), gui, this);
+        return shared_ptr<Scene>((Scene*)new PrePlayScene(renderWindow->getSize(), gui, this));
         break;
     case Scenes::Settings:
-        return (Scene*)new SettingsScene(renderWindow->getSize(), gui, this);
+        return shared_ptr<Scene>((Scene*)new SettingsScene(renderWindow->getSize(), gui, this));
         break;
     case Scenes::About:
-        return (Scene*)new AboutScene(renderWindow->getSize(), gui, this);
+        return shared_ptr<Scene>((Scene*)new AboutScene(renderWindow->getSize(), gui, this));
         break;
     case Scenes::Play:
-        playScene = new PlayScene(renderWindow->getSize(), gui, this);
-        return (Scene*)playScene;
+        playScene = shared_ptr<PlayScene>(new PlayScene(renderWindow->getSize(), gui, this));
+        return (shared_ptr<Scene>)playScene;
         break;
     case Scenes::Pause:
-        return (Scene*)new PauseScene(renderWindow, gui, this);
+        return shared_ptr<Scene>((Scene*)new PauseScene(renderWindow, gui, this));
         break;
     case Scenes::End:
-        return (Scene*)new EndScene(renderWindow->getSize(), gui, this,
+        return shared_ptr<Scene>((Scene*)new EndScene(renderWindow->getSize(), gui, this,
                                     playScene->getPlayArbiter()->getWinnerName(),
-                                    playScene->getPlayArbiter()->getWinnerScore());
+                                    playScene->getPlayArbiter()->getWinnerScore()));
         break;
     }
 }
@@ -44,37 +46,27 @@ void SceneManager::replaceCurrentScene(Scenes _newScene)
 {
     switch(_newScene) {
     case::Scenes::Start:
-        if(currentSceneType == Scenes::Play) {
-            delete playScene;
-        } else {
-            delete currentScene;
-            currentScene = this->createScene(Scenes::Start);
-        }
+            currentScene = std::move(this->createScene(Scenes::Start));
         break;
 
     case::Scenes::PrePlay:
-        delete currentScene;
-        currentScene = this->createScene(Scenes::PrePlay);
+        currentScene = std::move(this->createScene(Scenes::PrePlay));
         break;
 
     case::Scenes::Settings:
-        delete currentScene;
-        currentScene = this->createScene(Scenes::Settings);
+        currentScene = std::move(this->createScene(Scenes::Settings));
         break;
         
     case::Scenes::About:
-        delete currentScene;
-        currentScene = this->createScene(Scenes::About);
+        currentScene = std::move(this->createScene(Scenes::About));
         break;
         
     case::Scenes::Play:
         if(currentSceneType == Scenes::Pause) {
-            delete currentScene;
             currentScene = playScene;
             playScene->unhideGui();
         } else {
-            delete currentScene;
-            currentScene = this->createScene(Scenes::Play);
+            currentScene = std::move(this->createScene(Scenes::Play));
         }
         break;
 
@@ -83,14 +75,13 @@ void SceneManager::replaceCurrentScene(Scenes _newScene)
             break;
         else {
             playScene->hideGui();
-            currentScene = this->createScene(Scenes::Pause);
+            currentScene = std::move(this->createScene(Scenes::Pause));
         }
         break;
 
     case::Scenes::End:
-        auto scene = this->createScene(Scenes::End);
-        delete currentScene;
-        currentScene = std::move(scene);
+        currentScene = std::move(this->createScene(Scenes::End));
+		playScene.reset();
         currentSceneType = Scenes::End;
         break;
     }
@@ -105,12 +96,12 @@ Scenes SceneManager::getCurrentSceneType()
 
 PlayScene* SceneManager::getPlayScene()
 {
-    return playScene;
+    return playScene.get();
 }
 
 void SceneManager::updateCurrentScene()
 {
-    if(playScene)
+    if(currentSceneType == Scenes::Play)
         playScene->update();
 }
     

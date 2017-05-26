@@ -2,7 +2,7 @@
 
 Game::Game()
 {
-    renderWindow = new sf::RenderWindow({0,0},
+    renderWindow = new sf::RenderWindow({0, 0},
                                      "QueenGame",
                                      sf::Style::Fullscreen);
     renderWindow->setSize(renderWindow->getSize());

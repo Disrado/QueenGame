@@ -1,4 +1,4 @@
-#include "../../include/Logic/PlayersSystem/PlayArbiter.hpp"
+#include "../../../include/Logic/PlayersSystem/PlayArbiter.hpp"
 
 PlayArbiter::PlayArbiter(SceneManager* _smgr, Queen* _queen)
 {
@@ -62,6 +62,7 @@ void PlayArbiter::update()
             smgr->getPlayScene()->setSecondPlayerScore(secondPlayer->getScore());
         }
     }
+	smgr->getPlayScene()->hightlightCells();
     
     if(queen->getAvailableCellCount(queen->getPosition()) == 0) {
         if(firstPlayer->getScore() > secondPlayer->getScore()) {
@@ -74,7 +75,7 @@ void PlayArbiter::update()
             winnerName = "Draw";
             winnerScore = firstPlayer->getScore();
         }
-        
+		std::this_thread::sleep_for((std::chrono::milliseconds(500)));
         smgr->replaceCurrentScene(Scenes::End);
     }
 }

@@ -1,6 +1,7 @@
 #ifndef PLAYARBITER_HPP
 #define PLAYARBITER_HPP
 
+#include <chrono>
 #include "../../SceneManagment/SceneManager.hpp"
 #include "../../GameSystem/Settings.hpp"
 #include "Player.hpp"

@@ -1,4 +1,4 @@
-#include "../../include/Logic/PlayersSystem/Player.hpp"
+#include "../../../include/Logic/PlayersSystem/Player.hpp"
 
 Player::Player(const std::string& _name, Queen* _queen)
 {

@@ -12,7 +12,7 @@ void ResourceManager::loadTexturesFromDirectory(const std::string& _pathToTextur
     
     std::string valid_extension(".png");
     path pathToFiles = system_complete(_pathToTextures);
-    
+
     for(directory_iterator it (pathToFiles); it != directory_iterator(); ++it) {
         if(is_regular_file(it->status()) && (it->path().extension() == valid_extension)) {
             
@@ -27,8 +27,6 @@ void ResourceManager::loadTexturesFromDirectory(const std::string& _pathToTextur
 
 void ResourceManager::loadFontsFromDirectory(const std::string& _pathToFonts)
 {
-    using namespace boost::filesystem;
-    
     std::string valid_extension(".ttf");
     path pathToFiles = system_complete(_pathToFonts);
     
@@ -48,7 +46,7 @@ void ResourceManager::loadMusicFromDirectory(const std::string& _pathToMusic)
 {
     using namespace boost::filesystem;
     
-    std::string valid_extension(".wav");
+    std::string valid_extension(".ogg");
     path pathToFiles = system_complete(_pathToMusic);
     
     for(directory_iterator it (pathToFiles); it != directory_iterator(); ++it) {
@@ -80,7 +78,9 @@ std::shared_ptr<sf::Texture> ResourceManager::createVoidTexture(const std::strin
 
 void ResourceManager::removeTexture(const std::string& _textureName)
 {
-    textures.erase(textures.find(_textureName));
+    //textures.erase(textures.find(_textureName));
+	auto texture = textures.find(_textureName);
+	texture->second.reset();
 }
 
 sf::Texture* ResourceManager::getTexture(const std::string& _textureName) const
