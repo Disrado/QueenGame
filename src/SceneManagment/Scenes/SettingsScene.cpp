@@ -1,8 +1,9 @@
 #include "../../../include/SceneManagment/Scenes/SettingsScene.hpp"
 
-SettingsScene::SettingsScene(const sf::Vector2u& _windowSize, tgui::Gui* _gui, SceneManager* _smgr) : Scene(_smgr, _gui)
+SettingsScene::SettingsScene(const sf::Vector2u& _windowSize, tgui::Gui* _gui, SceneManager* _smgr)
+    : Scene(_smgr, _gui)
 {
-    background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("chess_background")));
+    background = std::make_shared<sf::Sprite>(*(ResourceManager::getInstance().getTexture("chess_background")));
     background->setScale(_windowSize.x / background->getLocalBounds().width,
                          _windowSize.y / background->getLocalBounds().height);
 

@@ -26,21 +26,21 @@ public:
 
     bool checkBelongs(const sf::Vector2f& _point) const;
 
-    void setPosition(const float, const float);
-    void setSize(const sf::Vector2f&);
-    void setType(CellType _type);
-    void setWeight(int _weight);
+    void setPosition(const sf::Vector2f& _newPosition);
+    void setSize(const sf::Vector2f& _newSize);
+    void setType(CellType _newType);
+    void setWeight(int _newWeight);
 
     const sf::Vector2f getCenterCoord() const;
     const sf::Vector2f& getSize() const;
     const int getWeight() const;
     CellType getType() const;
 
-    void disableFrame();
     void showFrame();
+    void disableFrame();
     void resetWeight();
     
-    void draw(sf::RenderWindow* const);
+    void draw(sf::RenderWindow* _renderWindow);
 };
 
 #endif //CELL_HPP

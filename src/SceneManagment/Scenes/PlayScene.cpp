@@ -1,8 +1,9 @@
 #include "../../../include/SceneManagment/Scenes/PlayScene.hpp"
 
-PlayScene::PlayScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneManager* _smgr) : Scene(_smgr, _gui)
+PlayScene::PlayScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneManager* _smgr)
+    : Scene(_smgr, _gui)
 {
-    background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("ChessBattle")));
+    background = std::make_shared<sf::Sprite>(*(ResourceManager::getInstance().getTexture("ChessBattle")));
     background->setScale(_windowSize.x / background->getLocalBounds().width,
                          _windowSize.y / background->getLocalBounds().height);
     background->setColor(sf::Color(254, 254, 254, 180));
@@ -22,8 +23,8 @@ PlayScene::PlayScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneMana
 
 PlayScene::~PlayScene()
 {
-	MusicPlayer::getInstance().pause();
-	MusicPlayer::getInstance().reset();
+    MusicPlayer::getInstance().reset();
+    MusicPlayer::getInstance().pause();
 
     delete firstPlayerName;
     delete secondPlayerName;

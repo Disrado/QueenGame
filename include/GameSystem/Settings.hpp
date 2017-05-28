@@ -25,12 +25,13 @@ private:
     int boardSize;
 
     Settings();
-    ~Settings() { writeSettingsToFile(); }
+    ~Settings() {  }
 
-    void writeSettingsToFile() const;
     void readSettingsFromFile();
     
 public:
+    void writeSettingsToFile() const;
+
     static Settings& getInstance();
 
     Settings& operator= (Settings const&) = delete;

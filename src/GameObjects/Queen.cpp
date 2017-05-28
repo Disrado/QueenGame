@@ -26,7 +26,8 @@ Queen::~Queen()
 }
 
 // _queenPosition need in parameters, because bot can sent to this method virtual queen position
-bool Queen::canMove(const sf::Vector2f& _queenPosition, shared_ptr<Cell> _targetCell) const
+bool Queen::canMove(shared_ptr<Cell> _targetCell,
+                    const sf::Vector2f& _queenPosition) const 
 {   
     if(!_targetCell)
         return false;
@@ -43,7 +44,7 @@ bool Queen::canMove(const sf::Vector2f& _queenPosition, shared_ptr<Cell> _target
 
 void Queen::move(shared_ptr<Cell> _targetCell)
 {
-    if(this->canMove(position, _targetCell)) {
+    if(this->canMove(_targetCell, position)) {
         position = _targetCell->getCenterCoord();
         queenPicture->setPosition(position);
         conqueredPoints = _targetCell->getWeight();
@@ -65,7 +66,7 @@ int Queen::getAvailableCellCount(const sf::Vector2f& _queenPosition)
     
     for(auto line : cells)
         for(auto cell : line)
-            if(canMove(_queenPosition, cell))
+            if(canMove(cell, _queenPosition))
                 availableCellCount++;
     
     return availableCellCount;
@@ -79,7 +80,7 @@ const vector<shared_ptr<Cell>>& Queen::getAvailableCells(const sf::Vector2f& _qu
     auto cells = board->getCells();
     for(auto& line : cells)
         for(auto& cell : line)
-            if(this->canMove(_queenPosition, cell))
+            if(this->canMove(cell, _queenPosition))
                 availableCells.push_back(cell);
 
     return availableCells;

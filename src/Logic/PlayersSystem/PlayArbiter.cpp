@@ -11,7 +11,8 @@ PlayArbiter::PlayArbiter(SceneManager* _smgr, Queen* _queen)
     if(opponentType == OpponentType::player)
         secondPlayer = new Player("Player 2", _queen);
     else
-        secondPlayer = new Bot("Bot", _queen,
+        secondPlayer = new Bot("Bot",
+                               _queen,
                                Settings::getInstance().getDifficultyLevel());
 
     currentTurn = CurrentTurn::FirstPlayer;
@@ -47,8 +48,7 @@ int PlayArbiter::getWinnerScore() const
 }
 
 void PlayArbiter::update()
-{//Crutches and bicycles ... crutches and bicycles
-
+{
     if(currentTurn == CurrentTurn::FirstPlayer) {
         if(!firstPlayer->isFinishTurn()) {
             firstPlayer->turn();
@@ -62,7 +62,8 @@ void PlayArbiter::update()
             smgr->getPlayScene()->setSecondPlayerScore(secondPlayer->getScore());
         }
     }
-	smgr->getPlayScene()->hightlightCells();
+    
+    smgr->getPlayScene()->hightlightCells();
     
     if(queen->getAvailableCellCount(queen->getPosition()) == 0) {
         if(firstPlayer->getScore() > secondPlayer->getScore()) {
@@ -75,7 +76,7 @@ void PlayArbiter::update()
             winnerName = "Draw";
             winnerScore = firstPlayer->getScore();
         }
-		std::this_thread::sleep_for((std::chrono::milliseconds(500)));
+        std::this_thread::sleep_for((std::chrono::milliseconds(500)));
         smgr->replaceCurrentScene(Scenes::End);
     }
 }
@@ -84,9 +85,9 @@ void PlayArbiter::turn(const sf::Vector2f& _mousePosition)
 {
     Board* board = smgr->getPlayScene()->getBoard();
 
-    if(queen->canMove(queen->getPosition(), board->getCellByCoord(_mousePosition))) {
+    if(queen->canMove(board->getCellByCoord(_mousePosition), queen->getPosition())) {
         shared_ptr<Cell> cellToMove = board->getCellByCoord(_mousePosition);
-
+        
         if(opponentType == OpponentType::bot) {
             firstPlayer->setPositionForTurn(cellToMove);
             secondPlayer->setPositionForTurn(cellToMove);

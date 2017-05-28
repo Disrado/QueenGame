@@ -26,8 +26,8 @@ Board::Board(const sf::Vector2u& _windowSize, const int _numCellsPerLine)
                           CellType::White : CellType::Black);
             
             cell->setWeight(rand() % 99 + 1);	            
-            cell->setPosition(firstCellPos.x + (cellEdge * rowIdx++),
-                              firstCellPos.y + (cellEdge * columnIdx));
+            cell->setPosition({ firstCellPos.x + (cellEdge * rowIdx++),
+                              firstCellPos.y + (cellEdge * columnIdx) });
         }
         rowIdx = 0;
         columnIdx++;

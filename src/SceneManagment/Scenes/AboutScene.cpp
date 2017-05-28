@@ -1,9 +1,12 @@
 #include "../../../include/SceneManagment/Scenes/AboutScene.hpp"
 
-AboutScene::AboutScene(const sf::Vector2u& _windowSize, tgui::Gui* _gui, SceneManager* _smgr)  : Scene(_smgr, _gui)
+AboutScene::AboutScene(const sf::Vector2u& _windowSize, tgui::Gui* _gui, SceneManager* _smgr)
+    : Scene(_smgr, _gui)
 {
-    background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("chess_background")));
-
+    background = std::make_shared<sf::Sprite>(*(ResourceManager::getInstance().getTexture("chess_background")));
+    background->setScale(_windowSize.x / background->getLocalBounds().width,
+                         _windowSize.y / background->getLocalBounds().height);
+    
     createLabels(_windowSize);
     createBackBtn(_windowSize);
 }
@@ -15,7 +18,7 @@ AboutScene::~AboutScene()
 
 void AboutScene::createLabels(const sf::Vector2u &_windowSize)
 {
-    DeveloperEMailLbl = new sf::Text("Developer E-mail: " + DEVELOPER_EMAIL,
+    DeveloperEMailLbl = std::make_shared<sf::Text>("Developer E-mail: " + DEVELOPER_EMAIL,
                                      *(ResourceManager::getInstance().getFont("Kurale")));
     DeveloperEMailLbl->setCharacterSize(_windowSize.y / 20);
     DeveloperEMailLbl->setOutlineThickness(3.0);
@@ -24,7 +27,7 @@ void AboutScene::createLabels(const sf::Vector2u &_windowSize)
     DeveloperEMailLbl->setPosition(_windowSize.x / 2 - DeveloperEMailLbl->getLocalBounds().width / 2,
                                    _windowSize.y / 2 - _windowSize.y / 13);
 
-    projectLinkLbl = new sf::Text("Project link: " + PROJECT_LINK,
+    projectLinkLbl = std::make_shared<sf::Text>("Project link: " + PROJECT_LINK,
                                   *(ResourceManager::getInstance().getFont("Kurale")));
     projectLinkLbl->setCharacterSize(_windowSize.y / 20);
     projectLinkLbl->setOutlineThickness(3.0);

@@ -3,8 +3,8 @@
 Game::Game()
 {
     renderWindow = new sf::RenderWindow({0, 0},
-                                     "QueenGame",
-                                     sf::Style::Fullscreen);
+                                        "QueenGame",
+                                        sf::Style::Fullscreen);
     renderWindow->setSize(renderWindow->getSize());
 
     gui = new tgui::Gui(*renderWindow);
@@ -20,18 +20,17 @@ Game::Game()
 
 Game::~Game()
 {
-    delete renderWindow;
-    delete gui;
-    delete smgr;
     delete eventHandler;
+    delete smgr;
+    delete gui;
+    delete renderWindow;
 }
 
 void Game::start()
 {
     sf::Event event;
     while (renderWindow->isOpen()) {
-        
-        while (renderWindow->pollEvent(event)) {
+        while (renderWindow->pollEvent (event)) {
             if (event.type == sf::Event::Closed)
                 renderWindow->close();
 

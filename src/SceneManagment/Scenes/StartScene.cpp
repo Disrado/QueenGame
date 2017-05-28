@@ -1,8 +1,9 @@
 #include "../../../include/SceneManagment/Scenes/StartScene.hpp"
 
-StartScene::StartScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneManager* _smgr) : Scene(_smgr, _gui)
+StartScene::StartScene(const sf::Vector2u& _windowSize, tgui::Gui *_gui, SceneManager* _smgr)
+    : Scene(_smgr, _gui)
 {
-    background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("chess_background")));
+    background = std::make_shared<sf::Sprite>(*(ResourceManager::getInstance().getTexture("chess_background")));
     background->setScale(_windowSize.x / background->getLocalBounds().width,
                          _windowSize.y / background->getLocalBounds().height);
 
@@ -27,7 +28,7 @@ void StartScene::createPlayButton(const sf::Vector2u& _windowSize)
     playBtn->setPosition((_windowSize.x / 2) - playBtn->getSize().x / 2,
                          (_windowSize.y / 2) - (playBtn->getSize().y * 1.5));
     playBtn->setText("Play");
-    playBtn->connect("mousereleased",[_smgr = smgr](){ _smgr->replaceCurrentScene(Scenes::PrePlay); });
+    playBtn->connect("mousereleased",[_smgr = smgr] { _smgr->replaceCurrentScene(Scenes::PrePlay); });
     gui->add(playBtn);
 }
 
@@ -38,7 +39,7 @@ void StartScene::createSettingsButtons(const sf::Vector2u& _windowSize)
     settingsBtn->setPosition((_windowSize.x / 2) - (settingsBtn->getSize().x / 2),
                              (_windowSize.y / 2));
     settingsBtn->setText("Settings");
-    settingsBtn->connect("mousereleased", [_smgr = smgr](){ _smgr->replaceCurrentScene(Scenes::Settings) ;});
+    settingsBtn->connect("mousereleased", [_smgr = smgr] { _smgr->replaceCurrentScene(Scenes::Settings) ;});
     gui->add(settingsBtn);
 }
 
@@ -49,7 +50,7 @@ void StartScene::createAboutButton(const sf::Vector2u& _windowSize)
     aboutBtn->setPosition((_windowSize.x / 2) - (aboutBtn->getSize().x / 2),
                              (_windowSize.y / 2) + (aboutBtn->getSize().y * 1.5));
     aboutBtn->setText("About");
-    aboutBtn->connect("mousereleased", [_smgr = smgr](){ _smgr->replaceCurrentScene(Scenes::About) ;});
+    aboutBtn->connect("mousereleased", [_smgr = smgr] { _smgr->replaceCurrentScene(Scenes::About) ;});
     gui->add(aboutBtn);
 }
 
@@ -60,7 +61,10 @@ void StartScene::createExitButton(const sf::Vector2u& _windowSize)
     exitBtn->setPosition((_windowSize.x / 2) - (exitBtn->getSize().x / 2),
                          (_windowSize.y / 2) + (playBtn->getSize().y * 3.0));
     exitBtn->setText("Exit");
-    exitBtn->connect("mousereleased", [](){ exit(0); });
+    exitBtn->connect("mousereleased", [] {
+            Settings::getInstance().writeSettingsToFile();
+            exit(0);
+        });
     gui->add(exitBtn);
 }
 

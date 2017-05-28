@@ -8,7 +8,9 @@ MusicPlayer& MusicPlayer::getInstance()
 
 MusicPlayer::MusicPlayer()
 {
-    playList = ResourceManager::getInstance().getMusic();
+    if(ResourceManager::getInstance().getMusic().size() > 0)
+        playList = ResourceManager::getInstance().getMusic();
+
     currentTrack = 0;
     currentState = State::Paused;
 }
@@ -25,11 +27,15 @@ void MusicPlayer::pause()
 
 void MusicPlayer::reset()
 {
-	playList[currentTrack]->setPlayingOffset(sf::Time::Zero);
+    if(playList.size() > 0)
+    playList[currentTrack]->setPlayingOffset(sf::Time::Zero);
 }
 
 void MusicPlayer::update()
 {
+    if(playList.size() <= 0)
+        return;
+    
     if(Settings::getInstance().isMusicEnabled() && currentState == State::Playing) {
         if(playList[currentTrack]->getStatus() != sf::SoundSource::Status::Playing) {
             playList[currentTrack]->play();

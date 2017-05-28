@@ -3,6 +3,7 @@
 
 #include <TGUI/TGUI.hpp>
 #include <string>
+#include <memory>
 #include "../SceneManager.hpp"
 #include "Scene.hpp"
 
@@ -14,8 +15,8 @@ const std::string PROJECT_LINK = "https://github.com/Disrado/QueenGame";
 class AboutScene : public Scene
 {
 private:
-    sf::Text* DeveloperEMailLbl;
-    sf::Text* projectLinkLbl;
+    std::shared_ptr<sf::Text> DeveloperEMailLbl;
+    std::shared_ptr<sf::Text> projectLinkLbl;
     std::shared_ptr<tgui::Button> backBtn;
 
     void createLabels(const sf::Vector2u& _windowSize);

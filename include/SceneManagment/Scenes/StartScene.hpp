@@ -5,6 +5,7 @@
 #include <memory>
 #include "../SceneManager.hpp"
 #include "Scene.hpp"
+#include "../../GameSystem/Settings.hpp"
 
 class SceneManager;
 

@@ -27,16 +27,18 @@ class SceneManager
 private:
     sf::RenderWindow* renderWindow;
     tgui::Gui* gui;
-	std::shared_ptr<PlayScene> playScene;
+    std::shared_ptr<PlayScene> playScene;
     std::shared_ptr<Scene> currentScene;
     Scenes currentSceneType;
 
-	std::shared_ptr<Scene> createScene(Scenes _sceneType);
+    std::shared_ptr<Scene> createScene(Scenes _sceneType);
     
 public:
     SceneManager(sf::RenderWindow *_renderWindow, tgui::Gui *_gui);
+
     Scenes getCurrentSceneType();
     PlayScene* getPlayScene(); //because playscene live longer and need to other classes
+
     void replaceCurrentScene(Scenes _newScene);
     void updateCurrentScene();
     void drawScene();

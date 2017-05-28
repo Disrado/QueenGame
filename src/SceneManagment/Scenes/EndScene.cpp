@@ -6,8 +6,10 @@ EndScene::EndScene(const sf::Vector2u& _windowSize,
                    const std::string& _winnerName,
                    const int _winnerScore) : Scene(_smgr, _gui)
 {
-    background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("chess_background")));
-
+    background = std::make_shared<sf::Sprite>(*(ResourceManager::getInstance().getTexture("chess_background")));
+    background->setScale(_windowSize.x / background->getLocalBounds().width,
+                         _windowSize.y / background->getLocalBounds().height);
+    
     createWinnerNameLbl(_windowSize, _winnerName);
     createWinnerScoreLbl(_windowSize, _winnerScore);
     createPlayAgainBtn(_windowSize);

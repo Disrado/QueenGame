@@ -3,21 +3,21 @@
 PauseScene::PauseScene(const sf::RenderWindow* _renderWindow, tgui::Gui* _gui, SceneManager* _smgr)
     : Scene(_smgr, _gui)
 {
-    auto windowCapture = ResourceManager::getInstance().createVoidTexture("PauseSceneBackground");
+    auto windowCapture = ResourceManager::getInstance().createVoidTexture("ScreenCapture");
     windowCapture->loadFromImage(_renderWindow->capture());
-    background = new sf::Sprite(*(ResourceManager::getInstance().getTexture("PauseSceneBackground")));
+    background = std::make_shared<sf::Sprite>(*(ResourceManager::getInstance().getTexture("ScreenCapture")));
     background->setScale(_renderWindow->getSize().x / background->getLocalBounds().width,
                          _renderWindow->getSize().y / background->getLocalBounds().height);
     background->setColor(sf::Color(254, 254, 254, 50));
     
     createResumeBtn(_renderWindow->getSize());
     createExitBtn(_renderWindow->getSize());
+    
     MusicPlayer::getInstance().pause();
 }
 
 PauseScene::~PauseScene()
 {
-    MusicPlayer::getInstance().play();
     gui->remove(resumeBtn);
     gui->remove(exitBtn);
 }
@@ -30,7 +30,10 @@ void PauseScene::createResumeBtn(const sf::Vector2u& _windowSize)
                            (_windowSize.y / 2) - resumeBtn->getSize().y * 0.75);
     resumeBtn->setText("Resume");
     resumeBtn->connect("mousereleased",
-                       [_smgr = smgr](){ _smgr->replaceCurrentScene(Scenes::Play); });
+                       [_smgr = smgr](){
+                           _smgr->replaceCurrentScene(Scenes::Play);
+                           MusicPlayer::getInstance().play();
+                       });
     gui->add(resumeBtn);
 }
 

@@ -27,7 +27,7 @@ public:
     const sf::Vector2f& getPosition() const;
     int getConqueredPoints();
     
-    bool canMove(const sf::Vector2f& _queenPosition, shared_ptr<Cell> targetCell) const;   
+    bool canMove(shared_ptr<Cell> targetCell, const sf::Vector2f& _queenPosition) const;   
     void move(shared_ptr<Cell> _targetCell);
     
     void draw(sf::RenderWindow* window);

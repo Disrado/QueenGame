@@ -14,8 +14,6 @@ shared_ptr<Scene> SceneManager::createScene(Scenes _sceneType)
 {
     switch (_sceneType) {
     case Scenes::Start:
-		if (currentSceneType == Scenes::Pause)
-			playScene.reset();
         return shared_ptr<Scene>((Scene*)new StartScene(renderWindow->getSize(), gui, this));
         break;
     case Scenes::PrePlay:
@@ -36,8 +34,8 @@ shared_ptr<Scene> SceneManager::createScene(Scenes _sceneType)
         break;
     case Scenes::End:
         return shared_ptr<Scene>((Scene*)new EndScene(renderWindow->getSize(), gui, this,
-                                    playScene->getPlayArbiter()->getWinnerName(),
-                                    playScene->getPlayArbiter()->getWinnerScore()));
+                                                      playScene->getPlayArbiter()->getWinnerName(),
+                                                      playScene->getPlayArbiter()->getWinnerScore()));
         break;
     }
 }
@@ -81,11 +79,10 @@ void SceneManager::replaceCurrentScene(Scenes _newScene)
 
     case::Scenes::End:
         currentScene = std::move(this->createScene(Scenes::End));
-		playScene.reset();
+        playScene.reset();
         currentSceneType = Scenes::End;
         break;
     }
-
     currentSceneType = _newScene;
 }
 
