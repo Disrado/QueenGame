@@ -55,6 +55,7 @@ void PlayArbiter::update()
             currentTurn = CurrentTurn::SecondPlayer;
             smgr->getPlayScene()->setFirstPlayerScore(firstPlayer->getScore());
         }
+<<<<<<< HEAD
     } else {
         if(!secondPlayer->isFinishTurn()) {
             secondPlayer->turn();
@@ -64,6 +65,17 @@ void PlayArbiter::update()
     }
     
     smgr->getPlayScene()->hightlightCells();
+=======
+	} else {
+		if (!secondPlayer->isFinishTurn()) {
+			secondPlayer->turn();
+			currentTurn = CurrentTurn::FirstPlayer;
+			smgr->getPlayScene()->setSecondPlayerScore(secondPlayer->getScore());
+		}
+	}
+
+	smgr->getPlayScene()->hightlightCells();
+>>>>>>> 808447a9b081c61faabb3567e439cd7f8712bc93
     
     if(queen->getAvailableCellCount(queen->getPosition()) == 0) {
         if(firstPlayer->getScore() > secondPlayer->getScore()) {
@@ -85,7 +97,13 @@ void PlayArbiter::turn(const sf::Vector2f& _mousePosition)
 {
     Board* board = smgr->getPlayScene()->getBoard();
 
+<<<<<<< HEAD
     if(queen->canMove(board->getCellByCoord(_mousePosition), queen->getPosition())) {
+=======
+    if(queen->canMove(queen->getPosition(), board->getCellByCoord(_mousePosition)) &&
+		firstPlayer->isFinishTurn() && secondPlayer->isFinishTurn()) {
+
+>>>>>>> 808447a9b081c61faabb3567e439cd7f8712bc93
         shared_ptr<Cell> cellToMove = board->getCellByCoord(_mousePosition);
         
         if(opponentType == OpponentType::bot) {

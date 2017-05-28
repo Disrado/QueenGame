@@ -5,7 +5,7 @@ Settings::Settings()
     firstPlayerName = "";
     secondPlayerName = "";
     opponentType = OpponentType::bot;
-    level = DifficultyLevel::Easy;
+    level = DifficultyLevel::Hard;
     turnHelpSwitch = Switch::On;
     musicVolume = 100;
     music = Switch::Off;

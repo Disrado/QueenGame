@@ -4,7 +4,10 @@ bin/Win/QueenMove.exe
 bin/Win/QueenMove.iobj
 bin/Win/QueenMove.ipdb
 bin/Win/QueenMove.pdb
+win32_proj/QueenMove.VC.db
 win32_proj/QueenMove_v2/Release
+settings/SETTINGS.DAT
+
 
 #Emacs NeoTree
 sources/ *NeoTree*
