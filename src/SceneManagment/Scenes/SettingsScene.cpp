@@ -108,7 +108,7 @@ void SettingsScene::createVolumeSlider(const sf::Vector2u &_windowSize)
 {
     volumeSlider = ResourceManager::getInstance().getGuiTheme()->load("Slider");
     volumeSlider->setPosition(_windowSize.x / 2 + _windowSize.x / 60,
-                         volumeLbl->getPosition().y + volumeLbl->getLocalBounds().height / 2 );
+                              volumeLbl->getPosition().y + volumeLbl->getLocalBounds().height / 1.8 );
     volumeSlider->setSize(_windowSize.x / 8, _windowSize.y / 30);
     volumeSlider->setMinimum(0.f);
     volumeSlider->setMaximum(100.f);
